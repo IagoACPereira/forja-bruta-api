@@ -1,25 +1,15 @@
 import { Request, Response } from "express";
-import { GeneroEntity } from "../entities/Genero.entity";
-import { AppDataSource } from "../config/AppDataSource";
 
 export class GeneroController {
-  constructor(private repository = AppDataSource.getRepository(GeneroEntity)) {}
-
   async adicionar(
-    req: Request<{}, {}, { titulo: string }>, 
-    res: Response<{ mensagem: string, dados: GeneroEntity } | { mensagem: string }>
+    req: Request,
+    res: Response
   ) {
-    const { titulo } = req.body;
     try {
-      const novoGenero = new GeneroEntity(titulo);
-  
-      await this.repository.save(novoGenero);
-  
-      res.status(201).json({
-        mensagem: 'Genero adicionado com sucesso',
-        dados: novoGenero,
+      res.status(200).json({
+        mensagem: 'Em desenvolvimento',
       });
-    } catch(error) {
+    } catch (error) {
       res.status(400).json({
         mensagem: `${error}`,
       });
@@ -27,13 +17,13 @@ export class GeneroController {
   }
 
   async exibirTodos(
-    req: Request, 
-    res: Response<Array<GeneroEntity> | { mensagem: string }>
+    req: Request,
+    res: Response
   ) {
     try {
-      const todosGeneros = await this.repository.find();
-
-      res.status(200).json(todosGeneros);
+      res.status(200).json({
+        mensagem: 'Em desenvolvimento',
+      });
     } catch (error) {
       res.status(400).json({
         mensagem: `${error}`,
@@ -42,22 +32,13 @@ export class GeneroController {
   }
 
   async exibirUm(
-    req: Request<{ id: string }>,
-    res: Response<GeneroEntity | { mensagem: string }>
+    req: Request,
+    res: Response
   ) {
-    const { id } = req.params;
     try {
-      const genero = await this.repository.findOne({
-        where: { 
-          id: Number(id),
-        },
+      res.status(200).json({
+        mensagem: 'Em desenvolvimento',
       });
-
-      if (!genero) {
-        throw new Error('Não existe registro com esse id');
-      }
-
-      res.status(200).json(genero);
     } catch (error) {
       res.status(400).json({
         mensagem: `${error}`,
@@ -66,26 +47,12 @@ export class GeneroController {
   }
 
   async atualizar(
-    req: Request<{ id: string }, {}, { titulo: string }>, 
-    res: Response<{ mensagem: string }>
+    req: Request,
+    res: Response
   ) {
-    const { id } = req.params;
-    const { titulo } = req.body;
     try {
-      const atualizaGenero = await this.repository.findOneBy({
-        id: Number(id),
-      });
-
-      if (!atualizaGenero) {
-        throw new Error('Não existe registro com esse id');
-      }
-
-      atualizaGenero.titulo = titulo;
-
-      await this.repository.save(atualizaGenero);
-
       res.status(200).json({
-        mensagem: 'Gênero atualizado com sucesso',
+        mensagem: 'Em desenvolvimento',
       });
     } catch (error) {
       res.status(400).json({
@@ -95,23 +62,12 @@ export class GeneroController {
   }
 
   async deletar(
-    req: Request<{ id: string }>, 
-    res: Response<{ mensagem: string }>
+    req: Request,
+    res: Response
   ) {
-    const { id } = req.params;
     try {
-      const deletaGenero = await this.repository.findOneBy({
-        id: Number(id),
-      });
-
-      if (!deletaGenero) {
-        throw new Error('Não existe registro com esse id');
-      }
-
-      await this.repository.remove(deletaGenero);
-
       res.status(200).json({
-        mensagem: 'Gênero deletado com sucesso',
+        mensagem: 'Em desenvolvimento',
       });
     } catch (error) {
       res.status(400).json({

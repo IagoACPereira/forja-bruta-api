@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
+import { PaisModel } from "../models/Pais.model";
 
-export class ArtistaController {
+export class PaisController {
   async adicionar(
     req: Request,
     res: Response
@@ -21,9 +22,8 @@ export class ArtistaController {
     res: Response
   ): Promise<void> {
     try {
-      res.status(200).json({
-        mensagem: 'Em desenvolvimento',
-      });
+      const paises = await new PaisModel().pegaTodos();
+      res.status(200).json(paises);
     } catch (error) {
       res.status(400).json({
         mensagem: `${error}`,

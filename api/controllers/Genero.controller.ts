@@ -4,7 +4,7 @@ export class GeneroController {
   async adicionar(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     try {
       res.status(200).json({
         mensagem: 'Em desenvolvimento',
@@ -19,7 +19,7 @@ export class GeneroController {
   async exibirTodos(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     try {
       res.status(200).json({
         mensagem: 'Em desenvolvimento',
@@ -34,7 +34,7 @@ export class GeneroController {
   async exibirUm(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     try {
       res.status(200).json({
         mensagem: 'Em desenvolvimento',
@@ -49,7 +49,7 @@ export class GeneroController {
   async atualizar(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     try {
       res.status(200).json({
         mensagem: 'Em desenvolvimento',
@@ -64,7 +64,7 @@ export class GeneroController {
   async deletar(
     req: Request,
     res: Response
-  ) {
+  ): Promise<void> {
     try {
       res.status(200).json({
         mensagem: 'Em desenvolvimento',

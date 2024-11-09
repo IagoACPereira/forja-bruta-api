@@ -12,13 +12,12 @@ export class PaisModel {
   }
 
   async adicionar(): Promise<Pais> {
-    const novoPais: Pais = await knex.insert({
+    const novoPais: Array<Pais> = await knex.insert({
       nome: this.#nome,
     }, '*')
-      .into('pais')
-      .first();
+      .into('pais');
 
-    return novoPais;
+    return novoPais[0];
   }
 
   async pegaTodos(): Promise<Array<Pais>> {

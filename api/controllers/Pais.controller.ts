@@ -1,14 +1,19 @@
 import { Request, Response } from "express";
 import { PaisModel } from "../models/Pais.model";
+import { Pais } from "../types/Pais.type";
 
 export class PaisController {
   async adicionar(
     req: Request,
     res: Response
   ): Promise<void> {
+    const { nome } = req.body;
     try {
+      const novoPais = await new PaisModel(undefined, nome).adicionar();
+
       res.status(200).json({
-        mensagem: 'Em desenvolvimento',
+        mensagem: 'País adicionado com sucesso',
+        dados: novoPais,
       });
     } catch (error) {
       res.status(400).json({
@@ -35,10 +40,10 @@ export class PaisController {
     req: Request,
     res: Response
   ): Promise<void> {
+    const { id } = req.params;
     try {
-      res.status(200).json({
-        mensagem: 'Em desenvolvimento',
-      });
+      const pais = await new PaisModel(Number(id)).pegaUmPorId();
+      res.status(200).json(pais);
     } catch (error) {
       res.status(400).json({
         mensagem: `${error}`,
@@ -50,9 +55,12 @@ export class PaisController {
     req: Request,
     res: Response
   ): Promise<void> {
+    const { id } = req.params;
+    const { nome } = req.body;
     try {
+      await new PaisModel(Number(id), nome).atualizar();
       res.status(200).json({
-        mensagem: 'Em desenvolvimento',
+        mensagem: 'País atualizado com sucesso',
       });
     } catch (error) {
       res.status(400).json({
@@ -65,9 +73,11 @@ export class PaisController {
     req: Request,
     res: Response
   ): Promise<void> {
+    const { id } = req.params;
     try {
+      await new PaisModel(Number(id)).deletar();
       res.status(200).json({
-        mensagem: 'Em desenvolvimento',
+        mensagem: 'País deletado com sucesso',
       });
     } catch (error) {
       res.status(400).json({

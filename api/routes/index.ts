@@ -1,7 +1,9 @@
 import { Request, Response, Router } from "express";
 import pais from './Pais.router';
+import regiao from './Regiao.router';
 import genero from './Genero.router';
 import artista from './Artista.router';
+
 
 export function routes(app: Router) {
   app
@@ -9,6 +11,7 @@ export function routes(app: Router) {
       res.status(200).json('Forja Bruta API')
     })
     .use('/forja-bruta/api/pais', pais)
+    .use('/forja-bruta/api/regiao', regiao)
     .use('/forja-bruta/api/genero', genero)
     .use('/forja-bruta/api/artista', artista);
 }

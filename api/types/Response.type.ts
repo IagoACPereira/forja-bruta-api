@@ -9,11 +9,6 @@ import { TRegiao } from "./Regiao.type";
 import { TTipo } from "./Tipo.type";
 import { TUsuario } from "./Usuario.type";
 
-export type TResponseErro = {
-  mensagem: string;
-  statusCode: number;
-}
-
 export namespace TResponsePost {
   export type Pais = {
     mensagem: string;
@@ -180,9 +175,13 @@ export namespace TResponseGetId {
   };
 };
 
-export type TResponsePut = {
+export type TResponseDefault = {
   mensagem: string;
   statusCode: number;
 }
 
-export type TResponseDelete = TResponsePut;
+export type TResponsePut = TResponseDefault;
+
+export type TResponseDelete = TResponseDefault;
+
+export type TResponseErro = TResponseDefault;

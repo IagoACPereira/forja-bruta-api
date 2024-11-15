@@ -1,32 +1,30 @@
 import { knex } from "../config/conexaoDb";
+import { IRegiaoModel } from "../interfaces/Regiao.interface";
 import { TRegiao } from "../types/Regiao.type";
 
-export class RegiaoModel {
-  #id;
-
-  #estado;
-
-  #uf;
-
-  #id_pais;
+export class RegiaoModel implements IRegiaoModel {
+  id?: number | string | undefined;
+  estado?: string;
+  uf?: string;
+  id_pais?: number | string;
 
   constructor(
-    id?: number,
+    id?: number | string,
     estado?: string,
     uf?: string,
-    id_pais?: number,
+    id_pais?: number | string,
   ) {
-    this.#id = id; 
-    this.#estado = estado; 
-    this.#uf = uf; 
-    this.#id_pais = id_pais; 
+    this.id = id;
+    this.estado = estado;
+    this.uf = uf;
+    this.id_pais = id_pais;
   }
-
+  
   async adicionar(): Promise<TRegiao> {
     const novaRegiao: Array<TRegiao> = await knex.insert({
-      estado: this.#estado,
-      uf: this.#uf,
-      id_pais: this.#id_pais,
+      estado: this.estado,
+      uf: this.uf,
+      id_pais: this.id_pais,
     } as TRegiao, '*')
       .into('regiao');
 
@@ -56,7 +54,7 @@ export class RegiaoModel {
     ])
       .from<TRegiao>('regiao')
       .innerJoin('pais', 'pais.id', 'regiao.id_pais')
-      .where('regiao.id', this.#id)
+      .where('regiao.id', this.id)
       .first();
 
     if (!regiao) {
@@ -64,5 +62,26 @@ export class RegiaoModel {
     }
 
     return regiao;
+  }
+
+
+  async atualizar(): Promise<void> {
+    await knex.update({
+      estado: this.estado,
+      uf: this.uf,
+      id_pais: this.id_pais,
+    } as TRegiao)
+      .from<TRegiao>('regiao')
+      .where({
+        id: this.id,
+      });
+
+  }
+  async deletar(): Promise<void> {
+    await knex.delete()
+      .from<TRegiao>('regiao')
+      .where({
+        id: this.id,
+      });
   }
 }

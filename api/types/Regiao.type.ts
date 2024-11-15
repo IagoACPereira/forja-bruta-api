@@ -1,6 +1,6 @@
 export type TRegiao = {
-  id?: number;
+  id?: number | string;
   estado: string;
   uf: string;
-  id_pais: number;
+  id_pais: number | string;
 }

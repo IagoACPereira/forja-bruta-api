@@ -1,3 +1,4 @@
+import { TGenero } from "./Genero.type";
 import { TPais } from "./Pais.type";
 import { TRegiao } from "./Regiao.type";
 
@@ -18,6 +19,12 @@ export namespace TResponsePost {
     dados: TRegiao;
     statusCode: number;
   };
+
+  export type Genero = {
+    mensagem: string;
+    dados: TGenero;
+    statusCode: number;
+  };
 };
 
 export namespace TResponseGet {
@@ -30,6 +37,11 @@ export namespace TResponseGet {
     regioes: Array<TRegiao>;
     statusCode: number;
   };
+
+  export type Genero = {
+    generos: Array<TGenero>;
+    statusCode: number;
+  };
 };
 
 export namespace TResponseGetId {
@@ -40,6 +52,11 @@ export namespace TResponseGetId {
 
   export type Regiao = {
     regiao: TRegiao;
+    statusCode: number;
+  };
+
+  export type Genero = {
+    genero: TGenero;
     statusCode: number;
   };
 };

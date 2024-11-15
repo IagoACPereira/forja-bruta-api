@@ -1,4 +1,4 @@
 export type TPais = {
-  id?: number;
+  id?: number | string;
   nome: string;
 }

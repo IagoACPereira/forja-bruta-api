@@ -1,5 +1,5 @@
 import { knex } from "../config/conexaoDb";
-import { Pais } from "../types/Pais.type";
+import { TPais } from "../types/Pais.type";
 
 export class PaisModel {
   #id;
@@ -11,8 +11,8 @@ export class PaisModel {
     this.#nome = nome;
   }
 
-  async adicionar(): Promise<Pais> {
-    const novoPais: Array<Pais> = await knex.insert({
+  async adicionar(): Promise<TPais> {
+    const novoPais: Array<TPais> = await knex.insert({
       nome: this.#nome,
     }, '*')
       .into('pais');
@@ -20,17 +20,17 @@ export class PaisModel {
     return novoPais[0];
   }
 
-  async pegaTodos(): Promise<Array<Pais>> {
-    const paises: Array<Pais> = await knex.select('*')
+  async pegaTodos(): Promise<Array<TPais>> {
+    const paises: Array<TPais> = await knex.select('*')
       .from('pais')
       .orderBy('id', 'asc');
     
     return paises;
   }
 
-  async pegaUmPorId(): Promise<Pais> {
-    const pais: Pais | undefined = await knex.select('*')
-      .from<Pais>('pais')
+  async pegaUmPorId(): Promise<TPais> {
+    const pais: TPais | undefined = await knex.select('*')
+      .from<TPais>('pais')
       .where({ id: this.#id })
       .first();
 

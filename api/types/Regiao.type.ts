@@ -1,4 +1,4 @@
-export type Regiao = {
+export type TRegiao = {
   id?: number;
   estado: string;
   uf: string;

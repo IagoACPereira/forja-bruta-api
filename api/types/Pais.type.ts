@@ -1,4 +1,4 @@
-export type Pais = {
+export type TPais = {
   id?: number;
   nome: string;
 }

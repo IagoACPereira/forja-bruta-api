@@ -1,5 +1,5 @@
 import { knex } from "../config/conexaoDb";
-import { Regiao } from "../types/Regiao.type";
+import { TRegiao } from "../types/Regiao.type";
 
 export class RegiaoModel {
   #id;
@@ -22,39 +22,39 @@ export class RegiaoModel {
     this.#id_pais = id_pais; 
   }
 
-  async adicionar(): Promise<Regiao> {
-    const novaRegiao: Array<Regiao> = await knex.insert({
+  async adicionar(): Promise<TRegiao> {
+    const novaRegiao: Array<TRegiao> = await knex.insert({
       estado: this.#estado,
       uf: this.#uf,
       id_pais: this.#id_pais,
-    } as Regiao, '*')
+    } as TRegiao, '*')
       .into('regiao');
 
     return novaRegiao[0];
   }
 
-  async pegaTodos(): Promise<Array<Regiao>> {
-    const regioes: Array<Regiao> = await knex.select([
+  async pegaTodos(): Promise<Array<TRegiao>> {
+    const regioes: Array<TRegiao> = await knex.select([
       'regiao.id',
       'regiao.estado',
       'regiao.uf',
       'pais.nome as pais',
     ])
-      .from<Regiao>('regiao')
+      .from<TRegiao>('regiao')
       .innerJoin('pais', 'pais.id', 'regiao.id_pais')
       .orderBy('regiao.id', 'asc');
 
     return regioes;
   }
 
-  async pegaUmPorId(): Promise<Regiao> {
-    const regiao: Regiao | undefined = await knex.select([
+  async pegaUmPorId(): Promise<TRegiao> {
+    const regiao: TRegiao | undefined = await knex.select([
       'regiao.id',
       'regiao.estado',
       'regiao.uf',
       'pais.nome as pais',
     ])
-      .from<Regiao>('regiao')
+      .from<TRegiao>('regiao')
       .innerJoin('pais', 'pais.id', 'regiao.id_pais')
       .where('regiao.id', this.#id)
       .first();

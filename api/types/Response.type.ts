@@ -88,37 +88,37 @@ export namespace TResponseGet {
   };
 
   export type Artista = {
-    generos: Array<TArtista>;
+    artistas: Array<TArtista>;
     statusCode: number;
   };
 
   export type Gravadora = {
-    generos: Array<TGravadora>;
+    gravadoras: Array<TGravadora>;
     statusCode: number;
   };
 
   export type Tipo = {
-    generos: Array<TTipo>;
+    tipos: Array<TTipo>;
     statusCode: number;
   };
 
   export type Disco = {
-    generos: Array<TDisco>;
+    discos: Array<TDisco>;
     statusCode: number;
   };
 
   export type Faixa = {
-    generos: Array<TFaixa>;
+    faixas: Array<TFaixa>;
     statusCode: number;
   };
 
   export type Permissao = {
-    generos: Array<TPermissao>;
+    permissoes: Array<TPermissao>;
     statusCode: number;
   };
 
   export type Usuario = {
-    generos: Array<TUsuario>;
+    usuarios: Array<TUsuario>;
     statusCode: number;
   };
 };
@@ -140,37 +140,37 @@ export namespace TResponseGetId {
   };
 
   export type Artista = {
-    genero: TArtista;
+    artista: TArtista;
     statusCode: number;
   };
 
   export type Gravadora = {
-    genero: TGravadora;
+    gravadora: TGravadora;
     statusCode: number;
   };
 
   export type Tipo = {
-    genero: TTipo;
+    tipo: TTipo;
     statusCode: number;
   };
 
   export type Disco = {
-    genero: TDisco;
+    disco: TDisco;
     statusCode: number;
   };
 
   export type Faixa = {
-    genero: TFaixa;
+    faixa: TFaixa;
     statusCode: number;
   };
 
   export type Permissao = {
-    genero: TPermissao;
+    permissao: TPermissao;
     statusCode: number;
   };
 
   export type Usuario = {
-    genero: TUsuario;
+    usuario: TUsuario;
     statusCode: number;
   };
 };

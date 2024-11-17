@@ -5,6 +5,5 @@ export type TArtista = {
   ativo: boolean;
   descricao: Text;
   url_imagem: string;
-  id_genero: number | string;
   id_regiao: number | string;
 }

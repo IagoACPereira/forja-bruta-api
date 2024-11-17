@@ -1,6 +1,6 @@
 import { TPermissao } from "../types/Permissao.type";
 
-export interface IPermissao {
+export interface IPermissaoModel {
   id?: number | string;
   titulo?: string;
   descircao?: Text;

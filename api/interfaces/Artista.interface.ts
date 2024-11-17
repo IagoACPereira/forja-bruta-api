@@ -1,6 +1,6 @@
 import { TArtista } from "../types/Artista.type";
 
-export interface IArtista {
+export interface IArtistaModel {
   id?: number | string;
   nome?: string;
   data_formacao?: Date;

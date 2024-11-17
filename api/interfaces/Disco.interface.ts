@@ -1,6 +1,6 @@
 import { TDisco } from "../types/Disco.type";
 
-export interface IDisco {
+export interface IDiscoModel {
   id?: number | string;
   titulo?: string;
   data_lancamento?: Date;

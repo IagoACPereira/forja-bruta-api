@@ -1,6 +1,6 @@
 import { TFaixa } from "../types/Faixa.type";
 
-export interface IFaixa {
+export interface IFaixaModel {
   id?: number | string;
   titulo?: string;
   duracao?: number | string;

@@ -2,7 +2,7 @@ import { knex } from "../config/conexaoDb";
 import { IArtista } from "../interfaces/Artista.interface";
 import { TArtista } from "../types/Artista.type";
 
-export class Artista implements IArtista {
+export class ArtistaModel implements IArtista {
   id?: string | number | undefined;
   nome?: string | undefined;
   data_formacao?: Date | undefined;

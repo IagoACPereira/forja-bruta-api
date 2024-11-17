@@ -1,77 +1,124 @@
 import { Request, Response } from "express";
+import { PaisModel } from "../models/Pais.model";
+import { 
+  TResponseDelete, 
+  TResponseErro, 
+  TResponseGet, 
+  TResponseGetId, 
+  TResponsePost, 
+  TResponsePut 
+} from "../types/Response.type";
+import { TRequestBody, TRequestParams } from "../types/Request.type";
+import { ArtistaModel } from "../models/Artista.model";
+import { TGravadora } from "../types/Gravadora.type";
+import { GravadoraModel } from "../models/Gravadora.model";
+import { TTipo } from "../types/Tipo.type";
+import { TipoModel } from "../models/Tipo.model";
 
-export class TipoController {
+export class ArtistaController {
   async adicionar(
-    req: Request,
-    res: Response
+    req: Request<{},{},TRequestBody.Tipo>,
+    res: Response<TResponsePost.Tipo | TResponseErro>
   ): Promise<void> {
+    const { 
+      titulo,
+    } = req.body as TTipo;
     try {
-      res.status(200).json({
-        mensagem: 'Em desenvolvimento',
+      const novoTipo = await new TipoModel(
+        undefined,
+        titulo,
+      ).adicionar();
+
+      res.status(201).json({
+        mensagem: 'Tipo adicionada com sucesso',
+        dados: novoTipo,
+        statusCode: 201,
       });
     } catch (error) {
       res.status(400).json({
         mensagem: `${error}`,
+        statusCode: 400,
       });
     }
   }
 
   async exibirTodos(
     req: Request,
-    res: Response
+    res: Response<TResponseGet.Tipo | TResponseErro>
   ): Promise<void> {
     try {
+      const tipos = await new TipoModel().pegaTodos();
       res.status(200).json({
-        mensagem: 'Em desenvolvimento',
+        tipos,
+        statusCode: 200,
       });
     } catch (error) {
       res.status(400).json({
         mensagem: `${error}`,
+        statusCode: 400,
       });
     }
   }
 
   async exibirUm(
-    req: Request,
-    res: Response
+    req: Request<TRequestParams.Tipo>,
+    res: Response<TResponseGetId.Tipo | TResponseErro>
   ): Promise<void> {
+    const { id } = req.params;
     try {
+      const tipo = await new TipoModel(id).pegaUmPorId();
       res.status(200).json({
-        mensagem: 'Em desenvolvimento',
+        tipo,
+        statusCode: 200,
       });
     } catch (error) {
       res.status(400).json({
         mensagem: `${error}`,
+        statusCode: 400,
       });
     }
   }
 
   async atualizar(
-    req: Request,
-    res: Response
+    req: Request<TRequestParams.Tipo, {}, TRequestBody.Tipo>,
+    res: Response<TResponsePut | TResponseErro>
   ): Promise<void> {
+    const { id } = req.params;
+    const {
+      titulo  
+    } = req.body as TTipo;
     try {
+      await new TipoModel(
+        id,
+        titulo,
+      ).atualizar();
       res.status(200).json({
-        mensagem: 'Em desenvolvimento',
+        mensagem: 'Tipo atualizado com sucesso',
+        statusCode: 200,
       });
     } catch (error) {
       res.status(400).json({
         mensagem: `${error}`,
+        statusCode: 400,
       });
     }
   }
 
   async deletar(
-    req: Request,
-    res: Response
+    req: Request<TRequestParams.Tipo>,
+    res: Response<TResponseDelete | TResponseErro>
   ): Promise<void> {
+    const { id } = req.params;
     try {
+      await new TipoModel(id).deletar();
       res.status(200).json({
-        mensagem: 'Em desenvolvimento',
+        mensagem: 'Tipo deletado com sucesso',
+        statusCode: 200,
       });
     } catch (error) {
       res.status(400).json({
         mensagem: `${error}`,
+        statusCode: 400,
       });
     }
   }

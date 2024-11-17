@@ -1,8 +1,8 @@
 import { knex } from "../config/conexaoDb";
-import { IGravadora } from "../interfaces/Gravadora.interface";
+import { IGravadoraModel } from "../interfaces/Gravadora.interface";
 import { TGravadora } from "../types/Gravadora.type";
 
-export class GravadoraModel implements IGravadora {
+export class GravadoraModel implements IGravadoraModel {
   id?: string | number | undefined;
   nome?: string | undefined;
   url_imagem?: string | undefined;

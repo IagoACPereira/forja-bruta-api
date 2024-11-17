@@ -1,8 +1,8 @@
 import { knex } from "../config/conexaoDb";
-import { IArtista } from "../interfaces/Artista.interface";
+import { IArtistaModel } from "../interfaces/Artista.interface";
 import { TArtista } from "../types/Artista.type";
 
-export class ArtistaModel implements IArtista {
+export class ArtistaModel implements IArtistaModel {
   id?: string | number | undefined;
   nome?: string | undefined;
   data_formacao?: Date | undefined;

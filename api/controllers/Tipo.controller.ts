@@ -15,7 +15,7 @@ import { GravadoraModel } from "../models/Gravadora.model";
 import { TTipo } from "../types/Tipo.type";
 import { TipoModel } from "../models/Tipo.model";
 
-export class ArtistaController {
+export class TipoController {
   async adicionar(
     req: Request<{},{},TRequestBody.Tipo>,
     res: Response<TResponsePost.Tipo | TResponseErro>
@@ -30,7 +30,7 @@ export class ArtistaController {
       ).adicionar();
 
       res.status(201).json({
-        mensagem: 'Tipo adicionada com sucesso',
+        mensagem: 'Tipo adicionado com sucesso',
         dados: novoTipo,
         statusCode: 201,
       });

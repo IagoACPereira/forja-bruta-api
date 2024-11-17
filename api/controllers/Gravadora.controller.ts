@@ -13,7 +13,7 @@ import { ArtistaModel } from "../models/Artista.model";
 import { TGravadora } from "../types/Gravadora.type";
 import { GravadoraModel } from "../models/Gravadora.model";
 
-export class ArtistaController {
+export class GravadoraController {
   async adicionar(
     req: Request<{},{},TRequestBody.Gravadora>,
     res: Response<TResponsePost.Gravadora | TResponseErro>

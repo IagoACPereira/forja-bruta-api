@@ -1,6 +1,6 @@
 import { TGravadora } from "../types/Gravadora.type";
 
-export interface IGravadora {
+export interface IGravadoraModel {
   id?: number | string;
   nome?: string;
   url_imagem?: string;

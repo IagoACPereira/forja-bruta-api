@@ -2,8 +2,8 @@ import { TPermissao } from "../types/Permissao.type";
 
 export interface IPermissao {
   id?: number | string;
-  titulo: string;
-  descircao: Text;
+  titulo?: string;
+  descircao?: Text;
   adicionar(): Promise<TPermissao>;
   pegaTodos(): Promise<Array<TPermissao>>;
   pegaUmPorId(): Promise<TPermissao>;

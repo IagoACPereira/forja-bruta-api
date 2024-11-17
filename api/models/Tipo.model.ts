@@ -3,8 +3,11 @@ import { ITipoModel } from "../interfaces/Tipo.interface";
 import { TTipo } from "../types/Tipo.type";
 
 export class TipoModel implements ITipoModel {
-  id?: string | number | undefined;
-  titulo?: string | undefined;
+  constructor(
+    public id?: string | number | undefined,
+    public titulo?: string | undefined,
+  ) {}
+
   async adicionar(): Promise<TTipo> {
     const novoTipo: Array<TTipo> = await knex.insert({
       titulo: this.titulo,

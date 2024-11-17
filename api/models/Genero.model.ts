@@ -3,16 +3,10 @@ import { IGeneroModel } from "../interfaces/Genero.interface";
 import { TGenero } from "../types/Genero.type";
 
 export class GeneroModel implements IGeneroModel {
-  id?: string | number | undefined;
-  titulo?: string;
-
   constructor(
-    id?: string | number | undefined,
-    titulo?: string | undefined,
-  ) {
-    this.id = id;
-    this.titulo = titulo;
-  }
+    public id?: string | number | undefined,
+    public titulo?: string,  
+  ) {}
 
   async adicionar(): Promise<TGenero> {
     const novoGenero: Array<TGenero> = await knex.insert({

@@ -3,10 +3,13 @@ import { IGravadoraModel } from "../interfaces/Gravadora.interface";
 import { TGravadora } from "../types/Gravadora.type";
 
 export class GravadoraModel implements IGravadoraModel {
-  id?: string | number | undefined;
-  nome?: string | undefined;
-  url_imagem?: string | undefined;
-  id_regiao?: string | number | undefined;
+  constructor(
+    public id?: string | number | undefined,
+    public nome?: string | undefined,
+    public url_imagem?: string | undefined,
+    public id_regiao?: string | number | undefined,
+  ) {}
+
   async adicionar(): Promise<TGravadora> {
     const novaGravadora: Array<TGravadora> = await knex.insert({
       nome: this.nome,

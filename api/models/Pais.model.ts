@@ -3,16 +3,10 @@ import { IPaisModel } from "../interfaces/Pais.interface";
 import { TPais } from "../types/Pais.type";
 
 export class PaisModel implements IPaisModel {
-  id?: number | string | undefined;
-  nome?: string;
-
   constructor(
-    id?: number | string,
-    nome?: string,
-  ) {
-    this.id = id;
-    this.nome = nome;
-  }
+    public id?: number | string | undefined,
+    public nome?: string,
+  ) {}
 
   async adicionar(): Promise<TPais> {
     const novoPais: Array<TPais> = await knex.insert({

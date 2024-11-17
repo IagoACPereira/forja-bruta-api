@@ -3,9 +3,12 @@ import { IPermissaoModel } from "../interfaces/Permissao.interface";
 import { TPermissao } from "../types/Permissao.type";
 
 export class PermissaoModel implements IPermissaoModel {
-  id?: string | number | undefined;
-  titulo?: string | undefined;
-  descricao?: Text | undefined;
+  constructor(
+    public id?: string | number | undefined,
+    public titulo?: string | undefined,
+    public descricao?: Text | undefined,
+  ) {}
+
   async adicionar(): Promise<TPermissao> {
     const novaPermissao: Array<TPermissao> = await knex.insert({
       titulo: this.titulo,

@@ -3,12 +3,15 @@ import { IFaixaModel } from "../interfaces/Faixa.interface";
 import { TFaixa } from "../types/Faixa.type";
 
 export class FaixaModel implements IFaixaModel {
-  id?: string | number | undefined;
-  titulo?: string | undefined;
-  duracao?: string | number | undefined;
-  num_faixa?: string | number | undefined;
-  letra?: Text | undefined;
-  id_disco?: string | number | undefined;
+  constructor(
+    public id?: string | number | undefined,
+    public titulo?: string | undefined,
+    public duracao?: string | number | undefined,
+    public num_faixa?: string | number | undefined,
+    public letra?: Text | undefined,
+    public id_disco?: string | number | undefined,
+  ) {}
+  
   async adicionar(): Promise<TFaixa> {
     const novaFaixa: Array<TFaixa> = await knex.insert({
       titulo: this.titulo,

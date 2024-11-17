@@ -3,13 +3,16 @@ import { IArtistaModel } from "../interfaces/Artista.interface";
 import { TArtista } from "../types/Artista.type";
 
 export class ArtistaModel implements IArtistaModel {
-  id?: string | number | undefined;
-  nome?: string | undefined;
-  data_formacao?: Date | undefined;
-  ativo?: boolean | undefined;
-  descricao?: Text | undefined;
-  url_imagem?: string | undefined;
-  id_regiao?: string | number | undefined;
+  constructor(
+    public id?: string | number | undefined,
+    public nome?: string | undefined,
+    public data_formacao?: Date | undefined,
+    public ativo?: boolean | undefined,
+    public descricao?: Text | undefined,
+    public url_imagem?: string | undefined,
+    public id_regiao?: string | number | undefined,
+  ) {}
+  
   async adicionar(): Promise<TArtista> {
     const novoArtista: Array<TArtista> = await knex.insert({
       nome: this.nome,

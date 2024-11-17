@@ -3,13 +3,16 @@ import { IDiscoModel } from "../interfaces/Disco.interface";
 import { TDisco } from "../types/Disco.type";
 
 export class DiscoModel implements IDiscoModel {
-  id?: string | number | undefined;
-  titulo?: string | undefined;
-  data_lancamento?: Date | undefined;
-  url_imagem?: string | undefined;
-  id_artista?: string | number | undefined;
-  id_gravadora?: string | number | undefined;
-  id_tipo?: string | number | undefined;
+  constructor(
+    public id?: string | number | undefined,
+    public titulo?: string | undefined,
+    public data_lancamento?: Date | undefined,
+    public url_imagem?: string | undefined,
+    public id_artista?: string | number | undefined,
+    public id_gravadora?: string | number | undefined,
+    public id_tipo?: string | number | undefined,
+  ) {}
+
   async adicionar(): Promise<TDisco> {
     const novoDisco: Array<TDisco> = await knex.insert({
       titulo: this.titulo,

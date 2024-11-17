@@ -3,22 +3,12 @@ import { IRegiaoModel } from "../interfaces/Regiao.interface";
 import { TRegiao } from "../types/Regiao.type";
 
 export class RegiaoModel implements IRegiaoModel {
-  id?: number | string | undefined;
-  estado?: string;
-  uf?: string;
-  id_pais?: number | string;
-
   constructor(
-    id?: number | string,
-    estado?: string,
-    uf?: string,
-    id_pais?: number | string,
-  ) {
-    this.id = id;
-    this.estado = estado;
-    this.uf = uf;
-    this.id_pais = id_pais;
-  }
+    public id?: number | string | undefined,
+    public estado?: string,
+    public uf?: string,
+    public id_pais?: number | string,
+  ) {}
   
   async adicionar(): Promise<TRegiao> {
     const novaRegiao: Array<TRegiao> = await knex.insert({

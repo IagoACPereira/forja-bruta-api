@@ -3,12 +3,14 @@ import { IUsuarioModel } from "../interfaces/Usuario.interface";
 import { TUsuario } from "../types/Usuario.type";
 
 export class UsuarioModel implements IUsuarioModel {
-  id?: string | number | undefined;
-  nome?: string | undefined;
-  email?: string | undefined;
-  telefone?: string | undefined;
-  senha?: string | undefined;
-  id_permissao?: string | number | undefined;
+  constructor(
+    public id?: string | number | undefined,
+    public nome?: string | undefined,
+    public email?: string | undefined,
+    public telefone?: string | undefined,
+    public senha?: string | undefined,
+    public id_permissao?: string | number | undefined,
+  ) {}
 
   async adicionar(): Promise<TUsuario> {
     const novoUsuario: Array<TUsuario> = await knex.insert({

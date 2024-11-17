@@ -1,13 +1,13 @@
 import _knex, { Knex } from 'knex';
 
 const config: Knex.Config = {
-  client: 'pg',
+  client: process.env.CLIENTE_DB,
   connection: {
-    host: 'localhost',
-    port: 5432,
-    user: 'postgres',
-    password: 'postgres',
-    database: 'forja_bruta',
+    host: process.env.HOST_DB,
+    port: Number(process.env.PORTA_DB),
+    user: process.env.USER_DB,
+    password: process.env.PASSWORD_DB,
+    database: process.env.DATABASE,
   },
   pool: { min: 0, max: 10 },
 }

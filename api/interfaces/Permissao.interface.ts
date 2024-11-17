@@ -3,7 +3,7 @@ import { TPermissao } from "../types/Permissao.type";
 export interface IPermissaoModel {
   id?: number | string;
   titulo?: string;
-  descircao?: Text;
+  descricao?: Text;
   adicionar(): Promise<TPermissao>;
   pegaTodos(): Promise<Array<TPermissao>>;
   pegaUmPorId(): Promise<TPermissao>;

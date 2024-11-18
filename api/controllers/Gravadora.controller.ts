@@ -12,8 +12,9 @@ import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { ArtistaModel } from "../models/Artista.model";
 import { TGravadora } from "../types/Gravadora.type";
 import { GravadoraModel } from "../models/Gravadora.model";
+import { IGravadoraController } from "../interfaces/Gravadora.interface";
 
-export class GravadoraController {
+export class GravadoraController implements IGravadoraController {
   async adicionar(
     req: Request<{},{},TRequestBody.Gravadora>,
     res: Response<TResponsePost.Gravadora | TResponseErro>

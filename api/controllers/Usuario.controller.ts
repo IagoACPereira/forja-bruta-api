@@ -22,8 +22,9 @@ import { TPermissao } from "../types/Permissao.type";
 import { PermissaoModel } from "../models/Permissao.model";
 import { TUsuario } from "../types/Usuario.type";
 import { UsuarioModel } from "../models/Usuario.model";
+import { IUsuarioController } from "../interfaces/Usuario.interface";
 
-export class UsuarioController {
+export class UsuarioController implements IUsuarioController {
   async adicionar(
     req: Request<{},{},TRequestBody.Usuario>,
     res: Response<TResponsePost.Usuario | TResponseErro>

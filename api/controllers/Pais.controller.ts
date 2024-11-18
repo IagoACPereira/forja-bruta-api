@@ -9,8 +9,9 @@ import {
   TResponsePut 
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
+import { IPaisController } from "../interfaces/Pais.interface";
 
-export class PaisController {
+export class PaisController implements IPaisController {
   async adicionar(
     req: Request<{},{},TRequestBody.Pais>,
     res: Response<TResponsePost.Pais | TResponseErro>

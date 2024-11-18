@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
 import { GeneroModel } from "../models/Genero.model";
+import { IGeneroController } from "../interfaces/Genero.interface";
 
-export class GeneroController {
+export class GeneroController implements IGeneroController {
   async adicionar(
     req: Request<{}, {}, TRequestBody.Genero>,
     res: Response<TResponsePost.Genero | TResponseErro>

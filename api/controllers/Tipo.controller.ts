@@ -14,8 +14,9 @@ import { TGravadora } from "../types/Gravadora.type";
 import { GravadoraModel } from "../models/Gravadora.model";
 import { TTipo } from "../types/Tipo.type";
 import { TipoModel } from "../models/Tipo.model";
+import { ITipoController } from "../interfaces/Tipo.interface";
 
-export class TipoController {
+export class TipoController implements ITipoController {
   async adicionar(
     req: Request<{},{},TRequestBody.Tipo>,
     res: Response<TResponsePost.Tipo | TResponseErro>

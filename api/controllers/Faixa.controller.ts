@@ -18,8 +18,9 @@ import { TDisco } from "../types/Disco.type";
 import { DiscoModel } from "../models/Disco.model";
 import { TFaixa } from "../types/Faixa.type";
 import { FaixaModel } from "../models/Faixa.model";
+import { IFaixaController } from "../interfaces/Faixa.interface";
 
-export class FaixaController {
+export class FaixaController implements IFaixaController {
   async adicionar(
     req: Request<{},{},TRequestBody.Faixa>,
     res: Response<TResponsePost.Faixa | TResponseErro>

@@ -11,8 +11,9 @@ import {
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TArtista } from "../types/Artista.type";
 import { ArtistaModel } from "../models/Artista.model";
+import { IArtistaController } from "../interfaces/Artista.interface";
 
-export class ArtistaController {
+export class ArtistaController implements IArtistaController {
   async adicionar(
     req: Request<{},{},TRequestBody.Artista>,
     res: Response<TResponsePost.Artista | TResponseErro>

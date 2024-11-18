@@ -20,8 +20,9 @@ import { TFaixa } from "../types/Faixa.type";
 import { FaixaModel } from "../models/Faixa.model";
 import { TPermissao } from "../types/Permissao.type";
 import { PermissaoModel } from "../models/Permissao.model";
+import { IPermissaoController } from "../interfaces/Permissao.interface";
 
-export class PermissaoController {
+export class PermissaoController implements IPermissaoController {
   async adicionar(
     req: Request<{},{},TRequestBody.Permissao>,
     res: Response<TResponsePost.Permissao | TResponseErro>

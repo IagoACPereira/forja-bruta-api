@@ -13,8 +13,9 @@ import {
   TRequestBody, 
   TRequestParams 
 } from "../types/Request.type";
+import { IRegiaoController } from "../interfaces/Regiao.interface";
 
-export class RegiaoController {
+export class RegiaoController implements IRegiaoController {
   async adicionar(
     req: Request<{},{},TRequestBody.Regiao>,
     res: Response<TResponsePost.Regiao | TResponseErro>

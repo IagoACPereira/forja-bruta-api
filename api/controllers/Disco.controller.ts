@@ -16,8 +16,9 @@ import { TTipo } from "../types/Tipo.type";
 import { TipoModel } from "../models/Tipo.model";
 import { TDisco } from "../types/Disco.type";
 import { DiscoModel } from "../models/Disco.model";
+import { IDiscoController } from "../interfaces/Disco.interface";
 
-export class DiscoController {
+export class DiscoController implements IDiscoController {
   async adicionar(
     req: Request<{},{},TRequestBody.Disco>,
     res: Response<TResponsePost.Disco | TResponseErro>

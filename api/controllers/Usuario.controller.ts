@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { PaisModel } from "../models/Pais.model";
 import { 
   TResponseDelete, 
   TResponseErro, 
@@ -9,17 +8,6 @@ import {
   TResponsePut 
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { ArtistaModel } from "../models/Artista.model";
-import { TGravadora } from "../types/Gravadora.type";
-import { GravadoraModel } from "../models/Gravadora.model";
-import { TTipo } from "../types/Tipo.type";
-import { TipoModel } from "../models/Tipo.model";
-import { TDisco } from "../types/Disco.type";
-import { DiscoModel } from "../models/Disco.model";
-import { TFaixa } from "../types/Faixa.type";
-import { FaixaModel } from "../models/Faixa.model";
-import { TPermissao } from "../types/Permissao.type";
-import { PermissaoModel } from "../models/Permissao.model";
 import { TUsuario } from "../types/Usuario.type";
 import { UsuarioModel } from "../models/Usuario.model";
 import { IUsuarioController } from "../interfaces/Usuario.interface";

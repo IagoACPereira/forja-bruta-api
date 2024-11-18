@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { PaisModel } from "../models/Pais.model";
 import { 
   TResponseDelete, 
   TResponseErro, 
@@ -9,7 +8,6 @@ import {
   TResponsePut 
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { ArtistaModel } from "../models/Artista.model";
 import { TGravadora } from "../types/Gravadora.type";
 import { GravadoraModel } from "../models/Gravadora.model";
 import { IGravadoraController } from "../interfaces/Gravadora.interface";

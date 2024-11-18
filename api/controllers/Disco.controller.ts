@@ -9,11 +9,6 @@ import {
   TResponsePut 
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { ArtistaModel } from "../models/Artista.model";
-import { TGravadora } from "../types/Gravadora.type";
-import { GravadoraModel } from "../models/Gravadora.model";
-import { TTipo } from "../types/Tipo.type";
-import { TipoModel } from "../models/Tipo.model";
 import { TDisco } from "../types/Disco.type";
 import { DiscoModel } from "../models/Disco.model";
 import { IDiscoController } from "../interfaces/Disco.interface";

@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/conexaoDb";
+import { PaisModel } from "./Pais.model";
 
 export class RegiaoModel extends Model {
   public id!: number;
@@ -26,4 +27,11 @@ RegiaoModel.init({
   tableName: 'regiao',
   timestamps: false,
   freezeTableName: true,
+});
+
+PaisModel.hasMany(RegiaoModel, {
+  foreignKey: 'id_pais',
+});
+RegiaoModel.belongsTo(PaisModel, {
+  foreignKey: 'id_pais',
 });

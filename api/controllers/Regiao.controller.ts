@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { RegiaoModel } from "../models/Regiao.model";
 import { TRegiao } from "../types/Regiao.type";
 import { 
   TResponseDelete, 
@@ -14,6 +13,7 @@ import {
   TRequestParams 
 } from "../types/Request.type";
 import { IRegiaoController } from "../interfaces/Regiao.interface";
+import { RegiaoService } from "../services/Regiao.service";
 
 export class RegiaoController implements IRegiaoController {
   async adicionar(
@@ -26,8 +26,8 @@ export class RegiaoController implements IRegiaoController {
       id_pais,
     } = req.body;
     try {
-      const novaRegiao: TRegiao = await new RegiaoModel(
-        undefined, 
+      const novaRegiao: TRegiao = await new RegiaoService(
+        0, 
         estado, 
         uf, 
         Number(id_pais),
@@ -51,7 +51,12 @@ export class RegiaoController implements IRegiaoController {
     res: Response<TResponseGet.Regiao | TResponseErro>
   ): Promise<void> {
     try {
-      const regioes = await new RegiaoModel().pegaTodos();
+      const regioes = await new RegiaoService(
+        0,
+        '',
+        '',
+        0,
+      ).pegaTodos();
 
       res.status(200).json({
         regioes,
@@ -71,7 +76,12 @@ export class RegiaoController implements IRegiaoController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const regiao: TRegiao = await new RegiaoModel(Number(id)).pegaUmPorId();
+      const regiao: TRegiao = await new RegiaoService(
+        Number(id),
+        '',
+        '',
+        0,
+      ).pegaUmPorId();
       res.status(200).json({
         regiao,
         statusCode: 200,

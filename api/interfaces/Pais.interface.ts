@@ -3,9 +3,9 @@ import { TPais } from "../types/Pais.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
 
-export interface IPaisModel {
-  id?: number | string;
-  nome?: string;
+export interface IPaisService {
+  id: number | string;
+  nome: string;
   adicionar(): Promise<TPais>;
   pegaTodos(): Promise<Array<TPais>>;
   pegaUmPorId(): Promise<TPais>;

@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { PaisModel } from "../models/Pais.model";
 import { 
   TResponseDelete, 
   TResponseErro, 
@@ -10,6 +9,7 @@ import {
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { IPaisController } from "../interfaces/Pais.interface";
+import { PaisService } from "../services/Pais.service";
 
 export class PaisController implements IPaisController {
   async adicionar(
@@ -18,7 +18,10 @@ export class PaisController implements IPaisController {
   ): Promise<void> {
     const { nome } = req.body;
     try {
-      const novoPais = await new PaisModel(undefined, nome).adicionar();
+      const novoPais = await new PaisService(
+        0, 
+        nome,
+      ).adicionar();
 
       res.status(201).json({
         mensagem: 'País adicionado com sucesso',
@@ -38,7 +41,10 @@ export class PaisController implements IPaisController {
     res: Response<TResponseGet.Pais | TResponseErro>
   ): Promise<void> {
     try {
-      const paises = await new PaisModel().pegaTodos();
+      const paises = await new PaisService(
+        0,
+        '',
+      ).pegaTodos();
       res.status(200).json({
         paises: paises,
         statusCode: 200,
@@ -57,7 +63,10 @@ export class PaisController implements IPaisController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const pais = await new PaisModel(Number(id)).pegaUmPorId();
+      const pais = await new PaisService(
+        Number(id),
+        '',
+      ).pegaUmPorId();
       res.status(200).json({
         pais,
         statusCode: 200,
@@ -77,7 +86,10 @@ export class PaisController implements IPaisController {
     const { id } = req.params;
     const { nome } = req.body;
     try {
-      await new PaisModel(Number(id), nome).atualizar();
+      await new PaisService(
+        Number(id), 
+        nome,
+      ).atualizar();
       res.status(200).json({
         mensagem: 'País atualizado com sucesso',
         statusCode: 200,
@@ -96,7 +108,10 @@ export class PaisController implements IPaisController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      await new PaisModel(Number(id)).deletar();
+      await new PaisService(
+        Number(id),
+        '',
+      ).deletar();
       res.status(200).json({
         mensagem: 'País deletado com sucesso',
         statusCode: 200,

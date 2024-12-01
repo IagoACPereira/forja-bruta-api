@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PaisModel } from "../models/Pais.model";
+
 import { 
   TResponseDelete, 
   TResponseErro, 

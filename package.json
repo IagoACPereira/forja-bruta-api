@@ -1,10 +1,13 @@
 {
   "dependencies": {
+    "@types/sequelize": "^4.28.20",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "knex": "^3.1.0",
     "pg": "^8.13.1",
-    "reflect-metadata": "^0.2.2"
+    "pg-hstore": "^2.3.4",
+    "reflect-metadata": "^0.2.2",
+    "sequelize": "^6.37.5"
   },
   "name": "forja-bruta-api",
   "version": "1.0.0",

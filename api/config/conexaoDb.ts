@@ -1,4 +1,5 @@
 import _knex, { Knex } from 'knex';
+import { Sequelize } from 'sequelize';
 
 const config: Knex.Config = {
   client: process.env.CLIENTE_DB,
@@ -13,3 +14,12 @@ const config: Knex.Config = {
 }
 
 export const knex = _knex(config);
+
+export const sequelize = new Sequelize(
+  String(process.env.DATABASE), 
+  String(process.env.USER_DB), 
+  process.env.PASSWORD_DB, {
+  host: process.env.HOST_DB,
+  port: Number(process.env.PORTA_DB),
+  dialect: 'postgres',
+});

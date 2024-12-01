@@ -3,11 +3,11 @@ import { TRegiao } from "../types/Regiao.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
 
-export interface IRegiaoModel {
-  id?: number | string;
-  estado?: string;
-  uf?: string;
-  id_pais?: number | string;
+export interface IRegiaoService {
+  id: number | string;
+  estado: string;
+  uf: string;
+  id_pais: number | string;
   adicionar(): Promise<TRegiao>;
   pegaTodos(): Promise<Array<TRegiao>>;
   pegaUmPorId(): Promise<TRegiao>;

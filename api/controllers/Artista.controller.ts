@@ -9,8 +9,8 @@ import {
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TArtista } from "../types/Artista.type";
-import { ArtistaModel } from "../models/Artista.model";
 import { IArtistaController } from "../interfaces/Artista.interface";
+import { ArtistaService } from "../services/Artista.service";
 
 export class ArtistaController implements IArtistaController {
   async adicionar(
@@ -26,14 +26,14 @@ export class ArtistaController implements IArtistaController {
       url_imagem,
     } = req.body as TArtista;
     try {
-      const novoArtista = await new ArtistaModel(
-        undefined,
+      const novoArtista = await new ArtistaService(
+        0,
         nome,
         data_formacao,
         ativo,
         descricao,
         url_imagem,
-        id_regiao,
+        Number(id_regiao),
       ).adicionar();
 
       res.status(201).json({
@@ -54,7 +54,15 @@ export class ArtistaController implements IArtistaController {
     res: Response<TResponseGet.Artista | TResponseErro>
   ): Promise<void> {
     try {
-      const artistas = await new ArtistaModel().pegaTodos();
+      const artistas = await new ArtistaService(
+        0,
+        '',
+        new Date(),
+        false,
+        '',
+        '',
+        0
+      ).pegaTodos();
       res.status(200).json({
         artistas,
         statusCode: 200,
@@ -73,7 +81,15 @@ export class ArtistaController implements IArtistaController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const artista = await new ArtistaModel(id).pegaUmPorId();
+      const artista = await new ArtistaService(
+        Number(id),
+        '',
+        new Date()
+        ,false,
+        '',
+        '',
+        0      
+      ).pegaUmPorId();
       res.status(200).json({
         artista,
         statusCode: 200,
@@ -100,14 +116,14 @@ export class ArtistaController implements IArtistaController {
       url_imagem,
      } = req.body as TArtista;
     try {
-      await new ArtistaModel(
-        id, 
+      await new ArtistaService(
+        Number(id), 
         nome,
         data_formacao,
         ativo,
         descricao,
         url_imagem,
-        id_regiao,
+        Number(id_regiao),
       ).atualizar();
       res.status(200).json({
         mensagem: 'Artista atualizado com sucesso',
@@ -127,7 +143,15 @@ export class ArtistaController implements IArtistaController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      await new ArtistaModel(Number(id)).deletar();
+      await new ArtistaService(
+        Number(id),
+        '',
+        new Date(),
+        false,
+        '',
+        '',
+        0,
+      ).deletar();
       res.status(200).json({
         mensagem: 'Artista deletado com sucesso',
         statusCode: 200,

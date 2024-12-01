@@ -3,14 +3,14 @@ import { TArtista } from "../types/Artista.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
 
-export interface IArtistaModel {
-  id?: number | string;
-  nome?: string;
-  data_formacao?: Date;
-  ativo?: boolean;
-  descricao?: Text;
-  url_imagem?: string;
-  id_regiao?: number | string;
+export interface IArtistaService {
+  id: number;
+  nome: string;
+  data_formacao: Date;
+  ativo: boolean;
+  descricao: string;
+  url_imagem: string;
+  id_regiao: number;
   adicionar(): Promise<TArtista>;
   pegaTodos(): Promise<Array<TArtista>>;
   pegaUmPorId(): Promise<TArtista>;

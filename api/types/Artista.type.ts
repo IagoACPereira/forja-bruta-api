@@ -3,7 +3,7 @@ export type TArtista = {
   nome: string;
   data_formacao: Date;
   ativo: boolean;
-  descricao: Text;
+  descricao: string;
   url_imagem: string;
   id_regiao: number | string;
 }

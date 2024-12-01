@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
-import { GeneroModel } from "../models/Genero.model";
+
 import { IGeneroController } from "../interfaces/Genero.interface";
+import { GeneroService } from "../services/Genero.service";
 
 export class GeneroController implements IGeneroController {
   async adicionar(
@@ -13,7 +14,10 @@ export class GeneroController implements IGeneroController {
       titulo
     } = req.body;
     try {
-      const novoGenero = await new GeneroModel(undefined, titulo).adicionar();
+      const novoGenero = await new GeneroService(
+        0, 
+        titulo,
+      ).adicionar();
 
       res.status(201).json({
         mensagem: 'Gênero adicionado com sucesso',
@@ -33,7 +37,10 @@ export class GeneroController implements IGeneroController {
     res: Response<TResponseGet.Genero | TResponseErro>
   ): Promise<void> {
     try {
-      const generos = await new GeneroModel().pegaTodos();
+      const generos = await new GeneroService(
+        0,
+        '',
+      ).pegaTodos();
       res.status(200).json({
         generos,
         statusCode: 200,
@@ -52,7 +59,10 @@ export class GeneroController implements IGeneroController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const genero = await new GeneroModel(id).pegaUmPorId()
+      const genero = await new GeneroService(
+        Number(id),
+        '',
+      ).pegaUmPorId()
       res.status(200).json({
         genero,
         statusCode: 200,
@@ -74,7 +84,10 @@ export class GeneroController implements IGeneroController {
       titulo
     } = req.body;
     try {
-      await new GeneroModel(id, titulo).atualizar();
+      await new GeneroService(
+        Number(id), 
+        titulo,
+      ).atualizar();
 
       res.status(200).json({
         mensagem: 'Gênero atualizado com sucesso',
@@ -94,7 +107,10 @@ export class GeneroController implements IGeneroController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      await new GeneroModel(id).deletar();
+      await new GeneroService(
+        Number(id),
+        '',
+      ).deletar();
 
       res.status(200).json({
         mensagem: 'Gênero deletado com sucesso',

@@ -3,9 +3,9 @@ import { TGenero } from "../types/Genero.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
 
-export interface IGeneroModel {
-  id?: number | string;
-  titulo?: string;
+export interface IGeneroService {
+  id: number;
+  titulo: string;
   adicionar(): Promise<TGenero>;
   pegaTodos(): Promise<Array<TGenero>>;
   pegaUmPorId(): Promise<TGenero>;

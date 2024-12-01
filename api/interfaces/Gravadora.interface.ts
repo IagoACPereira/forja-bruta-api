@@ -3,11 +3,11 @@ import { TGravadora } from "../types/Gravadora.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
 
-export interface IGravadoraModel {
-  id?: number | string;
-  nome?: string;
-  url_imagem?: string;
-  id_regiao?: number | string;
+export interface IGravadoraService {
+  id: number;
+  nome: string;
+  url_imagem: string;
+  id_regiao: number;
   adicionar(): Promise<TGravadora>;
   pegaTodos(): Promise<Array<TGravadora>>;
   pegaUmPorId(): Promise<TGravadora>;

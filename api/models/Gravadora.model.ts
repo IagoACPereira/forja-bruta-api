@@ -1,63 +1,29 @@
-import { knex } from "../config/conexaoDb";
-import { IGravadoraModel } from "../interfaces/Gravadora.interface";
-import { TGravadora } from "../types/Gravadora.type";
+import { DataTypes, Model } from "sequelize";
+import { sequelize } from "../config/conexaoDb";
 
-export class GravadoraModel implements IGravadoraModel {
-  constructor(
-    public id?: string | number | undefined,
-    public nome?: string | undefined,
-    public url_imagem?: string | undefined,
-    public id_regiao?: string | number | undefined,
-  ) {}
-
-  async adicionar(): Promise<TGravadora> {
-    const novaGravadora: Array<TGravadora> = await knex.insert({
-      nome: this.nome,
-      url_imagem: this.url_imagem,
-      id_regiao: this.id_regiao,
-    }, '*')
-      .into('gravadora');
-
-    return novaGravadora[0];
-  }
-  async pegaTodos(): Promise<Array<TGravadora>> {
-    const gravadoras: Array<TGravadora> = await knex.select('*')
-      .from<TGravadora>('gravadora')
-      .orderBy('id', 'asc');
-
-    return gravadoras;
-  }
-  async pegaUmPorId(): Promise<TGravadora> {
-    const gravadora: TGravadora | undefined = await knex.select('*')
-      .from<TGravadora>('gravadora')
-      .where({
-        id: this.id,
-      })
-      .first();
-
-      if (!gravadora) {
-        throw new Error('Não foi encontrado nenhum registro');
-      }
-
-    return gravadora;
-  }
-  async atualizar(): Promise<void> {
-    await knex.update({
-      nome: this.nome,
-      url_imagem: this.url_imagem,
-      id_regiao: this.id_regiao,
-    })
-      .from<TGravadora>('gravadora')
-      .where({
-        id: this.id,
-      });
-  }
-  async deletar(): Promise<void> {
-    await knex.delete()
-      .from<TGravadora>('gravadora')
-      .where({
-        id: this.id,
-      });
-  }
-
+export class GravadoraModel extends Model {
+  public id!: number;
+  public nome!: string;
+  public url_imagem!: string;
+  public id_regiao!: number;
 }
+
+GravadoraModel.init({
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  url_imagem: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  id_regiao: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+}, {
+  sequelize,
+  tableName: 'gravadora',
+  timestamps: false,
+  freezeTableName: true,
+});

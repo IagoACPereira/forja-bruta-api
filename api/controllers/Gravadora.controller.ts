@@ -9,8 +9,8 @@ import {
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TGravadora } from "../types/Gravadora.type";
-import { GravadoraModel } from "../models/Gravadora.model";
 import { IGravadoraController } from "../interfaces/Gravadora.interface";
+import { GravadoraService } from "../services/Gravadora.service";
 
 export class GravadoraController implements IGravadoraController {
   async adicionar(
@@ -23,11 +23,11 @@ export class GravadoraController implements IGravadoraController {
       url_imagem
     } = req.body as TGravadora;
     try {
-      const novaGravadora = await new GravadoraModel(
-        undefined,
+      const novaGravadora = await new GravadoraService(
+        0,
         nome,
         url_imagem,
-        id_regiao,
+        Number(id_regiao),
       ).adicionar();
 
       res.status(201).json({
@@ -48,7 +48,12 @@ export class GravadoraController implements IGravadoraController {
     res: Response<TResponseGet.Gravadora | TResponseErro>
   ): Promise<void> {
     try {
-      const gravadoras = await new GravadoraModel().pegaTodos();
+      const gravadoras = await new GravadoraService(
+        0,
+        '',
+        '',
+        0,
+      ).pegaTodos();
       res.status(200).json({
         gravadoras,
         statusCode: 200,
@@ -67,7 +72,12 @@ export class GravadoraController implements IGravadoraController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const gravadora = await new GravadoraModel(id).pegaUmPorId();
+      const gravadora = await new GravadoraService(
+        Number(id),
+        '',
+        '',
+        0
+      ).pegaUmPorId();
       res.status(200).json({
         gravadora,
         statusCode: 200,
@@ -91,11 +101,11 @@ export class GravadoraController implements IGravadoraController {
       url_imagem,
      } = req.body as TGravadora;
     try {
-      await new GravadoraModel(
-        id,
+      await new GravadoraService(
+        Number(id),
         nome,
         url_imagem,
-        id_regiao,
+        Number(id_regiao),
       ).atualizar();
       res.status(200).json({
         mensagem: 'Gravadora atualizado com sucesso',
@@ -115,7 +125,12 @@ export class GravadoraController implements IGravadoraController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      await new GravadoraModel(id).deletar();
+      await new GravadoraService(
+        Number(id),
+        '',
+        '',
+        0
+      ).deletar();
       res.status(200).json({
         mensagem: 'Gravadora deletado com sucesso',
         statusCode: 200,

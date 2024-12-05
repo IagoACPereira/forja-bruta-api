@@ -1,0 +1,20 @@
+import { DataTypes, Model, Optional } from "sequelize";
+import { TPais } from "../types/Pais.type";
+import { sequelize } from "../config/conexaoDb";
+
+export class PaisModel extends Model {
+  public id!: number;
+  public nome!: string;
+}
+
+PaisModel.init({
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
+}, {
+  sequelize,
+  tableName: 'pais',
+  timestamps: false,
+  freezeTableName: true,
+});

@@ -10,7 +10,7 @@ const config: Knex.Config = {
     password: process.env.PASSWORD_DB,
     database: process.env.DATABASE,
   },
-  pool: { min: 0, max: 10 },
+  pool: { min: 1, max: 10 },
 }
 
 export const knex = _knex(config);
@@ -22,4 +22,13 @@ export const sequelize = new Sequelize(
   host: process.env.HOST_DB,
   port: Number(process.env.PORTA_DB),
   dialect: 'postgres',
+  pool: { min: 1, max: 10 },
 });
+
+try {
+  sequelize.authenticate()
+  console.log('Conectado ao banco com sucesso');
+  
+} catch (error) {
+  console.log('Ocorreu um erro ao conectar ao banco');
+}

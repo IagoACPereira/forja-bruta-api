@@ -1,73 +1,54 @@
-import { knex } from "../config/conexaoDb";
-import { IDiscoModel } from "../interfaces/Disco.interface";
-import { TDisco } from "../types/Disco.type";
+import { sequelize } from "../config/conexaoDb";
+import { DataTypes, Model } from "sequelize";
+import { ArtistaModel } from "./Artista.model";
+import { GravadoraModel } from "./Gravadora.model";
+import { TipoModel } from "./Tipo.model";
 
-export class DiscoModel implements IDiscoModel {
-  constructor(
-    public id?: string | number | undefined,
-    public titulo?: string | undefined,
-    public data_lancamento?: Date | undefined,
-    public url_imagem?: string | undefined,
-    public id_artista?: string | number | undefined,
-    public id_gravadora?: string | number | undefined,
-    public id_tipo?: string | number | undefined,
-  ) {}
-
-  async adicionar(): Promise<TDisco> {
-    const novoDisco: Array<TDisco> = await knex.insert({
-      titulo: this.titulo,
-      data_lancamento: this.data_lancamento,
-      url_imagem: this.url_imagem,
-      id_artista: this.id_artista,
-      id_gravadora: this.id_gravadora,
-      id_tipo: this.id_tipo,
-    } as TDisco, '*')
-      .into('disco');
-
-    return novoDisco[0];
-  }
-
-  async pegaTodos(): Promise<Array<TDisco>> {
-    const discos: Array<TDisco> = await knex.select('*')
-      .from<TDisco>('discos')
-      .orderBy('id', 'asc');
-    
-    return discos;
-  }
-
-  async pegaUmPorId(): Promise<TDisco> {
-    const disco: TDisco | undefined = await knex.select('*')
-      .from<TDisco>('disco')
-      .where({ id: this.id })
-      .first();
-
-    if (!disco) {
-      throw new Error('Não foi encontrado nenhum registro');
-    }
-
-    return disco;
-  }
-
-  async atualizar(): Promise<void> {
-    await knex.update({
-      titulo: this.titulo,
-      data_lancamento: this.data_lancamento,
-      url_imagem: this.url_imagem,
-      id_artista: this.id_artista,
-      id_gravadora: this.id_gravadora,
-      id_tipo: this.id_tipo,
-    } as TDisco)
-      .from<TDisco>('disco')
-      .where({
-        id: this.id,
-      });  
-  }
-
-  async deletar(): Promise<void> {
-    await knex.delete()
-      .from<TDisco>('disco')
-      .where({ 
-        id: this.id, 
-      });
-  }
+export class DiscoModel extends Model {
+  id!: string;
+  titulo!: string;
+  data_lancamento!: Date;
+  url_imagem!: string;
+  id_artista!: string;
+  id_gravadora!: string;
+  id_tipo!: string;
 }
+
+DiscoModel.init({
+  titulo: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  data_lancamento: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  url_imagem: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+}, {
+  sequelize,
+  tableName: 'disco',
+  timestamps: false,
+  freezeTableName: true,
+});
+
+ArtistaModel.hasMany(DiscoModel, {
+  foreignKey: 'id_artista',
+});
+DiscoModel.belongsTo(ArtistaModel, {
+  foreignKey: 'id_artista',
+});
+GravadoraModel.hasMany(DiscoModel, {
+  foreignKey: 'id_gravadora',
+});
+DiscoModel.belongsTo(GravadoraModel, {
+  foreignKey: 'id_gravadora',
+});
+TipoModel.hasMany(DiscoModel, {
+  foreignKey: 'id_tipo',
+});
+DiscoModel.belongsTo(TipoModel, {
+  foreignKey: 'id_tipo',
+});

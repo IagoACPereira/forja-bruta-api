@@ -1,70 +1,47 @@
-import { knex } from "../config/conexaoDb";
-import { IUsuarioModel } from "../interfaces/Usuario.interface";
-import { TUsuario } from "../types/Usuario.type";
+import { DataTypes, Model } from "sequelize";
+import { sequelize } from "../config/conexaoDb";
+import { PermissaoModel } from "./Permissao.model";
 
-export class UsuarioModel implements IUsuarioModel {
-  constructor(
-    public id?: string | number | undefined,
-    public nome?: string | undefined,
-    public email?: string | undefined,
-    public telefone?: string | undefined,
-    public senha?: string | undefined,
-    public id_permissao?: string | number | undefined,
-  ) {}
-
-  async adicionar(): Promise<TUsuario> {
-    const novoUsuario: Array<TUsuario> = await knex.insert({
-      nome: this.nome,
-      email: this.email,
-      telefone: this.telefone,
-      senha: this.senha,
-      id_permissao: this.id_permissao,
-    } as TUsuario, '*')
-      .into('permissao');
-
-    return novoUsuario[0];
-  }
-
-  async pegaTodos(): Promise<Array<TUsuario>> {
-    const usuarios: Array<TUsuario> = await knex.select('*')
-      .from<TUsuario>('usuario')
-      .orderBy('id', 'asc');
-    
-    return usuarios;
-  }
-
-  async pegaUmPorId(): Promise<TUsuario> {
-    const usuario: TUsuario | undefined = await knex.select('*')
-      .from<TUsuario>('usuario')
-      .where({ id: this.id })
-      .first();
-
-    if (!usuario) {
-      throw new Error('Não foi encontrado nenhum registro');
-    }
-
-    return usuario;
-  }
-
-  async atualizar(): Promise<void> {
-    await knex.update({
-      nome: this.nome,
-      email: this.email,
-      telefone: this.telefone,
-      senha: this.senha,
-      id_permissao: this.id_permissao,
-    } as TUsuario)
-      .from<TUsuario>('usuario')
-      .where({
-        id: this.id,
-      });  
-  }
-
-  async deletar(): Promise<void> {
-    await knex.delete()
-      .from<TUsuario>('usuario')
-      .where({ 
-        id: this.id, 
-      });
-  } 
+export class UsuarioModel extends Model {
+  id!: string;
+  nome!: string;
+  email!: string;
+  telefone!: string;
+  senha!: string;
+  id_permissao!: string;
 }
+
+UsuarioModel.init({
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  telefone: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  senha: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  id_permissao: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+}, {
+  sequelize,
+  tableName: 'usuario',
+  timestamps: false,
+  freezeTableName: true,
+});
+
+PermissaoModel.hasMany(UsuarioModel, {
+  foreignKey: 'id_permissao',
+});
+UsuarioModel.belongsTo(PermissaoModel, {
+  foreignKey: 'id_permissao',
+});

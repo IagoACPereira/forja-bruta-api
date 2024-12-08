@@ -1,70 +1,47 @@
-import { knex } from "../config/conexaoDb";
-import { IFaixaModel } from "../interfaces/Faixa.interface";
-import { TFaixa } from "../types/Faixa.type";
+import { DataTypes, Model } from "sequelize";
+import { sequelize } from "../config/conexaoDb";
+import { DiscoModel } from "./Disco.model";
 
-export class FaixaModel implements IFaixaModel {
-  constructor(
-    public id?: string | number | undefined,
-    public titulo?: string | undefined,
-    public duracao?: string | number | undefined,
-    public num_faixa?: string | number | undefined,
-    public letra?: Text | undefined,
-    public id_disco?: string | number | undefined,
-  ) {}
-  
-  async adicionar(): Promise<TFaixa> {
-    const novaFaixa: Array<TFaixa> = await knex.insert({
-      titulo: this.titulo,
-      duracao: this.duracao,
-      num_faixa: this.num_faixa,
-      letra: this.letra,
-      id_disco: this.id_disco,
-    } as TFaixa, '*')
-      .into('faixa');
-
-    return novaFaixa[0];
-  }
-
-  async pegaTodos(): Promise<Array<TFaixa>> {
-    const faixas: Array<TFaixa> = await knex.select('*')
-      .from<TFaixa>('faixa')
-      .orderBy('id', 'asc');
-    
-    return faixas;
-  }
-
-  async pegaUmPorId(): Promise<TFaixa> {
-    const faixa: TFaixa | undefined = await knex.select('*')
-      .from<TFaixa>('faixa')
-      .where({ id: this.id })
-      .first();
-
-    if (!faixa) {
-      throw new Error('Não foi encontrado nenhum registro');
-    }
-
-    return faixa;
-  }
-
-  async atualizar(): Promise<void> {
-    await knex.update({
-      titulo: this.titulo,
-      duracao: this.duracao,
-      num_faixa: this.num_faixa,
-      letra: this.letra,
-      id_disco: this.id_disco,
-    } as TFaixa)
-      .from<TFaixa>('faixa')
-      .where({
-        id: this.id,
-      });  
-  }
-
-  async deletar(): Promise<void> {
-    await knex.delete()
-      .from<TFaixa>('faixa')
-      .where({ 
-        id: this.id, 
-      });
-  }
+export class FaixaModel extends Model {
+  id!: string;
+  titulo!: string;
+  duracao!: string;
+  num_faixa!: string;
+  letra!: Text;
+  id_disco!: string;
 }
+
+FaixaModel.init({
+  titulo: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  duracao: {
+    type: DataTypes.DECIMAL,
+    allowNull: false,
+  },
+  num_faixa: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  letra: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  id_disco: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+}, {
+  sequelize,
+  tableName: 'faixa',
+  timestamps: false,
+  freezeTableName: true,
+});
+
+DiscoModel.hasMany(FaixaModel,{
+  foreignKey: 'id_disco'
+});
+FaixaModel.belongsTo(DiscoModel,{
+  foreignKey: 'id_disco'
+});

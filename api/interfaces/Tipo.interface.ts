@@ -3,9 +3,9 @@ import { TTipo } from "../types/Tipo.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
 
-export interface ITipoModel {
-  id?: number | string;
-  titulo?: string;
+export interface ITipoService {
+  id: number | string;
+  titulo: string;
   adicionar(): Promise<TTipo>;
   pegaTodos(): Promise<Array<TTipo>>;
   pegaUmPorId(): Promise<TTipo>;

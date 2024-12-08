@@ -3,13 +3,13 @@ import { TUsuario } from "../types/Usuario.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
 
-export interface IUsuarioModel {
-  id?: number | string;
-  nome?: string;
-  email?: string;
-  telefone?: string;
-  senha?: string;
-  id_permissao?: number | string;
+export interface IUsuarioService {
+  id: number | string;
+  nome: string;
+  email: string;
+  telefone: string;
+  senha: string;
+  id_permissao: number | string;
   adicionar(): Promise<TUsuario>;
   pegaTodos(): Promise<Array<TUsuario>>;
   pegaUmPorId(): Promise<TUsuario>;

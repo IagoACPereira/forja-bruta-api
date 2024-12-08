@@ -9,8 +9,8 @@ import {
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TTipo } from "../types/Tipo.type";
-import { TipoModel } from "../models/Tipo.model";
 import { ITipoController } from "../interfaces/Tipo.interface";
+import { TipoService } from "../services/Tipo.service";
 
 export class TipoController implements ITipoController {
   async adicionar(
@@ -21,8 +21,8 @@ export class TipoController implements ITipoController {
       titulo,
     } = req.body as TTipo;
     try {
-      const novoTipo = await new TipoModel(
-        undefined,
+      const novoTipo = await new TipoService(
+        0,
         titulo,
       ).adicionar();
 
@@ -44,7 +44,10 @@ export class TipoController implements ITipoController {
     res: Response<TResponseGet.Tipo | TResponseErro>
   ): Promise<void> {
     try {
-      const tipos = await new TipoModel().pegaTodos();
+      const tipos = await new TipoService(
+        0,
+        ''
+      ).pegaTodos();
       res.status(200).json({
         tipos,
         statusCode: 200,
@@ -63,7 +66,10 @@ export class TipoController implements ITipoController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const tipo = await new TipoModel(id).pegaUmPorId();
+      const tipo = await new TipoService(
+        id,
+        '',
+      ).pegaUmPorId();
       res.status(200).json({
         tipo,
         statusCode: 200,
@@ -85,7 +91,7 @@ export class TipoController implements ITipoController {
       titulo  
     } = req.body as TTipo;
     try {
-      await new TipoModel(
+      await new TipoService(
         id,
         titulo,
       ).atualizar();
@@ -107,7 +113,10 @@ export class TipoController implements ITipoController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      await new TipoModel(id).deletar();
+      await new TipoService(
+        id, 
+        ''
+      ).deletar();
       res.status(200).json({
         mensagem: 'Tipo deletado com sucesso',
         statusCode: 200,

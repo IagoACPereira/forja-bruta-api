@@ -3,10 +3,10 @@ import { TPermissao } from "../types/Permissao.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
 
-export interface IPermissaoModel {
-  id?: number | string;
-  titulo?: string;
-  descricao?: Text;
+export interface IPermissaoService {
+  id: number | string;
+  titulo: string;
+  descricao: Text;
   adicionar(): Promise<TPermissao>;
   pegaTodos(): Promise<Array<TPermissao>>;
   pegaUmPorId(): Promise<TPermissao>;

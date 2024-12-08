@@ -3,13 +3,13 @@ import { TFaixa } from "../types/Faixa.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
 
-export interface IFaixaModel {
-  id?: number | string;
-  titulo?: string;
-  duracao?: number | string;
-  num_faixa?: number | string;
-  letra?: Text;
-  id_disco?: number | string;
+export interface IFaixaService {
+  id: number | string;
+  titulo: string;
+  duracao: number | string;
+  num_faixa: number | string;
+  letra: Text;
+  id_disco: number | string;
   adicionar(): Promise<TFaixa>;
   pegaTodos(): Promise<Array<TFaixa>>;
   pegaUmPorId(): Promise<TFaixa>;

@@ -9,8 +9,8 @@ import {
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TPermissao } from "../types/Permissao.type";
-import { PermissaoModel } from "../models/Permissao.model";
 import { IPermissaoController } from "../interfaces/Permissao.interface";
+import { PermissaoService } from "../services/Permissao.service";
 
 export class PermissaoController implements IPermissaoController {
   async adicionar(
@@ -22,8 +22,8 @@ export class PermissaoController implements IPermissaoController {
       titulo,
     } = req.body as TPermissao;
     try {
-      const novaPermissao = await new PermissaoModel(
-        undefined,
+      const novaPermissao = await new PermissaoService(
+        0,
         titulo,
         descricao,
       ).adicionar();
@@ -46,7 +46,11 @@ export class PermissaoController implements IPermissaoController {
     res: Response<TResponseGet.Permissao | TResponseErro>
   ): Promise<void> {
     try {
-      const permissoes = await new PermissaoModel().pegaTodos();
+      const permissoes = await new PermissaoService(
+        0,
+        '',
+        new Text(),
+      ).pegaTodos();
       res.status(200).json({
         permissoes,
         statusCode: 200,
@@ -65,7 +69,11 @@ export class PermissaoController implements IPermissaoController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const permissao = await new PermissaoModel(id).pegaUmPorId();
+      const permissao = await new PermissaoService(
+        id,
+        '',
+        new Text(),
+      ).pegaUmPorId();
       res.status(200).json({
         permissao,
         statusCode: 200,
@@ -88,7 +96,7 @@ export class PermissaoController implements IPermissaoController {
       titulo,
     } = req.body as TPermissao;
     try {
-      await new PermissaoModel(
+      await new PermissaoService(
         id,
         titulo,
         descricao,
@@ -111,7 +119,11 @@ export class PermissaoController implements IPermissaoController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      await new PermissaoModel(id).deletar();
+      await new PermissaoService(
+        id,
+        '',
+        new Text(),
+      ).deletar();
       res.status(200).json({
         mensagem: 'Permissão deletada com sucesso',
         statusCode: 200,

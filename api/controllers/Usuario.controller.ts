@@ -9,8 +9,8 @@ import {
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TUsuario } from "../types/Usuario.type";
-import { UsuarioModel } from "../models/Usuario.model";
 import { IUsuarioController } from "../interfaces/Usuario.interface";
+import { UsuarioService } from "../services/Usuario.service";
 
 export class UsuarioController implements IUsuarioController {
   async adicionar(
@@ -25,8 +25,8 @@ export class UsuarioController implements IUsuarioController {
       telefone,
     } = req.body as TUsuario;
     try {
-      const novoUsuario = await new UsuarioModel(
-        undefined,
+      const novoUsuario = await new UsuarioService(
+        0,
         nome,
         email,
         telefone,
@@ -52,7 +52,14 @@ export class UsuarioController implements IUsuarioController {
     res: Response<TResponseGet.Usuario | TResponseErro>
   ): Promise<void> {
     try {
-      const usuarios = await new UsuarioModel().pegaTodos();
+      const usuarios = await new UsuarioService(
+        0,
+        '',
+        '',
+        '',
+        '',
+        0,
+      ).pegaTodos();
       res.status(200).json({
         usuarios,
         statusCode: 200,
@@ -71,7 +78,14 @@ export class UsuarioController implements IUsuarioController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const usuario = await new UsuarioModel(id).pegaUmPorId();
+      const usuario = await new UsuarioService(
+        id,
+        '',
+        '',
+        '',
+        '',
+        0,
+      ).pegaUmPorId();
       res.status(200).json({
         usuario,
         statusCode: 200,
@@ -97,7 +111,7 @@ export class UsuarioController implements IUsuarioController {
       telefone,
     } = req.body as TUsuario;
     try {
-      await new UsuarioModel(
+      await new UsuarioService(
         id,
         nome,
         email,
@@ -123,7 +137,14 @@ export class UsuarioController implements IUsuarioController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      await new UsuarioModel(id).deletar();
+      await new UsuarioService(
+        id,
+        '',
+        '',
+        '',
+        '',
+        0,
+      ).deletar();
       res.status(200).json({
         mensagem: 'Usuário deletado com sucesso',
         statusCode: 200,

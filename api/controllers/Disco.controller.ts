@@ -10,8 +10,8 @@ import {
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TDisco } from "../types/Disco.type";
-import { DiscoModel } from "../models/Disco.model";
 import { IDiscoController } from "../interfaces/Disco.interface";
+import { DiscoService } from "../services/Disco.service";
 
 export class DiscoController implements IDiscoController {
   async adicionar(
@@ -27,8 +27,8 @@ export class DiscoController implements IDiscoController {
       url_imagem,
     } = req.body as TDisco;
     try {
-      const novoDisco = await new DiscoModel(
-        undefined,
+      const novoDisco = await new DiscoService(
+        '',
         titulo,
         data_lancamento,
         url_imagem,
@@ -55,7 +55,15 @@ export class DiscoController implements IDiscoController {
     res: Response<TResponseGet.Disco | TResponseErro>
   ): Promise<void> {
     try {
-      const discos = await new DiscoModel().pegaTodos();
+      const discos = await new DiscoService(
+        0,
+        '',
+        new Date(),
+        '',
+        0,
+        0,
+        0,
+      ).pegaTodos();
       res.status(200).json({
         discos,
         statusCode: 200,
@@ -74,7 +82,7 @@ export class DiscoController implements IDiscoController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const disco = await new DiscoModel(id).pegaUmPorId();
+      const disco = await new DiscoService(id,'',new Date(),'',0,0,0).pegaUmPorId();
       res.status(200).json({
         disco,
         statusCode: 200,
@@ -101,7 +109,7 @@ export class DiscoController implements IDiscoController {
       url_imagem,
     } = req.body as TDisco;
     try {
-      await new DiscoModel(
+      await new DiscoService(
         id,
         titulo,
         data_lancamento,
@@ -128,7 +136,15 @@ export class DiscoController implements IDiscoController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      await new DiscoModel(id).deletar();
+      await new DiscoService(
+        id,
+        '',
+        new Date(),
+        '',
+        0,
+        0,
+        0,
+      ).deletar();
       res.status(200).json({
         mensagem: 'Disco deletado com sucesso',
         statusCode: 200,

@@ -9,8 +9,8 @@ import {
 } from "../types/Response.type";
 import { TRequestBody, TRequestParams } from "../types/Request.type";
 import { TFaixa } from "../types/Faixa.type";
-import { FaixaModel } from "../models/Faixa.model";
 import { IFaixaController } from "../interfaces/Faixa.interface";
+import { FaixaService } from "../services/Faixa.service";
 
 export class FaixaController implements IFaixaController {
   async adicionar(
@@ -25,8 +25,8 @@ export class FaixaController implements IFaixaController {
       titulo,
     } = req.body as TFaixa;
     try {
-      const novaFaixa = await new FaixaModel(
-        undefined,
+      const novaFaixa = await new FaixaService(
+        0,
         titulo,
         duracao,
         num_faixa,
@@ -52,7 +52,14 @@ export class FaixaController implements IFaixaController {
     res: Response<TResponseGet.Faixa | TResponseErro>
   ): Promise<void> {
     try {
-      const faixas = await new FaixaModel().pegaTodos();
+      const faixas = await new FaixaService(
+        0,
+        '',
+        0.0,
+        0,
+        new Text(),
+        0,
+      ).pegaTodos();
       res.status(200).json({
         faixas,
         statusCode: 200,
@@ -71,7 +78,13 @@ export class FaixaController implements IFaixaController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const faixa = await new FaixaModel(id).pegaUmPorId();
+      const faixa = await new FaixaService(id,
+        '',
+        0.0,
+        0,
+        new Text(),
+        0,
+      ).pegaUmPorId();
       res.status(200).json({
         faixa,
         statusCode: 200,
@@ -97,7 +110,7 @@ export class FaixaController implements IFaixaController {
       titulo,
     } = req.body as TFaixa;
     try {
-      await new FaixaModel(
+      await new FaixaService(
         id,
         titulo,
         duracao,
@@ -123,7 +136,13 @@ export class FaixaController implements IFaixaController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      await new FaixaModel(id).deletar();
+      await new FaixaService(id,
+        '',
+        0.0,
+        0,
+        new Text(),
+        0,
+      ).deletar();
       res.status(200).json({
         mensagem: 'Faixa deletada com sucesso',
         statusCode: 200,

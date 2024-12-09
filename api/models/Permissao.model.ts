@@ -22,3 +22,5 @@ PermissaoModel.init({
   timestamps: false,
   freezeTableName: true,
 });
+
+// PermissaoModel.sync({ force: true });

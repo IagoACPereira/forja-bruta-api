@@ -52,3 +52,5 @@ TipoModel.hasMany(DiscoModel, {
 DiscoModel.belongsTo(TipoModel, {
   foreignKey: 'id_tipo',
 });
+
+// DiscoModel.sync({ force: true });

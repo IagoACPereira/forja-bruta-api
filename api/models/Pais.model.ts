@@ -18,3 +18,5 @@ PaisModel.init({
   timestamps: false,
   freezeTableName: true,
 });
+
+// PaisModel.sync({ force: true });

@@ -18,10 +18,6 @@ RegiaoModel.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  id_pais: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
 }, {
   sequelize,
   tableName: 'regiao',
@@ -35,3 +31,5 @@ PaisModel.hasMany(RegiaoModel, {
 RegiaoModel.belongsTo(PaisModel, {
   foreignKey: 'id_pais',
 });
+
+// RegiaoModel.sync({ force: true });

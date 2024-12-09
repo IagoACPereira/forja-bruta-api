@@ -27,3 +27,5 @@ GravadoraModel.init({
   timestamps: false,
   freezeTableName: true,
 });
+
+// GravadoraModel.sync({ force: true });

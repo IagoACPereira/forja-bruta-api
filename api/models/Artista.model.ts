@@ -42,3 +42,5 @@ ArtistaModel.init({
   timestamps: false,
   freezeTableName: true,
 });
+
+// ArtistaModel.sync({ force: true });

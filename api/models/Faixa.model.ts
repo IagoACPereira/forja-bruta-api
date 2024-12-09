@@ -45,3 +45,5 @@ DiscoModel.hasMany(FaixaModel,{
 FaixaModel.belongsTo(DiscoModel,{
   foreignKey: 'id_disco'
 });
+
+// FaixaModel.sync({ force: true });

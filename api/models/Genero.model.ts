@@ -18,3 +18,4 @@ GeneroModel.init({
   freezeTableName: true,
 });
 
+// GeneroModel.sync({ force: true });

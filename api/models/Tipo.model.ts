@@ -16,4 +16,6 @@ TipoModel.init({
   tableName: 'tipo',
   timestamps: false,
   freezeTableName: true,
-})
+});
+
+// TipoModel.sync({ force: true });

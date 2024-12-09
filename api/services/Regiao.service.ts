@@ -5,10 +5,10 @@ import { TRegiao } from "../types/Regiao.type";
 
 export class RegiaoService implements IRegiaoService {
   constructor(
-    public id: number,
+    public id: number | string,
     public estado: string,
     public uf: string,
-    public id_pais: number,
+    public id_pais: number | string,
   ) {}
   
   async adicionar(): Promise<TRegiao> {

@@ -98,9 +98,22 @@ export class RegiaoController implements IRegiaoController {
     req: Request<TRequestParams.Regiao, {}, TRequestBody.Regiao>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void> {
+    const {
+      estado,
+      uf,
+      id_pais,
+    } = req.body;
+    const { id } = req.params;
     try {
+      await new RegiaoService(
+        id,
+        estado,
+        uf,
+        id_pais
+      ).atualizar();
+
       res.status(200).json({
-        mensagem: 'Em desenvolvimento',
+        mensagem: 'Região atualizada com sucesso',
         statusCode: 200,
       });
     } catch (error) {
@@ -115,9 +128,17 @@ export class RegiaoController implements IRegiaoController {
     req: Request<TRequestParams.Regiao>,
     res: Response<TResponseDelete | TResponseErro>
   ): Promise<void> {
+    const { id } = req.params;
     try {
+      await new RegiaoService(
+        id,
+        '',
+        '',
+        0,
+      ).deletar();
+
       res.status(200).json({
-        mensagem: 'Em desenvolvimento',
+        mensagem: 'Região deletada com sucesso',
         statusCode: 200,
       });
     } catch (error) {

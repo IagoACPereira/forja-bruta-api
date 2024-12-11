@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/conexaoDb";
+import { RegiaoModel } from "./Regiao.model";
 
 export class ArtistaModel extends Model {
   public id!: number;
@@ -17,22 +18,18 @@ ArtistaModel.init({
     allowNull: false,
   },
   data_formacao: {
-    type: DataTypes.STRING,
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
   ativo: {
-    type: DataTypes.STRING,
+    type: DataTypes.BOOLEAN,
     allowNull: false,
   },
   descricao: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
   url_imagem: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  id_regiao: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -41,6 +38,13 @@ ArtistaModel.init({
   tableName: 'artista',
   timestamps: false,
   freezeTableName: true,
+});
+
+RegiaoModel.hasMany(ArtistaModel, {
+  foreignKey: 'id_regiao',
+});
+ArtistaModel.belongsTo(RegiaoModel, {
+  foreignKey: 'id_regiao',
 });
 
 // ArtistaModel.sync({ force: true });

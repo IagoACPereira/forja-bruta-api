@@ -1,5 +1,4 @@
-import { DataTypes, Model, Optional } from "sequelize";
-import { TPais } from "../types/Pais.type";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/conexaoDb";
 
 export class PaisModel extends Model {

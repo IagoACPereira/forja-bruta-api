@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/conexaoDb";
+import { RegiaoModel } from "./Regiao.model";
 
 export class GravadoraModel extends Model {
   public id!: number;
@@ -17,15 +18,18 @@ GravadoraModel.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  id_regiao: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
 }, {
   sequelize,
   tableName: 'gravadora',
   timestamps: false,
   freezeTableName: true,
+});
+
+RegiaoModel.hasMany(GravadoraModel, {
+  foreignKey: 'id_regiao',
+});
+GravadoraModel.belongsTo(RegiaoModel, {
+  foreignKey: 'id_regiao',
 });
 
 // GravadoraModel.sync({ force: true });

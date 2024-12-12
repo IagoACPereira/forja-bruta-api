@@ -3,6 +3,6 @@ export type TFaixa = {
   titulo: string;
   duracao: number | string;
   num_faixa: number | string;
-  letra: Text;
+  letra: string;
   id_disco: number | string;
 }

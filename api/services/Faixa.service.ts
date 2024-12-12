@@ -8,7 +8,7 @@ export class FaixaService implements IFaixaService {
     public titulo: string,
     public duracao: string | number,
     public num_faixa: string | number,
-    public letra: Text,
+    public letra: string,
     public id_disco: string | number,
   ) {}
   

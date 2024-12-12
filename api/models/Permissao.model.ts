@@ -4,7 +4,7 @@ import { sequelize } from "../config/conexaoDb";
 export class PermissaoModel extends Model {
   id!: string;
   titulo!: string;
-  descricao!: Text;
+  descricao!: string;
 }
 
 PermissaoModel.init({

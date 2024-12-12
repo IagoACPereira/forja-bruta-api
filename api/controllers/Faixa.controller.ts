@@ -57,7 +57,7 @@ export class FaixaController implements IFaixaController {
         '',
         0.0,
         0,
-        new Text(),
+        '',
         0,
       ).pegaTodos();
       res.status(200).json({
@@ -82,7 +82,7 @@ export class FaixaController implements IFaixaController {
         '',
         0.0,
         0,
-        new Text(),
+        '',
         0,
       ).pegaUmPorId();
       res.status(200).json({
@@ -140,7 +140,7 @@ export class FaixaController implements IFaixaController {
         '',
         0.0,
         0,
-        new Text(),
+        '',
         0,
       ).deletar();
       res.status(200).json({

@@ -49,7 +49,7 @@ export class PermissaoController implements IPermissaoController {
       const permissoes = await new PermissaoService(
         0,
         '',
-        new Text(),
+        '',
       ).pegaTodos();
       res.status(200).json({
         permissoes,
@@ -72,7 +72,7 @@ export class PermissaoController implements IPermissaoController {
       const permissao = await new PermissaoService(
         id,
         '',
-        new Text(),
+        '',
       ).pegaUmPorId();
       res.status(200).json({
         permissao,
@@ -122,7 +122,7 @@ export class PermissaoController implements IPermissaoController {
       await new PermissaoService(
         id,
         '',
-        new Text(),
+        '',
       ).deletar();
       res.status(200).json({
         mensagem: 'Permissão deletada com sucesso',

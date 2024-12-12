@@ -6,7 +6,7 @@ export class PermissaoService implements IPermissaoService {
   constructor(
     public id: string | number,
     public titulo: string,
-    public descricao: Text,
+    public descricao: string,
   ) {}
   async adicionar(): Promise<TPermissao> {
     return await PermissaoModel.create({

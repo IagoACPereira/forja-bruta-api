@@ -6,7 +6,7 @@ import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponse
 export interface IPermissaoService {
   id: number | string;
   titulo: string;
-  descricao: Text;
+  descricao: string;
   adicionar(): Promise<TPermissao>;
   pegaTodos(): Promise<Array<TPermissao>>;
   pegaUmPorId(): Promise<TPermissao>;

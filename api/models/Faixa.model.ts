@@ -7,7 +7,7 @@ export class FaixaModel extends Model {
   titulo!: string;
   duracao!: string;
   num_faixa!: string;
-  letra!: Text;
+  letra!: string;
   id_disco!: string;
 }
 

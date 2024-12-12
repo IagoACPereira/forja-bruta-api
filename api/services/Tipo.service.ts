@@ -41,7 +41,7 @@ export class TipoService implements ITipoService {
 
 
   async atualizar(): Promise<void> {
-    await RegiaoModel.update({
+    await TipoModel.update({
       titulo: this.titulo,
     } as TTipo, {
       where: {
@@ -49,8 +49,9 @@ export class TipoService implements ITipoService {
       },
     });
   }
+
   async deletar(): Promise<void> {
-    await RegiaoModel.destroy({
+    await TipoModel.destroy({
       where: {
         id: this.id,
       },

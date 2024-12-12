@@ -43,6 +43,7 @@ export class DiscoService implements IDiscoService {
 
     return disco as TDisco;
   }
+
   async atualizar(): Promise<void> {
     await DiscoModel.update({
       data_lancamento: this.data_lancamento,
@@ -57,6 +58,7 @@ export class DiscoService implements IDiscoService {
       },
     });
   }
+  
   async deletar(): Promise<void> {
     await DiscoModel.destroy({
       where: {

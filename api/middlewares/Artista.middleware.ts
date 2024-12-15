@@ -1,13 +1,23 @@
 import { NextFunction, Request, Response } from 'express';
 import * as yup from 'yup';
 import { TResponseErroValidacao } from '../types/Response.type';
+import { TGenero } from '../types/Genero.type';
+import { TArtista } from '../types/Artista.type';
 
-export class PaisMiddlewares {
-  async validaBody(req: Request, res: Response<TResponseErroValidacao>, next: NextFunction): Promise<void> {
+export class ArtistaMiddlewares {
+  async validaBody(
+    req: Request, 
+    res: Response<TResponseErroValidacao>, 
+    next: NextFunction
+  ): Promise<void> {
     const schema = yup.object({
-      nome: yup.string()
-        .required('Campo Nome é string e obrigatório')
-    })
+      nome: yup.string().required(),
+      ativo: yup.boolean().required(),
+      data_formacao: yup.date().required(),
+      descricao: yup.string().required(),
+      url_imagem: yup.string().required().url(),
+      id_regiao: yup.number().required(),
+    });
     try {
       await schema.validate(req.body, { abortEarly: false });
       next();

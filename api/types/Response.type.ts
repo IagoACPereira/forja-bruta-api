@@ -185,3 +185,7 @@ export type TResponsePut = TResponseDefault;
 export type TResponseDelete = TResponseDefault;
 
 export type TResponseErro = TResponseDefault;
+
+export type TResponseErroValidacao = TResponseDefault & {
+  erros: Array<string>;
+}

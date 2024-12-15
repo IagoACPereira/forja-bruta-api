@@ -11,7 +11,7 @@ export class GeneroMiddlewares {
   ): Promise<void> {
     const schema = yup.object({
       titulo: yup.string()
-        .required('Campo Titulo é string e obrigatório'),
+        .required('Campo "titulo" é string e obrigatório'),
     });
     try {
       await schema.validate(req.body, { abortEarly: false });

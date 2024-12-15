@@ -15,11 +15,16 @@ export class FaixaMiddlewares {
     next: NextFunction
   ): Promise<void> {
     const schema = yup.object({
-      titulo: yup.string().required(),
-      num_faixa: yup.number().required(),
-      duracao: yup.number().required(),
-      letra: yup.string().required(),
-      id_disco: yup.number().required(),
+      titulo: yup.string()
+        .required('Campo "titulo" é string e obrigatório'),
+      num_faixa: yup.number()
+        .required('Campo "num_faixa" é numérico e obrigatório'),
+      duracao: yup.number()
+        .required('Campo "duracao" é numérico e obrigatório'),
+      letra: yup.string()
+        .required('Campo "letra" é string e obrigatório'),
+      id_disco: yup.number()
+        .required('Campo "id_disco" é numérico e obrigatório'),
     });
     try {
       await schema.validate(req.body, { abortEarly: false });

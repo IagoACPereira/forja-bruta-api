@@ -14,12 +14,19 @@ export class DiscoMiddlewares {
     next: NextFunction
   ): Promise<void> {
     const schema = yup.object({
-      titulo: yup.string().required(),
-      data_lancamento: yup.date().required(),
-      url_imagem: yup.string().required().url(),
-      id_artista: yup.number().required(),
-      id_gravadora: yup.number().required(),
-      id_tipo: yup.number().required(),
+      titulo: yup.string()
+        .required('Campo "titulo" é string e obrigatório'),
+      data_lancamento: yup.date()
+        .required('Campo "data_lancamento" é date e obrigatório'),
+      url_imagem: yup.string()
+        .required('Campo "url_imagem" é string e obrigatório')
+        .url('Campo "url_imagem" deve ser uma url válida'),
+      id_artista: yup.number()
+        .required('Campo "id_artista" é numérico e obrigatório'),
+      id_gravadora: yup.number()
+        .required('Campo "id_gravadora" é numérico e obrigatório'),
+      id_tipo: yup.number()
+        .required('Campo "id_tipo" é numérico e obrigatório'),
     });
     try {
       await schema.validate(req.body, { abortEarly: false });

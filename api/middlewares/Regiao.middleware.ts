@@ -3,6 +3,9 @@ import * as yup from 'yup';
 import { TResponseDefault, TResponseErroValidacao } from '../types/Response.type';
 import { TRegiao } from '../types/Regiao.type';
 import { RegiaoModel } from '../models/Regiao.model';
+import { TRequestParams } from '../types/Request.type';
+import { ArtistaModel } from '../models/Artista.model';
+import { GravadoraModel } from '../models/Gravadora.model';
 
 export class RegiaoMiddlewares {
   async validaBody(
@@ -86,6 +89,52 @@ export class RegiaoMiddlewares {
 
       if (regiao) {
         throw new Error('Já possui registro com os mesmos dados');
+      }
+
+      next();
+    } catch (error) {
+      const erro = error as Error;
+      res.status(400).json({
+        mensagem: erro.message,
+        statusCode: 400,
+      });
+    }
+  }
+
+  async verificaRelacoesPreDelete(
+    req: Request<TRequestParams.Regiao>,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const {
+        id,
+      } = req.params;
+
+      const artista = await ArtistaModel.findOne({
+        where: {
+          id_regiao: id,
+        },
+      });
+
+      if (artista) {
+        throw new Error(
+          'Não é possivel deletar esse registro pois está sendo utilizado como FK na tabela '
+            + '"artista"',
+        );
+      }
+
+      const gravadora = await GravadoraModel.findOne({
+        where: {
+          id_regiao: id,
+        },
+      });
+
+      if (gravadora) {
+        throw new Error(
+          'Não é possivel deletar esse registro pois está sendo utilizado como FK na tabela '
+            + '"gravadora"',
+        );
       }
 
       next();

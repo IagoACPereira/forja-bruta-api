@@ -38,7 +38,7 @@ export default [
       "no-var": "error",
       "object-shorthand": ["error", "always"],
       // Limita o comprimento máximo de uma linha de código.
-      "max-len": ["error", { "code": 90, "ignoreComments": true }],
+      "max-len": ["error", { "code": 100, "ignoreComments": true }],
       // Restringe o número máximo de linhas em branco consecutivas
       "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0, "maxBOF": 0 }],
       // Proíbe espaços em branco no final de uma linha.

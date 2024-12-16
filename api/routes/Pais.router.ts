@@ -16,4 +16,8 @@ export default Router()
   .get('/', (req, res) => paisController.exibirTodos(req, res))
   .get('/:id', (req, res) => paisController.exibirUm(req, res))
   .put('/:id', (req, res) => paisController.atualizar(req, res))
-  .delete('/:id', (req, res) => paisController.deletar(req, res));
+  .delete(
+    '/:id',
+    paisMiddlewares.verificaRelacoesPreDelete,
+    (req, res) => paisController.deletar(req, res),
+  );

@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import { TResponseDefault, TResponseErroValidacao } from '../types/Response.type';
 import { TPais } from '../types/Pais.type';
 import { PaisModel } from '../models/Pais.model';
+import { RegiaoModel } from '../models/Regiao.model';
+import { TRequestParams } from '../types/Request.type';
 
 export class PaisMiddlewares {
   async validaBody(
@@ -73,6 +75,39 @@ export class PaisMiddlewares {
 
       if (pais) {
         throw new Error('Já possui registro com os mesmos dados');
+      }
+
+      next();
+    } catch (error) {
+      const erro = error as Error;
+      res.status(400).json({
+        mensagem: erro.message,
+        statusCode: 400,
+      });
+    }
+  }
+
+  async verificaRelacoesPreDelete(
+    req: Request<TRequestParams.Pais>,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const {
+        id,
+      } = req.params;
+
+      const regiao = await RegiaoModel.findOne({
+        where: {
+          id_pais: id,
+        },
+      });
+
+      if (regiao) {
+        throw new Error(
+          'Não é possivel deletar esse registro pois está sendo utilizado como FK na tabela '
+          + '"regiao"',
+        );
       }
 
       next();

@@ -39,11 +39,13 @@ FaixaModel.init({
   freezeTableName: true,
 });
 
-DiscoModel.hasMany(FaixaModel,{
-  foreignKey: 'id_disco'
+DiscoModel.hasMany(FaixaModel, {
+  foreignKey: 'id_disco',
+  as: 'faixas',
 });
-FaixaModel.belongsTo(DiscoModel,{
-  foreignKey: 'id_disco'
+FaixaModel.belongsTo(DiscoModel, {
+  foreignKey: 'id_disco',
+  as: 'disco',
 });
 
 // FaixaModel.sync({ force: true });

@@ -1,5 +1,6 @@
 import { knex } from "../config/conexaoDb";
 import { IGeneroService } from "../interfaces/Genero.interface";
+import { DiscoModel } from "../models/Disco.model";
 import { GeneroModel } from "../models/Genero.model";
 import { TGenero } from "../types/Genero.type";
 
@@ -28,6 +29,13 @@ export class GeneroService implements IGeneroService {
       where: {
         id: this.id,
       },
+      include: [
+        {
+          model: DiscoModel,
+          as: 'discos',
+          attributes: ['id', 'titulo']
+        }
+      ]
     });
 
     if (!genero) {

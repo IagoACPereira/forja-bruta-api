@@ -1,4 +1,5 @@
 import { IFaixaService } from "../interfaces/Faixa.interface";
+import { DiscoModel } from "../models/Disco.model";
 import { FaixaModel } from "../models/Faixa.model";
 import { TFaixa } from "../types/Faixa.type";
 
@@ -21,14 +22,33 @@ export class FaixaService implements IFaixaService {
       titulo: this.titulo,
     } as TFaixa) as TFaixa;
   }
+
   async pegaTodos(): Promise<Array<TFaixa>> {
-    return await FaixaModel.findAll() as Array<TFaixa>;
+    return await FaixaModel.findAll({
+      attributes: ['id', 'titulo', 'duracao', 'num_faixa', 'letra'],
+      include: [
+        {
+          model: DiscoModel,
+          attributes: ['id', 'titulo'],
+          as: 'disco',
+        },
+      ],
+    }) as Array<TFaixa>;
   }
+
   async pegaUmPorId(): Promise<TFaixa> {
     const faixa = await FaixaModel.findOne({
       where: {
         id: this.id,
       },
+      attributes: ['id', 'titulo', 'duracao', 'num_faixa', 'letra'],
+      include: [
+        {
+          model: DiscoModel,
+          attributes: ['id', 'titulo'],
+          as: 'disco',
+        },
+      ],
     }) as TFaixa;
 
     if (!faixa) {
@@ -37,6 +57,7 @@ export class FaixaService implements IFaixaService {
 
     return faixa as TFaixa;
   }
+
   async atualizar(): Promise<void> {
     await FaixaModel.update({
       duracao: this.duracao,
@@ -50,6 +71,7 @@ export class FaixaService implements IFaixaService {
       }
     });
   }
+
   async deletar(): Promise<void> {
     await FaixaModel.destroy({
       where: {

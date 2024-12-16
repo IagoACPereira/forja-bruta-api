@@ -42,6 +42,7 @@ ArtistaModel.init({
 
 RegiaoModel.hasMany(ArtistaModel, {
   foreignKey: 'id_regiao',
+  as: 'artistas',
 });
 ArtistaModel.belongsTo(RegiaoModel, {
   foreignKey: 'id_regiao',

@@ -1,5 +1,6 @@
 import { IPermissaoService } from "../interfaces/Permissao.interface";
 import { PermissaoModel } from "../models/Permissao.model";
+import { UsuarioModel } from "../models/Usuario.model";
 import { TPermissao } from "../types/Permissao.type";
 
 export class PermissaoService implements IPermissaoService {
@@ -14,22 +15,32 @@ export class PermissaoService implements IPermissaoService {
       titulo: this.titulo,
     } as TPermissao) as TPermissao;
   }
+
   async pegaTodos(): Promise<Array<TPermissao>> {
     return await PermissaoModel.findAll() as Array<TPermissao>;
   }
+
   async pegaUmPorId(): Promise<TPermissao> {
     const permissao = await PermissaoModel.findOne({
       where: {
         id: this.id,
       },
+      include: [
+        {
+          model: UsuarioModel,
+          attributes: ['id', 'nome', 'email'],
+          as: 'usuarios',
+        }
+      ]
     });
 
     if (!permissao) {
-      throw new Error('Não foi encontrado nenhum registro')
+      throw new Error('Não foi encontrado nenhum registro');
     }
 
     return permissao as TPermissao;
   }
+
   async atualizar(): Promise<void> {
     await PermissaoModel.update({
       descricao: this.descricao,
@@ -40,6 +51,7 @@ export class PermissaoService implements IPermissaoService {
       },
     });
   }
+
   async deletar(): Promise<void> {
     await PermissaoModel.destroy({
       where: {

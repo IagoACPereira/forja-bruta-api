@@ -1,5 +1,6 @@
 import { IPaisService } from "../interfaces/Pais.interface";
 import { PaisModel } from "../models/Pais.model";
+import { RegiaoModel } from "../models/Regiao.model";
 import { TPais } from "../types/Pais.type";
 
 export class PaisService implements IPaisService {
@@ -26,6 +27,13 @@ export class PaisService implements IPaisService {
       where: {
         id: this.id,
       },
+      include: [
+        {
+          model: RegiaoModel,
+          as: 'regioes',
+          attributes: ['id', 'estado', 'uf'],
+        },
+      ],
     });
 
     if (!pais) {

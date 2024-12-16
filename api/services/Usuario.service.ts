@@ -1,4 +1,5 @@
 import { IUsuarioService } from "../interfaces/Usuario.interface";
+import { PermissaoModel } from "../models/Permissao.model";
 import { UsuarioModel } from "../models/Usuario.model";
 import { TUsuario } from "../types/Usuario.type";
 
@@ -21,9 +22,19 @@ export class UsuarioService implements IUsuarioService {
       telefone: this.telefone,
     } as TUsuario) as TUsuario;
   }
+
   async pegaTodos(): Promise<Array<TUsuario>> {
-    return await UsuarioModel.findAll() as Array<TUsuario>;
+    return await UsuarioModel.findAll({
+      attributes: ['id', 'nome', 'email', 'telefone', 'senha'],
+      include: [
+        {
+          model: PermissaoModel,
+          as: 'permissao',
+        }
+      ]
+    }) as Array<TUsuario>;
   }
+
   async pegaUmPorId(): Promise<TUsuario> {
     const usuario = await UsuarioModel.findOne({
       where: {
@@ -37,6 +48,7 @@ export class UsuarioService implements IUsuarioService {
 
     return usuario as TUsuario;
   }
+
   async atualizar(): Promise<void> {
     await UsuarioModel.update({
       email: this.email,
@@ -50,6 +62,7 @@ export class UsuarioService implements IUsuarioService {
       },
     });
   }
+
   async deletar(): Promise<void> {
     await UsuarioModel.destroy({
       where: {

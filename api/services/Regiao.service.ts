@@ -1,5 +1,8 @@
 import { knex } from "../config/conexaoDb";
 import { IRegiaoService } from "../interfaces/Regiao.interface";
+import { ArtistaModel } from "../models/Artista.model";
+import { GravadoraModel } from "../models/Gravadora.model";
+import { PaisModel } from "../models/Pais.model";
 import { RegiaoModel } from "../models/Regiao.model";
 import { TRegiao } from "../types/Regiao.type";
 
@@ -22,7 +25,15 @@ export class RegiaoService implements IRegiaoService {
   }
 
   async pegaTodos(): Promise<Array<TRegiao>> {
-    const regioes = await RegiaoModel.findAll();
+    const regioes = await RegiaoModel.findAll({
+      attributes: ['id', 'estado', 'uf'],
+      include: [
+        {
+          model: PaisModel,
+          as: 'pais',
+        },
+      ],
+    });
 
     return regioes as Array<TRegiao>;
   }
@@ -32,6 +43,23 @@ export class RegiaoService implements IRegiaoService {
       where: {
         id: this.id,
       },
+      attributes: ['id', 'estado', 'uf'],
+      include: [
+        {
+          model: PaisModel,
+          as: 'pais',
+        },
+        {
+          model: ArtistaModel,
+          as: 'artistas',
+          attributes: ['id', 'nome'],
+        },
+        {
+          model: GravadoraModel,
+          as: 'gravadoras',
+          attributes: ['id', 'nome']
+        }
+      ],
     });
 
     if (!regiao) {

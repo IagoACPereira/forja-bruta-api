@@ -6,4 +6,5 @@ export type TDisco = {
   id_artista: number | string;
   id_gravadora: number | string;
   id_tipo: number | string;
+  id_genero: number | string;
 }

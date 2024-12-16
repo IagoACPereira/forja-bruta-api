@@ -1,6 +1,7 @@
 import { knex } from "../config/conexaoDb";
 import { IRegiaoService } from "../interfaces/Regiao.interface";
 import { ITipoService } from "../interfaces/Tipo.interface";
+import { DiscoModel } from "../models/Disco.model";
 import { RegiaoModel } from "../models/Regiao.model";
 import { TipoModel } from "../models/Tipo.model";
 import { TTipo } from "../types/Tipo.type";
@@ -30,6 +31,13 @@ export class TipoService implements ITipoService {
       where: {
         id: this.id,
       },
+      include: [
+        {
+          model: DiscoModel,
+          as: 'discos',
+          attributes: ['id', 'titulo', 'data_lancamento', 'url_imagem'],
+        }
+      ]
     });
 
     if (!tipo) {
@@ -38,7 +46,6 @@ export class TipoService implements ITipoService {
 
     return tipo as TTipo;
   }
-
 
   async atualizar(): Promise<void> {
     await TipoModel.update({

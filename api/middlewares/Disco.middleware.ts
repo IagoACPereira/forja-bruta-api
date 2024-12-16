@@ -24,6 +24,8 @@ export class DiscoMiddlewares {
         .required('Campo "id_gravadora" é numérico e obrigatório'),
       id_tipo: yup.number()
         .required('Campo "id_tipo" é numérico e obrigatório'),
+      id_genero: yup.number()
+        .required('Campo "id_genero" é numérico e obrigatório'),
     });
     try {
       await schema.validate(req.body, { abortEarly: false });
@@ -73,6 +75,7 @@ export class DiscoMiddlewares {
         id_artista,
         id_gravadora,
         id_tipo,
+        id_genero,
       } = req.body as TDisco;
       try {
         const disco = await DiscoModel.findOne({
@@ -82,6 +85,7 @@ export class DiscoMiddlewares {
             id_artista,
             id_gravadora,
             id_tipo,
+            id_genero,
           },
         });
   

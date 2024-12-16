@@ -27,9 +27,11 @@ RegiaoModel.init({
 
 PaisModel.hasMany(RegiaoModel, {
   foreignKey: 'id_pais',
+  as: 'regioes',
 });
 RegiaoModel.belongsTo(PaisModel, {
   foreignKey: 'id_pais',
+  as: 'pais',
 });
 
 // RegiaoModel.sync({ force: true });

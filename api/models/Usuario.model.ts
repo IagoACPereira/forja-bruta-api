@@ -41,9 +41,11 @@ UsuarioModel.init({
 
 PermissaoModel.hasMany(UsuarioModel, {
   foreignKey: 'id_permissao',
+  as: 'usuarios',
 });
 UsuarioModel.belongsTo(PermissaoModel, {
   foreignKey: 'id_permissao',
+  as: 'permissao',
 });
 
 // UsuarioModel.sync({ force: true });

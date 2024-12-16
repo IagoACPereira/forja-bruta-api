@@ -25,6 +25,7 @@ export class DiscoController implements IDiscoController {
       id_tipo,
       titulo,
       url_imagem,
+      id_genero,
     } = req.body as TDisco;
     try {
       const novoDisco = await new DiscoService(
@@ -35,6 +36,7 @@ export class DiscoController implements IDiscoController {
         id_artista,
         id_gravadora,
         id_tipo,
+        id_genero,
       ).adicionar();
 
       res.status(201).json({
@@ -63,6 +65,7 @@ export class DiscoController implements IDiscoController {
         0,
         0,
         0,
+        0,
       ).pegaTodos();
       res.status(200).json({
         discos,
@@ -82,7 +85,16 @@ export class DiscoController implements IDiscoController {
   ): Promise<void> {
     const { id } = req.params;
     try {
-      const disco = await new DiscoService(id,'',new Date(),'',0,0,0).pegaUmPorId();
+      const disco = await new DiscoService(
+        id,
+        '',
+        new Date(),
+        '',
+        0,
+        0,
+        0,
+        0,
+      ).pegaUmPorId();
       res.status(200).json({
         disco,
         statusCode: 200,
@@ -107,6 +119,7 @@ export class DiscoController implements IDiscoController {
       id_tipo,
       titulo,
       url_imagem,
+      id_genero,
     } = req.body as TDisco;
     try {
       await new DiscoService(
@@ -117,6 +130,7 @@ export class DiscoController implements IDiscoController {
         id_artista,
         id_gravadora,
         id_tipo,
+        id_genero,
       ).atualizar();
       res.status(200).json({
         mensagem: 'Disco atualizado com sucesso',
@@ -141,6 +155,7 @@ export class DiscoController implements IDiscoController {
         '',
         new Date(),
         '',
+        0,
         0,
         0,
         0,

@@ -27,9 +27,11 @@ GravadoraModel.init({
 
 RegiaoModel.hasMany(GravadoraModel, {
   foreignKey: 'id_regiao',
+  as: 'gravadoras',
 });
 GravadoraModel.belongsTo(RegiaoModel, {
   foreignKey: 'id_regiao',
+  as: 'regiao',
 });
 
 // GravadoraModel.sync({ force: true });

@@ -1,6 +1,8 @@
 import { knex } from "../config/conexaoDb";
 import { IGravadoraService } from "../interfaces/Gravadora.interface";
+import { DiscoModel } from "../models/Disco.model";
 import { GravadoraModel } from "../models/Gravadora.model";
+import { RegiaoModel } from "../models/Regiao.model";
 import { TGravadora } from "../types/Gravadora.type";
 
 export class GravadoraService implements IGravadoraService {
@@ -21,7 +23,16 @@ export class GravadoraService implements IGravadoraService {
     return novaGravadora as TGravadora;
   }
   async pegaTodos(): Promise<Array<TGravadora>> {
-    const gravadoras = await GravadoraModel.findAll();
+    const gravadoras = await GravadoraModel.findAll({
+      attributes: ['id', 'nome', 'url_imagem'],
+      include: [
+        {
+          model: RegiaoModel,
+          attributes: ['id', 'estado', 'uf'],
+          as: 'regiao',
+        },
+      ],
+    });
 
     return gravadoras as Array<TGravadora>;
   }
@@ -30,6 +41,19 @@ export class GravadoraService implements IGravadoraService {
       where: {
         id: this.id,
       },
+      attributes: ['id', 'nome', 'url_imagem'],
+      include: [
+        {
+          model: RegiaoModel,
+          attributes: ['id', 'estado', 'uf'],
+          as: 'regiao',
+        },
+        {
+          model: DiscoModel,
+          attributes: ['id', 'titulo', 'data_lancamento', 'url_imagem'],
+          as: 'discos',
+        }
+      ],
     });
 
       if (!gravadora) {

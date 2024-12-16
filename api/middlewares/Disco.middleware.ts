@@ -1,11 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import * as yup from 'yup';
 import { TResponseErroValidacao } from '../types/Response.type';
-import { TGenero } from '../types/Genero.type';
-import { TArtista } from '../types/Artista.type';
-import { TGravadora } from '../types/Gravadora.type';
-import { TTipo } from '../types/Tipo.type';
-import { TDisco } from '../types/Disco.type';
 
 export class DiscoMiddlewares {
   async validaBody(

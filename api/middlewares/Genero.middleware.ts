@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import * as yup from 'yup';
 import { TResponseErroValidacao } from '../types/Response.type';
-import { TGenero } from '../types/Genero.type';
 
 export class GeneroMiddlewares {
   async validaBody(

@@ -6,7 +6,12 @@ const usuarioController: UsuarioController = new UsuarioController();
 const usuarioMiddlewares: UsuarioMiddlewares = new UsuarioMiddlewares();
 
 export default Router()
-  .post('/', usuarioMiddlewares.validaBody, (req, res) => usuarioController.adicionar(req, res))
+  .post(
+    '/',
+    usuarioMiddlewares.sanitizaBody,
+    usuarioMiddlewares.validaBody, 
+    (req, res) => usuarioController.adicionar(req, res)
+  )
   .get('/', (req, res) => usuarioController.exibirTodos(req, res))
   .get('/:id', (req, res) => usuarioController.exibirUm(req, res))
   .put('/:id', (req, res) => usuarioController.atualizar(req, res))

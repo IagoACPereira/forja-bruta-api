@@ -6,7 +6,12 @@ const permissaoController: PermissaoController = new PermissaoController();
 const permissaoMiddlewares: PermissaoMiddlewares = new PermissaoMiddlewares();
 
 export default Router()
-  .post('/', permissaoMiddlewares.validaBody, (req, res) => permissaoController.adicionar(req, res))
+  .post(
+    '/',
+    permissaoMiddlewares.sanitizaBody, 
+    permissaoMiddlewares.validaBody, 
+    (req, res) => permissaoController.adicionar(req, res)
+  )
   .get('/', (req, res) => permissaoController.exibirTodos(req, res))
   .get('/:id', (req, res) => permissaoController.exibirUm(req, res))
   .put('/:id', (req, res) => permissaoController.atualizar(req, res))

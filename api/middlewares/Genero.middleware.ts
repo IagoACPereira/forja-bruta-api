@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import * as yup from 'yup';
-import { TResponseErroValidacao } from '../types/Response.type';
+import { TResponseDefault, TResponseErroValidacao } from '../types/Response.type';
+import { TGenero } from '../types/Genero.type';
 
 export class GeneroMiddlewares {
   async validaBody(
@@ -28,4 +29,25 @@ export class GeneroMiddlewares {
       next();
     }
   }
+
+  sanitizaBody(req: Request, res: Response<TResponseDefault & { erro: string }>, next: NextFunction): void {
+      try {
+        let { 
+          titulo
+        } = req.body as TGenero;
+  
+        req.body.titulo = titulo.trim()
+          .toLowerCase();
+  
+        next();
+      } catch (error) {
+        const erro = error as Error;
+  
+        res.status(400).json({
+          mensagem: 'Não foi possível sanitizar os dados do body',
+          erro: erro.message,
+          statusCode: 400,
+        })
+      }
+    }
 }

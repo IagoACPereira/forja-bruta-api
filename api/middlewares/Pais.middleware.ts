@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import * as yup from 'yup';
-import { TResponseErroValidacao } from '../types/Response.type';
+import { TResponseDefault, TResponseErroValidacao } from '../types/Response.type';
+import { TPais } from '../types/Pais.type';
 
 export class PaisMiddlewares {
   async validaBody(req: Request, res: Response<TResponseErroValidacao>, next: NextFunction): Promise<void> {
@@ -22,6 +23,27 @@ export class PaisMiddlewares {
         return;
       }
       next();
+    }
+  }
+
+  sanitizaBody(req: Request, res: Response<TResponseDefault & { erro: string }>, next: NextFunction): void {
+    try {
+      let { 
+        nome,
+      } = req.body as TPais;
+
+      req.body.nome = nome.trim()
+        .toLowerCase();
+
+      next();
+    } catch (error) {
+      const erro = error as Error;
+
+      res.status(400).json({
+        mensagem: 'Não foi possível sanitizar os dados do body',
+        erro: erro.message,
+        statusCode: 400,
+      })
     }
   }
 }

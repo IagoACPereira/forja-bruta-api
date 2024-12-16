@@ -6,7 +6,11 @@ const faixaController: FaixaController = new FaixaController();
 const faixaMiddlewares: FaixaMiddlewares = new FaixaMiddlewares();
 
 export default Router()
-  .post('/', faixaMiddlewares.validaBody, (req, res) => faixaController.adicionar(req, res))
+  .post(
+    '/', 
+    faixaMiddlewares.sanitizaBody,
+    faixaMiddlewares.validaBody, 
+    (req, res) => faixaController.adicionar(req, res))
   .get('/', (req, res) => faixaController.exibirTodos(req, res))
   .get('/:id', (req, res) => faixaController.exibirUm(req, res))
   .put('/:id', (req, res) => faixaController.atualizar(req, res))

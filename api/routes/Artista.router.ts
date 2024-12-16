@@ -6,7 +6,11 @@ const artistaController: ArtistaController = new ArtistaController();
 const artistaMiddleware: ArtistaMiddlewares = new ArtistaMiddlewares();
 
 export default Router()
-  .post('/', artistaMiddleware.validaBody, (req, res) => artistaController.adicionar(req, res))
+  .post(
+    '/', 
+    artistaMiddleware.sanitizaBody, 
+    artistaMiddleware.validaBody,
+    (req, res) => artistaController.adicionar(req, res))
   .get('/', (req, res) => artistaController.exibirTodos(req, res))
   .get('/:id', (req, res) => artistaController.exibirUm(req, res))
   .put('/:id', (req, res) => artistaController.atualizar(req, res))

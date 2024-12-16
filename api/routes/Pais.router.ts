@@ -8,6 +8,7 @@ const paisMiddlewares: PaisMiddlewares = new PaisMiddlewares();
 export default Router()
   .post(
     '/',
+    paisMiddlewares.sanitizaBody,
     paisMiddlewares.validaBody,
     (req, res) => paisController.adicionar(req, res)
   )

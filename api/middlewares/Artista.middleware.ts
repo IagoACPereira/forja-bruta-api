@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import * as yup from 'yup';
-import { TResponseErroValidacao } from '../types/Response.type';
+import { TResponseDefault, TResponseErroValidacao } from '../types/Response.type';
+import { TArtista } from '../types/Artista.type';
 
 export class ArtistaMiddlewares {
   async validaBody(
     req: Request, 
-    res: Response<TResponseErroValidacao>, 
+    res: Response<TResponseDefault | TResponseErroValidacao>, 
     next: NextFunction
   ): Promise<void> {
     const schema = yup.object({
@@ -37,6 +38,31 @@ export class ArtistaMiddlewares {
         return;
       }
       next();
+    }
+  }
+
+  sanitizaBody(req: Request, res: Response<TResponseDefault & { erro: string }>, next: NextFunction): void {
+    try {
+      let { 
+        nome,
+        descricao,
+        url_imagem,
+      } = req.body as TArtista;
+
+      req.body.nome = nome.trim()
+        .toLowerCase();
+      req.body.descricao = descricao.trim();
+      req.body.url_imagem = url_imagem.trim();
+
+      next();
+    } catch (error) {
+      const erro = error as Error;
+
+      res.status(400).json({
+        mensagem: 'Não foi possível sanitizar os dados do body',
+        erro: erro.message,
+        statusCode: 400,
+      })
     }
   }
 }

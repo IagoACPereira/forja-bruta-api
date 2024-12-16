@@ -6,7 +6,11 @@ const discoController: DiscoController = new DiscoController();
 const discoMiddleware: DiscoMiddlewares = new DiscoMiddlewares();
 
 export default Router()
-  .post('/', discoMiddleware.validaBody, (req, res) => discoController.adicionar(req, res))
+  .post(
+    '/', 
+    discoMiddleware.sanitizaBody,
+    discoMiddleware.validaBody, 
+    (req, res) => discoController.adicionar(req, res))
   .get('/', (req, res) => discoController.exibirTodos(req, res))
   .get('/:id', (req, res) => discoController.exibirUm(req, res))
   .put('/:id', (req, res) => discoController.atualizar(req, res))

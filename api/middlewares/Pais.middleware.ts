@@ -5,11 +5,15 @@ import { TPais } from '../types/Pais.type';
 import { PaisModel } from '../models/Pais.model';
 
 export class PaisMiddlewares {
-  async validaBody(req: Request, res: Response<TResponseErroValidacao>, next: NextFunction): Promise<void> {
+  async validaBody(
+    req: Request,
+    res: Response<TResponseErroValidacao>,
+    next: NextFunction,
+  ): Promise<void> {
     const schema = yup.object({
       nome: yup.string()
-        .required('Campo "nome" é string e obrigatório')
-    })
+        .required('Campo "nome" é string e obrigatório'),
+    });
     try {
       await schema.validate(req.body, { abortEarly: false });
       next();
@@ -27,9 +31,13 @@ export class PaisMiddlewares {
     }
   }
 
-  sanitizaBody(req: Request, res: Response<TResponseDefault & { erro: string }>, next: NextFunction): void {
+  sanitizaBody(
+    req: Request,
+    res: Response<TResponseDefault & { erro: string }>,
+    next: NextFunction,
+  ): void {
     try {
-      let { 
+      const {
         nome,
       } = req.body as TPais;
 
@@ -44,11 +52,15 @@ export class PaisMiddlewares {
         mensagem: 'Não foi possível sanitizar os dados do body',
         erro: erro.message,
         statusCode: 400,
-      })
+      });
     }
   }
 
-  async verificaDuplicidade(req: Request, res: Response<TResponseDefault>, next: NextFunction): Promise<void> {
+  async verificaDuplicidade(
+    req: Request,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
     const {
       nome,
     } = req.body as TPais;
@@ -56,11 +68,11 @@ export class PaisMiddlewares {
       const pais = await PaisModel.findOne({
         where: {
           nome,
-        }
+        },
       });
 
       if (pais) {
-        throw new Error('Já possui registro com os mesmos dados')
+        throw new Error('Já possui registro com os mesmos dados');
       }
 
       next();
@@ -69,7 +81,7 @@ export class PaisMiddlewares {
       res.status(400).json({
         mensagem: erro.message,
         statusCode: 400,
-      })
+      });
     }
   }
 }

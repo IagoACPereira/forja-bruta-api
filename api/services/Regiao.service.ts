@@ -1,10 +1,9 @@
-import { knex } from "../config/conexaoDb";
-import { IRegiaoService } from "../interfaces/Regiao.interface";
-import { ArtistaModel } from "../models/Artista.model";
-import { GravadoraModel } from "../models/Gravadora.model";
-import { PaisModel } from "../models/Pais.model";
-import { RegiaoModel } from "../models/Regiao.model";
-import { TRegiao } from "../types/Regiao.type";
+import { IRegiaoService } from '../interfaces/Regiao.interface';
+import { ArtistaModel } from '../models/Artista.model';
+import { GravadoraModel } from '../models/Gravadora.model';
+import { PaisModel } from '../models/Pais.model';
+import { RegiaoModel } from '../models/Regiao.model';
+import { TRegiao } from '../types/Regiao.type';
 
 export class RegiaoService implements IRegiaoService {
   constructor(
@@ -12,13 +11,18 @@ export class RegiaoService implements IRegiaoService {
     public estado: string,
     public uf: string,
     public id_pais: number | string,
-  ) {}
-  
+  ) {
+    this.id = id;
+    this.estado = estado;
+    this.uf = uf;
+    this.id_pais = id_pais;
+  }
+
   async adicionar(): Promise<TRegiao> {
     const novaRegiao = await RegiaoModel.create({
       estado: this.estado,
       uf: this.uf,
-      id_pais: this.id_pais
+      id_pais: this.id_pais,
     } as TRegiao);
 
     return novaRegiao as TRegiao;
@@ -57,8 +61,8 @@ export class RegiaoService implements IRegiaoService {
         {
           model: GravadoraModel,
           as: 'gravadoras',
-          attributes: ['id', 'nome']
-        }
+          attributes: ['id', 'nome'],
+        },
       ],
     });
 
@@ -68,7 +72,6 @@ export class RegiaoService implements IRegiaoService {
 
     return regiao as TRegiao;
   }
-
 
   async atualizar(): Promise<void> {
     await RegiaoModel.update({

@@ -6,9 +6,9 @@ import { RegiaoModel } from '../models/Regiao.model';
 
 export class RegiaoMiddlewares {
   async validaBody(
-    req: Request, 
-    res: Response<TResponseErroValidacao>, 
-    next: NextFunction
+    req: Request,
+    res: Response<TResponseErroValidacao>,
+    next: NextFunction,
   ): Promise<void> {
     const schema = yup.object({
       estado: yup.string()
@@ -37,9 +37,13 @@ export class RegiaoMiddlewares {
     }
   }
 
-  sanitizaBody(req: Request, res: Response<TResponseDefault & { erro: string }>, next: NextFunction): void {
+  sanitizaBody(
+    req: Request,
+    res: Response<TResponseDefault & { erro: string }>,
+    next: NextFunction,
+  ): void {
     try {
-      let { 
+      const {
         estado,
         uf,
       } = req.body as TRegiao;
@@ -57,11 +61,15 @@ export class RegiaoMiddlewares {
         mensagem: 'Não foi possível sanitizar os dados do body',
         erro: erro.message,
         statusCode: 400,
-      })
+      });
     }
   }
 
-  async verificaDuplicidade(req: Request, res: Response<TResponseDefault>, next: NextFunction): Promise<void> {
+  async verificaDuplicidade(
+    req: Request,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
     const {
       estado,
       uf,
@@ -73,11 +81,11 @@ export class RegiaoMiddlewares {
           estado,
           uf,
           id_pais,
-        }
+        },
       });
 
       if (regiao) {
-        throw new Error('Já possui registro com os mesmos dados')
+        throw new Error('Já possui registro com os mesmos dados');
       }
 
       next();
@@ -86,7 +94,7 @@ export class RegiaoMiddlewares {
       res.status(400).json({
         mensagem: erro.message,
         statusCode: 400,
-      })
+      });
     }
   }
 }

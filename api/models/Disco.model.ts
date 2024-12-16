@@ -1,9 +1,9 @@
-import { sequelize } from "../config/conexaoDb";
-import { DataTypes, Model } from "sequelize";
-import { ArtistaModel } from "./Artista.model";
-import { GravadoraModel } from "./Gravadora.model";
-import { TipoModel } from "./Tipo.model";
-import { GeneroModel } from "./Genero.model";
+import { sequelize } from '../config/conexaoDb';
+import { DataTypes, Model } from 'sequelize';
+import { ArtistaModel } from './Artista.model';
+import { GravadoraModel } from './Gravadora.model';
+import { TipoModel } from './Tipo.model';
+import { GeneroModel } from './Genero.model';
 
 export class DiscoModel extends Model {
   id!: string;
@@ -68,6 +68,5 @@ DiscoModel.belongsTo(GeneroModel, {
   foreignKey: 'id_genero',
   as: 'genero',
 });
-
 
 // DiscoModel.sync({ force: true });

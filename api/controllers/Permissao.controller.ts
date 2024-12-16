@@ -1,21 +1,21 @@
-import { Request, Response } from "express";
-import { 
-  TResponseDelete, 
-  TResponseErro, 
-  TResponseGet, 
-  TResponseGetId, 
-  TResponsePost, 
-  TResponsePut 
-} from "../types/Response.type";
-import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { TPermissao } from "../types/Permissao.type";
-import { IPermissaoController } from "../interfaces/Permissao.interface";
-import { PermissaoService } from "../services/Permissao.service";
+import { Request, Response } from 'express';
+import {
+  TResponseDelete,
+  TResponseErro,
+  TResponseGet,
+  TResponseGetId,
+  TResponsePost,
+  TResponsePut,
+} from '../types/Response.type';
+import { TRequestBody, TRequestParams } from '../types/Request.type';
+import { TPermissao } from '../types/Permissao.type';
+import { IPermissaoController } from '../interfaces/Permissao.interface';
+import { PermissaoService } from '../services/Permissao.service';
 
 export class PermissaoController implements IPermissaoController {
   async adicionar(
-    req: Request<{},{},TRequestBody.Permissao>,
-    res: Response<TResponsePost.Permissao | TResponseErro>
+    req: Request<'','',TRequestBody.Permissao>,
+    res: Response<TResponsePost.Permissao | TResponseErro>,
   ): Promise<void> {
     const {
       descricao,
@@ -35,7 +35,7 @@ export class PermissaoController implements IPermissaoController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -43,7 +43,7 @@ export class PermissaoController implements IPermissaoController {
 
   async exibirTodos(
     req: Request,
-    res: Response<TResponseGet.Permissao | TResponseErro>
+    res: Response<TResponseGet.Permissao | TResponseErro>,
   ): Promise<void> {
     try {
       const permissoes = await new PermissaoService(
@@ -57,7 +57,7 @@ export class PermissaoController implements IPermissaoController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -65,7 +65,7 @@ export class PermissaoController implements IPermissaoController {
 
   async exibirUm(
     req: Request<TRequestParams.Permissao>,
-    res: Response<TResponseGetId.Permissao | TResponseErro>
+    res: Response<TResponseGetId.Permissao | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -80,15 +80,15 @@ export class PermissaoController implements IPermissaoController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
   }
 
   async atualizar(
-    req: Request<TRequestParams.Permissao, {}, TRequestBody.Permissao>,
-    res: Response<TResponsePut | TResponseErro>
+    req: Request<TRequestParams.Permissao, '', TRequestBody.Permissao>,
+    res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     const {
@@ -107,7 +107,7 @@ export class PermissaoController implements IPermissaoController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -115,7 +115,7 @@ export class PermissaoController implements IPermissaoController {
 
   async deletar(
     req: Request<TRequestParams.Permissao>,
-    res: Response<TResponseDelete | TResponseErro>
+    res: Response<TResponseDelete | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -130,7 +130,7 @@ export class PermissaoController implements IPermissaoController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }

@@ -1,14 +1,14 @@
-import { Router } from "express";
-import { ArtistaController } from "../controllers/Artista.controller";
-import { ArtistaMiddlewares } from "../middlewares/Artista.middleware";
+import { Router } from 'express';
+import { ArtistaController } from '../controllers/Artista.controller';
+import { ArtistaMiddlewares } from '../middlewares/Artista.middleware';
 
 const artistaController: ArtistaController = new ArtistaController();
 const artistaMiddleware: ArtistaMiddlewares = new ArtistaMiddlewares();
 
 export default Router()
   .post(
-    '/', 
-    artistaMiddleware.sanitizaBody, 
+    '/',
+    artistaMiddleware.sanitizaBody,
     artistaMiddleware.validaBody,
     artistaMiddleware.verificaDuplicidade,
     (req, res) => artistaController.adicionar(req, res))

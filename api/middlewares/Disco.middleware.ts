@@ -6,9 +6,9 @@ import { DiscoModel } from '../models/Disco.model';
 
 export class DiscoMiddlewares {
   async validaBody(
-    req: Request, 
-    res: Response<TResponseErroValidacao>, 
-    next: NextFunction
+    req: Request,
+    res: Response<TResponseErroValidacao>,
+    next: NextFunction,
   ): Promise<void> {
     const schema = yup.object({
       titulo: yup.string()
@@ -44,62 +44,69 @@ export class DiscoMiddlewares {
     }
   }
 
-  sanitizaBody(req: Request, res: Response<TResponseDefault & { erro: string }>, next: NextFunction): void {
-      try {
-        let {
-          titulo,
-          url_imagem,
-        } = req.body as TDisco;
-
-        req.body.titulo = titulo.trim()
-          .toLowerCase();
-        req.body.url_imagem = url_imagem.trim();
-
-        console.log(req.body);
-        next();
-      } catch (error) {
-        const erro = error as Error;
-  
-        res.status(400).json({
-          mensagem: 'Não foi possível sanitizar os dados do body',
-          erro: erro.message,
-          statusCode: 400,
-        })
-      }
-    }
-
-  async verificaDuplicidade(req: Request, res: Response<TResponseDefault>, next: NextFunction): Promise<void> {
+  sanitizaBody(
+    req: Request,
+    res: Response<TResponseDefault & { erro: string }>,
+    next: NextFunction,
+  ): void {
+    try {
       const {
         titulo,
-        data_lancamento,
-        id_artista,
-        id_gravadora,
-        id_tipo,
-        id_genero,
+        url_imagem,
       } = req.body as TDisco;
-      try {
-        const disco = await DiscoModel.findOne({
-          where: {
-            titulo,
-            data_lancamento,
-            id_artista,
-            id_gravadora,
-            id_tipo,
-            id_genero,
-          },
-        });
-  
-        if (disco) {
-          throw new Error('Já possui registro com os mesmos dados')
-        }
-  
-        next();
-      } catch (error) {
-        const erro = error as Error;
-        res.status(400).json({
-          mensagem: erro.message,
-          statusCode: 400,
-        })
-      }
+
+      req.body.titulo = titulo.trim()
+        .toLowerCase();
+      req.body.url_imagem = url_imagem.trim();
+
+      next();
+    } catch (error) {
+      const erro = error as Error;
+
+      res.status(400).json({
+        mensagem: 'Não foi possível sanitizar os dados do body',
+        erro: erro.message,
+        statusCode: 400,
+      });
     }
+  }
+
+  async verificaDuplicidade(
+    req: Request,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
+    const {
+      titulo,
+      data_lancamento,
+      id_artista,
+      id_gravadora,
+      id_tipo,
+      id_genero,
+    } = req.body as TDisco;
+    try {
+      const disco = await DiscoModel.findOne({
+        where: {
+          titulo,
+          data_lancamento,
+          id_artista,
+          id_gravadora,
+          id_tipo,
+          id_genero,
+        },
+      });
+
+      if (disco) {
+        throw new Error('Já possui registro com os mesmos dados');
+      }
+
+      next();
+    } catch (error) {
+      const erro = error as Error;
+      res.status(400).json({
+        mensagem: erro.message,
+        statusCode: 400,
+      });
+    }
+  }
 }

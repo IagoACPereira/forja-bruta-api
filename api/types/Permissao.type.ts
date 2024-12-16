@@ -3,4 +3,3 @@ export type TPermissao = {
   titulo: string;
   descricao: string;
 }
-

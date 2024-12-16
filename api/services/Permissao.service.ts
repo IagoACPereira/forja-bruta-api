@@ -1,14 +1,18 @@
-import { IPermissaoService } from "../interfaces/Permissao.interface";
-import { PermissaoModel } from "../models/Permissao.model";
-import { UsuarioModel } from "../models/Usuario.model";
-import { TPermissao } from "../types/Permissao.type";
+import { IPermissaoService } from '../interfaces/Permissao.interface';
+import { PermissaoModel } from '../models/Permissao.model';
+import { UsuarioModel } from '../models/Usuario.model';
+import { TPermissao } from '../types/Permissao.type';
 
 export class PermissaoService implements IPermissaoService {
   constructor(
     public id: string | number,
     public titulo: string,
     public descricao: string,
-  ) {}
+  ) {
+    this.id = id;
+    this.titulo = titulo;
+    this.descricao = descricao;
+  }
   async adicionar(): Promise<TPermissao> {
     return await PermissaoModel.create({
       descricao: this.descricao,
@@ -30,8 +34,8 @@ export class PermissaoService implements IPermissaoService {
           model: UsuarioModel,
           attributes: ['id', 'nome', 'email'],
           as: 'usuarios',
-        }
-      ]
+        },
+      ],
     });
 
     if (!permissao) {

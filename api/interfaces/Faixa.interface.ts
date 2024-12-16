@@ -1,7 +1,15 @@
-import { Request, Response } from "express";
-import { TFaixa } from "../types/Faixa.type";
-import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
+/* eslint-disable no-unused-vars */
+import { Request, Response } from 'express';
+import { TFaixa } from '../types/Faixa.type';
+import { TRequestBody, TRequestParams } from '../types/Request.type';
+import {
+  TResponseDelete,
+  TResponseErro,
+  TResponseGet,
+  TResponseGetId,
+  TResponsePost,
+  TResponsePut,
+} from '../types/Response.type';
 
 export interface IFaixaService {
   id: number | string;
@@ -19,23 +27,23 @@ export interface IFaixaService {
 
 export interface IFaixaController {
   adicionar(
-    req: Request<{},{},TRequestBody.Faixa>, 
+    req: Request<'','',TRequestBody.Faixa>,
     res: Response<TResponsePost.Faixa | TResponseErro>
   ): Promise<void>;
   exibirTodos(
-    req: Request, 
+    req: Request,
     res: Response<TResponseGet.Faixa | TResponseErro>
   ): Promise<void>;
   exibirUm(
-    req: Request<TRequestParams.Faixa>, 
+    req: Request<TRequestParams.Faixa>,
     res: Response<TResponseGetId.Faixa | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Faixa, {}, TRequestBody.Faixa>, 
+    req: Request<TRequestParams.Faixa, '', TRequestBody.Faixa>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(
-    req: Request<TRequestParams.Faixa>, 
+    req: Request<TRequestParams.Faixa>,
     res: Response<TResponseDelete | TResponseErro>
   ): Promise<void>;
 }

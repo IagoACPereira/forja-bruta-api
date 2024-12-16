@@ -1,21 +1,21 @@
-import { Request, Response } from "express";
-import { 
-  TResponseDelete, 
-  TResponseErro, 
-  TResponseGet, 
-  TResponseGetId, 
-  TResponsePost, 
-  TResponsePut 
-} from "../types/Response.type";
-import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { TUsuario } from "../types/Usuario.type";
-import { IUsuarioController } from "../interfaces/Usuario.interface";
-import { UsuarioService } from "../services/Usuario.service";
+import { Request, Response } from 'express';
+import {
+  TResponseDelete,
+  TResponseErro,
+  TResponseGet,
+  TResponseGetId,
+  TResponsePost,
+  TResponsePut,
+} from '../types/Response.type';
+import { TRequestBody, TRequestParams } from '../types/Request.type';
+import { TUsuario } from '../types/Usuario.type';
+import { IUsuarioController } from '../interfaces/Usuario.interface';
+import { UsuarioService } from '../services/Usuario.service';
 
 export class UsuarioController implements IUsuarioController {
   async adicionar(
-    req: Request<{},{},TRequestBody.Usuario>,
-    res: Response<TResponsePost.Usuario | TResponseErro>
+    req: Request<'','',TRequestBody.Usuario>,
+    res: Response<TResponsePost.Usuario | TResponseErro>,
   ): Promise<void> {
     const {
       email,
@@ -41,7 +41,7 @@ export class UsuarioController implements IUsuarioController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -49,7 +49,7 @@ export class UsuarioController implements IUsuarioController {
 
   async exibirTodos(
     req: Request,
-    res: Response<TResponseGet.Usuario | TResponseErro>
+    res: Response<TResponseGet.Usuario | TResponseErro>,
   ): Promise<void> {
     try {
       const usuarios = await new UsuarioService(
@@ -66,7 +66,7 @@ export class UsuarioController implements IUsuarioController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -74,7 +74,7 @@ export class UsuarioController implements IUsuarioController {
 
   async exibirUm(
     req: Request<TRequestParams.Usuario>,
-    res: Response<TResponseGetId.Usuario | TResponseErro>
+    res: Response<TResponseGetId.Usuario | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -92,15 +92,15 @@ export class UsuarioController implements IUsuarioController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
   }
 
   async atualizar(
-    req: Request<TRequestParams.Usuario, {}, TRequestBody.Usuario>,
-    res: Response<TResponsePut | TResponseErro>
+    req: Request<TRequestParams.Usuario, '', TRequestBody.Usuario>,
+    res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     const {
@@ -125,7 +125,7 @@ export class UsuarioController implements IUsuarioController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -133,7 +133,7 @@ export class UsuarioController implements IUsuarioController {
 
   async deletar(
     req: Request<TRequestParams.Usuario>,
-    res: Response<TResponseDelete | TResponseErro>
+    res: Response<TResponseDelete | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -151,7 +151,7 @@ export class UsuarioController implements IUsuarioController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }

@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { RegiaoController } from "../controllers/Regiao.controller";
-import { RegiaoMiddlewares } from "../middlewares/Regiao.middleware";
+import { Router } from 'express';
+import { RegiaoController } from '../controllers/Regiao.controller';
+import { RegiaoMiddlewares } from '../middlewares/Regiao.middleware';
 
 const regiaoController: RegiaoController = new RegiaoController();
 const regiaoMiddlewares: RegiaoMiddlewares = new RegiaoMiddlewares();
@@ -8,10 +8,10 @@ const regiaoMiddlewares: RegiaoMiddlewares = new RegiaoMiddlewares();
 export default Router()
   .post(
     '/',
-    regiaoMiddlewares.sanitizaBody, 
-    regiaoMiddlewares.validaBody, 
+    regiaoMiddlewares.sanitizaBody,
+    regiaoMiddlewares.validaBody,
     regiaoMiddlewares.verificaDuplicidade,
-    (req, res) => regiaoController.adicionar(req, res)
+    (req, res) => regiaoController.adicionar(req, res),
   )
   .get('/', (req, res) => regiaoController.exibirTodos(req, res))
   .get('/:id', (req, res) => regiaoController.exibirUm(req, res))

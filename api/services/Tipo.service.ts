@@ -1,17 +1,17 @@
-import { knex } from "../config/conexaoDb";
-import { IRegiaoService } from "../interfaces/Regiao.interface";
-import { ITipoService } from "../interfaces/Tipo.interface";
-import { DiscoModel } from "../models/Disco.model";
-import { RegiaoModel } from "../models/Regiao.model";
-import { TipoModel } from "../models/Tipo.model";
-import { TTipo } from "../types/Tipo.type";
+import { ITipoService } from '../interfaces/Tipo.interface';
+import { DiscoModel } from '../models/Disco.model';
+import { TipoModel } from '../models/Tipo.model';
+import { TTipo } from '../types/Tipo.type';
 
 export class TipoService implements ITipoService {
   constructor(
     public id: number | string,
     public titulo: string,
-  ) {}
-  
+  ) {
+    this.id = id;
+    this.titulo = titulo;
+  }
+
   async adicionar(): Promise<TTipo> {
     const novoTipo = await TipoModel.create({
       titulo: this.titulo,
@@ -36,8 +36,8 @@ export class TipoService implements ITipoService {
           model: DiscoModel,
           as: 'discos',
           attributes: ['id', 'titulo', 'data_lancamento', 'url_imagem'],
-        }
-      ]
+        },
+      ],
     });
 
     if (!tipo) {

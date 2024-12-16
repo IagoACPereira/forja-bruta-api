@@ -1,21 +1,21 @@
-import { Request, Response } from "express";
-import { 
-  TResponseDelete, 
-  TResponseErro, 
-  TResponseGet, 
-  TResponseGetId, 
-  TResponsePost, 
-  TResponsePut 
-} from "../types/Response.type";
-import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { TFaixa } from "../types/Faixa.type";
-import { IFaixaController } from "../interfaces/Faixa.interface";
-import { FaixaService } from "../services/Faixa.service";
+import { Request, Response } from 'express';
+import {
+  TResponseDelete,
+  TResponseErro,
+  TResponseGet,
+  TResponseGetId,
+  TResponsePost,
+  TResponsePut,
+} from '../types/Response.type';
+import { TRequestBody, TRequestParams } from '../types/Request.type';
+import { TFaixa } from '../types/Faixa.type';
+import { IFaixaController } from '../interfaces/Faixa.interface';
+import { FaixaService } from '../services/Faixa.service';
 
 export class FaixaController implements IFaixaController {
   async adicionar(
-    req: Request<{},{},TRequestBody.Faixa>,
-    res: Response<TResponsePost.Faixa | TResponseErro>
+    req: Request<'','',TRequestBody.Faixa>,
+    res: Response<TResponsePost.Faixa | TResponseErro>,
   ): Promise<void> {
     const {
       duracao,
@@ -41,7 +41,7 @@ export class FaixaController implements IFaixaController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -49,7 +49,7 @@ export class FaixaController implements IFaixaController {
 
   async exibirTodos(
     req: Request,
-    res: Response<TResponseGet.Faixa | TResponseErro>
+    res: Response<TResponseGet.Faixa | TResponseErro>,
   ): Promise<void> {
     try {
       const faixas = await new FaixaService(
@@ -66,7 +66,7 @@ export class FaixaController implements IFaixaController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -74,7 +74,7 @@ export class FaixaController implements IFaixaController {
 
   async exibirUm(
     req: Request<TRequestParams.Faixa>,
-    res: Response<TResponseGetId.Faixa | TResponseErro>
+    res: Response<TResponseGetId.Faixa | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -91,15 +91,15 @@ export class FaixaController implements IFaixaController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
   }
 
   async atualizar(
-    req: Request<TRequestParams.Faixa, {}, TRequestBody.Faixa>,
-    res: Response<TResponsePut | TResponseErro>
+    req: Request<TRequestParams.Faixa, '', TRequestBody.Faixa>,
+    res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     const {
@@ -124,7 +124,7 @@ export class FaixaController implements IFaixaController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -132,7 +132,7 @@ export class FaixaController implements IFaixaController {
 
   async deletar(
     req: Request<TRequestParams.Faixa>,
-    res: Response<TResponseDelete | TResponseErro>
+    res: Response<TResponseDelete | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -149,7 +149,7 @@ export class FaixaController implements IFaixaController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }

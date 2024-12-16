@@ -1,6 +1,6 @@
-import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/conexaoDb";
-import { PaisModel } from "./Pais.model";
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../config/conexaoDb';
+import { PaisModel } from './Pais.model';
 
 export class RegiaoModel extends Model {
   public id!: number;
@@ -12,11 +12,11 @@ export class RegiaoModel extends Model {
 RegiaoModel.init({
   estado: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   uf: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
 }, {
   sequelize,

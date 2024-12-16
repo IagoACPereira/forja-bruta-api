@@ -6,9 +6,9 @@ import { ArtistaModel } from '../models/Artista.model';
 
 export class ArtistaMiddlewares {
   async validaBody(
-    req: Request, 
-    res: Response<TResponseDefault | TResponseErroValidacao>, 
-    next: NextFunction
+    req: Request,
+    res: Response<TResponseDefault | TResponseErroValidacao>,
+    next: NextFunction,
   ): Promise<void> {
     const schema = yup.object({
       nome: yup.string()
@@ -42,9 +42,13 @@ export class ArtistaMiddlewares {
     }
   }
 
-  sanitizaBody(req: Request, res: Response<TResponseDefault & { erro: string }>, next: NextFunction): void {
+  sanitizaBody(
+    req: Request,
+    res: Response<TResponseDefault & { erro: string }>,
+    next: NextFunction,
+  ): void {
     try {
-      let { 
+      const {
         nome,
         descricao,
         url_imagem,
@@ -63,11 +67,15 @@ export class ArtistaMiddlewares {
         mensagem: 'Não foi possível sanitizar os dados do body',
         erro: erro.message,
         statusCode: 400,
-      })
+      });
     }
   }
 
-  async verificaDuplicidade(req: Request, res: Response<TResponseDefault>, next: NextFunction): Promise<void> {
+  async verificaDuplicidade(
+    req: Request,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
     const {
       nome,
       data_formacao,
@@ -79,11 +87,11 @@ export class ArtistaMiddlewares {
           nome,
           data_formacao,
           id_regiao,
-        }
+        },
       });
 
       if (artista) {
-        throw new Error('Já possui registro com os mesmos dados')
+        throw new Error('Já possui registro com os mesmos dados');
       }
 
       next();
@@ -92,7 +100,7 @@ export class ArtistaMiddlewares {
       res.status(400).json({
         mensagem: erro.message,
         statusCode: 400,
-      })
+      });
     }
   }
 }

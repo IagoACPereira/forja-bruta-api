@@ -1,11 +1,11 @@
-import { IDiscoService } from "../interfaces/Disco.interface";
-import { ArtistaModel } from "../models/Artista.model";
-import { DiscoModel } from "../models/Disco.model";
-import { FaixaModel } from "../models/Faixa.model";
-import { GeneroModel } from "../models/Genero.model";
-import { GravadoraModel } from "../models/Gravadora.model";
-import { TipoModel } from "../models/Tipo.model";
-import { TDisco } from "../types/Disco.type";
+import { IDiscoService } from '../interfaces/Disco.interface';
+import { ArtistaModel } from '../models/Artista.model';
+import { DiscoModel } from '../models/Disco.model';
+import { FaixaModel } from '../models/Faixa.model';
+import { GeneroModel } from '../models/Genero.model';
+import { GravadoraModel } from '../models/Gravadora.model';
+import { TipoModel } from '../models/Tipo.model';
+import { TDisco } from '../types/Disco.type';
 
 export class DiscoService implements IDiscoService {
   constructor(
@@ -17,8 +17,17 @@ export class DiscoService implements IDiscoService {
     public id_gravadora: string | number,
     public id_tipo: string | number,
     public id_genero: string | number,
-  ) {}
-  
+  ) {
+    this.id = id;
+    this.titulo = titulo;
+    this.data_lancamento = data_lancamento;
+    this.url_imagem = url_imagem;
+    this.id_artista = id_artista;
+    this.id_gravadora = id_gravadora;
+    this.id_tipo = id_tipo;
+    this.id_genero = id_genero;
+  }
+
   async adicionar(): Promise<TDisco> {
     const disco = await DiscoModel.create({
       data_lancamento: this.data_lancamento,
@@ -94,12 +103,12 @@ export class DiscoService implements IDiscoService {
           model: FaixaModel,
           attributes: ['id', 'titulo', 'duracao', 'num_faixa', 'letra'],
           as: 'faixas',
-        }
+        },
       ],
     });
 
     if (!disco) {
-      throw new Error('Não foi encontrado nenhum registro')
+      throw new Error('Não foi encontrado nenhum registro');
     }
 
     return disco as TDisco;
@@ -119,7 +128,7 @@ export class DiscoService implements IDiscoService {
       },
     });
   }
-  
+
   async deletar(): Promise<void> {
     await DiscoModel.destroy({
       where: {

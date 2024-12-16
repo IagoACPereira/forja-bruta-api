@@ -1,6 +1,6 @@
-import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/conexaoDb";
-import { DiscoModel } from "./Disco.model";
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../config/conexaoDb';
+import { DiscoModel } from './Disco.model';
 
 export class FaixaModel extends Model {
   id!: string;

@@ -1,5 +1,5 @@
-import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/conexaoDb";
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../config/conexaoDb';
 
 export class PaisModel extends Model {
   public id!: number;
@@ -10,7 +10,7 @@ PaisModel.init({
   nome: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
 }, {
   sequelize,
   tableName: 'pais',

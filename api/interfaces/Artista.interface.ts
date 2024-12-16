@@ -1,7 +1,15 @@
-import { Request, Response } from "express";
-import { TArtista } from "../types/Artista.type";
-import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
+/* eslint-disable no-unused-vars */
+import { Request, Response } from 'express';
+import { TArtista } from '../types/Artista.type';
+import { TRequestBody, TRequestParams } from '../types/Request.type';
+import {
+  TResponseDelete,
+  TResponseErro,
+  TResponseGet,
+  TResponseGetId,
+  TResponsePost,
+  TResponsePut,
+} from '../types/Response.type';
 
 export interface IArtistaService {
   id: number;
@@ -20,23 +28,23 @@ export interface IArtistaService {
 
 export interface IArtistaController {
   adicionar(
-    req: Request<{},{},TRequestBody.Artista>, 
+    req: Request<'','',TRequestBody.Artista>,
     res: Response<TResponsePost.Artista | TResponseErro>
   ): Promise<void>;
   exibirTodos(
-    req: Request, 
+    req: Request,
     res: Response<TResponseGet.Artista | TResponseErro>
   ): Promise<void>;
   exibirUm(
-    req: Request<TRequestParams.Artista>, 
+    req: Request<TRequestParams.Artista>,
     res: Response<TResponseGetId.Artista | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Artista, {}, TRequestBody.Artista>, 
+    req: Request<TRequestParams.Artista, '', TRequestBody.Artista>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(
-    req: Request<TRequestParams.Artista>, 
+    req: Request<TRequestParams.Artista>,
     res: Response<TResponseDelete | TResponseErro>
   ): Promise<void>;
 }

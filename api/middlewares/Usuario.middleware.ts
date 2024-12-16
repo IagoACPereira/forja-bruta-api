@@ -6,9 +6,9 @@ import { UsuarioModel } from '../models/Usuario.model';
 
 export class UsuarioMiddlewares {
   async validaBody(
-    req: Request, 
-    res: Response<TResponseErroValidacao>, 
-    next: NextFunction
+    req: Request,
+    res: Response<TResponseErroValidacao>,
+    next: NextFunction,
   ): Promise<void> {
     const schema = yup.object({
       nome: yup.string()
@@ -40,9 +40,13 @@ export class UsuarioMiddlewares {
     }
   }
 
-  sanitizaBody(req: Request, res: Response<TResponseDefault & { erro: string }>, next: NextFunction): void {
+  sanitizaBody(
+    req: Request,
+    res: Response<TResponseDefault & { erro: string }>,
+    next: NextFunction,
+  ): void {
     try {
-      let { 
+      const {
         nome,
         email,
         senha,
@@ -69,11 +73,15 @@ export class UsuarioMiddlewares {
         mensagem: 'Não foi possível sanitizar os dados do body',
         erro: erro.message,
         statusCode: 400,
-      })
+      });
     }
   }
 
-  async verificaDuplicidade(req: Request, res: Response<TResponseDefault>, next: NextFunction): Promise<void> {
+  async verificaDuplicidade(
+    req: Request,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
     const {
       nome,
       email,
@@ -83,11 +91,11 @@ export class UsuarioMiddlewares {
         where: {
           nome,
           email,
-        }
+        },
       });
 
       if (usuario) {
-        throw new Error('Já possui registro com os mesmos dados')
+        throw new Error('Já possui registro com os mesmos dados');
       }
 
       next();
@@ -96,7 +104,7 @@ export class UsuarioMiddlewares {
       res.status(400).json({
         mensagem: erro.message,
         statusCode: 400,
-      })
+      });
     }
   }
 }

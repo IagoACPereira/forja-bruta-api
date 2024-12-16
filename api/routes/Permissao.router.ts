@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { PermissaoController } from "../controllers/Permissao.controller";
-import { PermissaoMiddlewares } from "../middlewares/Permissao.middleware";
+import { Router } from 'express';
+import { PermissaoController } from '../controllers/Permissao.controller';
+import { PermissaoMiddlewares } from '../middlewares/Permissao.middleware';
 
 const permissaoController: PermissaoController = new PermissaoController();
 const permissaoMiddlewares: PermissaoMiddlewares = new PermissaoMiddlewares();
@@ -8,10 +8,10 @@ const permissaoMiddlewares: PermissaoMiddlewares = new PermissaoMiddlewares();
 export default Router()
   .post(
     '/',
-    permissaoMiddlewares.sanitizaBody, 
-    permissaoMiddlewares.validaBody, 
+    permissaoMiddlewares.sanitizaBody,
+    permissaoMiddlewares.validaBody,
     permissaoMiddlewares.verificaDuplicidade,
-    (req, res) => permissaoController.adicionar(req, res)
+    (req, res) => permissaoController.adicionar(req, res),
   )
   .get('/', (req, res) => permissaoController.exibirTodos(req, res))
   .get('/:id', (req, res) => permissaoController.exibirUm(req, res))

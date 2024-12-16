@@ -1,18 +1,20 @@
-import { knex } from "../config/conexaoDb";
-import { IGeneroService } from "../interfaces/Genero.interface";
-import { DiscoModel } from "../models/Disco.model";
-import { GeneroModel } from "../models/Genero.model";
-import { TGenero } from "../types/Genero.type";
+import { IGeneroService } from '../interfaces/Genero.interface';
+import { DiscoModel } from '../models/Disco.model';
+import { GeneroModel } from '../models/Genero.model';
+import { TGenero } from '../types/Genero.type';
 
 export class GeneroService implements IGeneroService {
   constructor(
     public id: number,
-    public titulo: string,  
-  ) {}
+    public titulo: string,
+  ) {
+    this.id = id;
+    this.titulo  = titulo;
+  }
 
   async adicionar(): Promise<TGenero> {
     const novoGenero = await GeneroModel.create({
-      titulo: this.titulo,  
+      titulo: this.titulo,
     } as TGenero);
 
     return novoGenero;
@@ -33,9 +35,9 @@ export class GeneroService implements IGeneroService {
         {
           model: DiscoModel,
           as: 'discos',
-          attributes: ['id', 'titulo']
-        }
-      ]
+          attributes: ['id', 'titulo'],
+        },
+      ],
     });
 
     if (!genero) {

@@ -1,6 +1,6 @@
-import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/conexaoDb";
-import { RegiaoModel } from "./Regiao.model";
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../config/conexaoDb';
+import { RegiaoModel } from './Regiao.model';
 
 export class GravadoraModel extends Model {
   public id!: number;

@@ -6,15 +6,15 @@ import { PermissaoModel } from '../models/Permissao.model';
 
 export class PermissaoMiddlewares {
   async validaBody(
-    req: Request, 
-    res: Response<TResponseErroValidacao>, 
-    next: NextFunction
+    req: Request,
+    res: Response<TResponseErroValidacao>,
+    next: NextFunction,
   ): Promise<void> {
     const schema = yup.object({
       titulo: yup.string()
-      .required('Campo "titulo" é string e obrigatório'),
+        .required('Campo "titulo" é string e obrigatório'),
       descricao: yup.string()
-      .required('Campo "descricao" é string e obrigatório'),
+        .required('Campo "descricao" é string e obrigatório'),
     });
     try {
       await schema.validate(req.body, { abortEarly: false });
@@ -33,9 +33,13 @@ export class PermissaoMiddlewares {
     }
   }
 
-  sanitizaBody(req: Request, res: Response<TResponseDefault & { erro: string }>, next: NextFunction): void {
+  sanitizaBody(
+    req: Request,
+    res: Response<TResponseDefault & { erro: string }>,
+    next: NextFunction,
+  ): void {
     try {
-      let {
+      const {
         descricao,
         titulo,
       } = req.body as TPermissao;
@@ -52,11 +56,15 @@ export class PermissaoMiddlewares {
         mensagem: 'Não foi possível sanitizar os dados do body',
         erro: erro.message,
         statusCode: 400,
-      })
+      });
     }
   }
 
-  async verificaDuplicidade(req: Request, res: Response<TResponseDefault>, next: NextFunction): Promise<void> {
+  async verificaDuplicidade(
+    req: Request,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
     const {
       titulo,
     } = req.body as TPermissao;
@@ -64,11 +72,11 @@ export class PermissaoMiddlewares {
       const permissao = await PermissaoModel.findOne({
         where: {
           titulo,
-        }
+        },
       });
 
       if (permissao) {
-        throw new Error('Já possui registro com os mesmos dados')
+        throw new Error('Já possui registro com os mesmos dados');
       }
 
       next();
@@ -77,7 +85,7 @@ export class PermissaoMiddlewares {
       res.status(400).json({
         mensagem: erro.message,
         statusCode: 400,
-      })
+      });
     }
   }
 }

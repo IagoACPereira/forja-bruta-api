@@ -1,13 +1,16 @@
-import { IPaisService } from "../interfaces/Pais.interface";
-import { PaisModel } from "../models/Pais.model";
-import { RegiaoModel } from "../models/Regiao.model";
-import { TPais } from "../types/Pais.type";
+import { IPaisService } from '../interfaces/Pais.interface';
+import { PaisModel } from '../models/Pais.model';
+import { RegiaoModel } from '../models/Regiao.model';
+import { TPais } from '../types/Pais.type';
 
 export class PaisService implements IPaisService {
   constructor(
     public id: number,
     public nome: string,
-  ) {}
+  ) {
+    this.id = id;
+    this.nome = nome;
+  }
 
   async adicionar(): Promise<TPais> {
     const novoPais = await PaisModel.create({
@@ -39,7 +42,7 @@ export class PaisService implements IPaisService {
     if (!pais) {
       throw new Error('Não foi encontrado nenhum registro');
     }
-    
+
     return pais as TPais;
   }
 
@@ -49,7 +52,7 @@ export class PaisService implements IPaisService {
     }, {
       where: {
         id: this.id,
-      }
+      },
     });
   }
 
@@ -57,7 +60,7 @@ export class PaisService implements IPaisService {
     await PaisModel.destroy({
       where: {
         id: this.id,
-      }
+      },
     });
   }
 }

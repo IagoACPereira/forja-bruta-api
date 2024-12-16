@@ -1,7 +1,15 @@
-import { Request, Response } from "express";
-import { TDisco } from "../types/Disco.type";
-import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { TResponseDelete, TResponseErro, TResponseGet, TResponseGetId, TResponsePost, TResponsePut } from "../types/Response.type";
+/* eslint-disable no-unused-vars */
+import { Request, Response } from 'express';
+import { TDisco } from '../types/Disco.type';
+import { TRequestBody, TRequestParams } from '../types/Request.type';
+import {
+  TResponseDelete,
+  TResponseErro,
+  TResponseGet,
+  TResponseGetId,
+  TResponsePost,
+  TResponsePut,
+} from '../types/Response.type';
 
 export interface IDiscoService {
   id: number | string;
@@ -20,23 +28,23 @@ export interface IDiscoService {
 
 export interface IDiscoController {
   adicionar(
-    req: Request<{},{},TRequestBody.Disco>, 
+    req: Request<'','',TRequestBody.Disco>,
     res: Response<TResponsePost.Disco | TResponseErro>
   ): Promise<void>;
   exibirTodos(
-    req: Request, 
+    req: Request,
     res: Response<TResponseGet.Disco | TResponseErro>
   ): Promise<void>;
   exibirUm(
-    req: Request<TRequestParams.Disco>, 
+    req: Request<TRequestParams.Disco>,
     res: Response<TResponseGetId.Disco | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Disco, {}, TRequestBody.Disco>, 
+    req: Request<TRequestParams.Disco, '', TRequestBody.Disco>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(
-    req: Request<TRequestParams.Disco>, 
+    req: Request<TRequestParams.Disco>,
     res: Response<TResponseDelete | TResponseErro>
   ): Promise<void>;
 }

@@ -1,26 +1,26 @@
-import { Request, Response } from "express";
-import { 
-  TResponseDelete, 
-  TResponseErro, 
-  TResponseGet, 
-  TResponseGetId, 
-  TResponsePost, 
-  TResponsePut 
-} from "../types/Response.type";
-import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { TGravadora } from "../types/Gravadora.type";
-import { IGravadoraController } from "../interfaces/Gravadora.interface";
-import { GravadoraService } from "../services/Gravadora.service";
+import { Request, Response } from 'express';
+import {
+  TResponseDelete,
+  TResponseErro,
+  TResponseGet,
+  TResponseGetId,
+  TResponsePost,
+  TResponsePut,
+} from '../types/Response.type';
+import { TRequestBody, TRequestParams } from '../types/Request.type';
+import { TGravadora } from '../types/Gravadora.type';
+import { IGravadoraController } from '../interfaces/Gravadora.interface';
+import { GravadoraService } from '../services/Gravadora.service';
 
 export class GravadoraController implements IGravadoraController {
   async adicionar(
-    req: Request<{},{},TRequestBody.Gravadora>,
-    res: Response<TResponsePost.Gravadora | TResponseErro>
+    req: Request<'','',TRequestBody.Gravadora>,
+    res: Response<TResponsePost.Gravadora | TResponseErro>,
   ): Promise<void> {
-    const { 
+    const {
       id_regiao,
       nome,
-      url_imagem
+      url_imagem,
     } = req.body as TGravadora;
     try {
       const novaGravadora = await new GravadoraService(
@@ -37,7 +37,7 @@ export class GravadoraController implements IGravadoraController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -45,7 +45,7 @@ export class GravadoraController implements IGravadoraController {
 
   async exibirTodos(
     req: Request,
-    res: Response<TResponseGet.Gravadora | TResponseErro>
+    res: Response<TResponseGet.Gravadora | TResponseErro>,
   ): Promise<void> {
     try {
       const gravadoras = await new GravadoraService(
@@ -60,7 +60,7 @@ export class GravadoraController implements IGravadoraController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -68,7 +68,7 @@ export class GravadoraController implements IGravadoraController {
 
   async exibirUm(
     req: Request<TRequestParams.Gravadora>,
-    res: Response<TResponseGetId.Gravadora | TResponseErro>
+    res: Response<TResponseGetId.Gravadora | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -76,7 +76,7 @@ export class GravadoraController implements IGravadoraController {
         Number(id),
         '',
         '',
-        0
+        0,
       ).pegaUmPorId();
       res.status(200).json({
         gravadora,
@@ -84,22 +84,22 @@ export class GravadoraController implements IGravadoraController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
   }
 
   async atualizar(
-    req: Request<TRequestParams.Gravadora, {}, TRequestBody.Gravadora>,
-    res: Response<TResponsePut | TResponseErro>
+    req: Request<TRequestParams.Gravadora, '', TRequestBody.Gravadora>,
+    res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
-    const { 
+    const {
       id_regiao,
       nome,
       url_imagem,
-     } = req.body as TGravadora;
+    } = req.body as TGravadora;
     try {
       await new GravadoraService(
         Number(id),
@@ -113,7 +113,7 @@ export class GravadoraController implements IGravadoraController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -121,7 +121,7 @@ export class GravadoraController implements IGravadoraController {
 
   async deletar(
     req: Request<TRequestParams.Gravadora>,
-    res: Response<TResponseDelete | TResponseErro>
+    res: Response<TResponseDelete | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -129,7 +129,7 @@ export class GravadoraController implements IGravadoraController {
         Number(id),
         '',
         '',
-        0
+        0,
       ).deletar();
       res.status(200).json({
         mensagem: 'Gravadora deletado com sucesso',
@@ -137,7 +137,7 @@ export class GravadoraController implements IGravadoraController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }

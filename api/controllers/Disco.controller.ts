@@ -1,22 +1,22 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
-import { 
-  TResponseDelete, 
-  TResponseErro, 
-  TResponseGet, 
-  TResponseGetId, 
-  TResponsePost, 
-  TResponsePut 
-} from "../types/Response.type";
-import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { TDisco } from "../types/Disco.type";
-import { IDiscoController } from "../interfaces/Disco.interface";
-import { DiscoService } from "../services/Disco.service";
+import {
+  TResponseDelete,
+  TResponseErro,
+  TResponseGet,
+  TResponseGetId,
+  TResponsePost,
+  TResponsePut,
+} from '../types/Response.type';
+import { TRequestBody, TRequestParams } from '../types/Request.type';
+import { TDisco } from '../types/Disco.type';
+import { IDiscoController } from '../interfaces/Disco.interface';
+import { DiscoService } from '../services/Disco.service';
 
 export class DiscoController implements IDiscoController {
   async adicionar(
-    req: Request<{},{},TRequestBody.Disco>,
-    res: Response<TResponsePost.Disco | TResponseErro>
+    req: Request<'','',TRequestBody.Disco>,
+    res: Response<TResponsePost.Disco | TResponseErro>,
   ): Promise<void> {
     const {
       data_lancamento,
@@ -46,7 +46,7 @@ export class DiscoController implements IDiscoController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -54,7 +54,7 @@ export class DiscoController implements IDiscoController {
 
   async exibirTodos(
     req: Request,
-    res: Response<TResponseGet.Disco | TResponseErro>
+    res: Response<TResponseGet.Disco | TResponseErro>,
   ): Promise<void> {
     try {
       const discos = await new DiscoService(
@@ -73,7 +73,7 @@ export class DiscoController implements IDiscoController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -81,7 +81,7 @@ export class DiscoController implements IDiscoController {
 
   async exibirUm(
     req: Request<TRequestParams.Disco>,
-    res: Response<TResponseGetId.Disco | TResponseErro>
+    res: Response<TResponseGetId.Disco | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -101,15 +101,15 @@ export class DiscoController implements IDiscoController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
   }
 
   async atualizar(
-    req: Request<TRequestParams.Disco, {}, TRequestBody.Disco>,
-    res: Response<TResponsePut | TResponseErro>
+    req: Request<TRequestParams.Disco, '', TRequestBody.Disco>,
+    res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     const {
@@ -138,7 +138,7 @@ export class DiscoController implements IDiscoController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -146,7 +146,7 @@ export class DiscoController implements IDiscoController {
 
   async deletar(
     req: Request<TRequestParams.Disco>,
-    res: Response<TResponseDelete | TResponseErro>
+    res: Response<TResponseDelete | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -166,7 +166,7 @@ export class DiscoController implements IDiscoController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }

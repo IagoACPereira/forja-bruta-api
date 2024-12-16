@@ -1,11 +1,8 @@
-import { IArtistaService } from "../interfaces/Artista.interface";
-import { ArtistaModel } from "../models/Artista.model";
-import { DiscoModel } from "../models/Disco.model";
-import { GeneroModel } from "../models/Genero.model";
-import { GravadoraModel } from "../models/Gravadora.model";
-import { RegiaoModel } from "../models/Regiao.model";
-import { TipoModel } from "../models/Tipo.model";
-import { TArtista } from "../types/Artista.type";
+import { IArtistaService } from '../interfaces/Artista.interface';
+import { ArtistaModel } from '../models/Artista.model';
+import { DiscoModel } from '../models/Disco.model';
+import { RegiaoModel } from '../models/Regiao.model';
+import { TArtista } from '../types/Artista.type';
 
 export class ArtistaService implements IArtistaService {
   constructor(
@@ -16,8 +13,16 @@ export class ArtistaService implements IArtistaService {
     public descricao: string,
     public url_imagem: string,
     public id_regiao: number,
-  ) {}
-  
+  ) {
+    this.id = id;
+    this.nome = nome;
+    this.data_formacao = data_formacao;
+    this.ativo = ativo;
+    this.descricao = descricao;
+    this.url_imagem = url_imagem;
+    this.id_regiao = id_regiao;
+  }
+
   async adicionar(): Promise<TArtista> {
     const novoArtista = await ArtistaModel.create({
       nome: this.nome,

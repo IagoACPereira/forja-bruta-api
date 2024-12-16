@@ -1,17 +1,24 @@
-import { IUsuarioService } from "../interfaces/Usuario.interface";
-import { PermissaoModel } from "../models/Permissao.model";
-import { UsuarioModel } from "../models/Usuario.model";
-import { TUsuario } from "../types/Usuario.type";
+import { IUsuarioService } from '../interfaces/Usuario.interface';
+import { PermissaoModel } from '../models/Permissao.model';
+import { UsuarioModel } from '../models/Usuario.model';
+import { TUsuario } from '../types/Usuario.type';
 
 export class UsuarioService implements IUsuarioService {
   constructor(
-    public id: string | number,
+    public id: number | string,
     public nome: string,
     public email: string,
     public telefone: string,
     public senha: string,
     public id_permissao: string | number,
-  ) {}
+  ) {
+    this.id = id;
+    this.nome = nome;
+    this.email = email;
+    this.telefone = telefone;
+    this.senha = senha;
+    this.id_permissao = id_permissao;
+  }
 
   async adicionar(): Promise<TUsuario> {
     return await UsuarioModel.create({
@@ -30,8 +37,8 @@ export class UsuarioService implements IUsuarioService {
         {
           model: PermissaoModel,
           as: 'permissao',
-        }
-      ]
+        },
+      ],
     }) as Array<TUsuario>;
   }
 
@@ -43,7 +50,7 @@ export class UsuarioService implements IUsuarioService {
     });
 
     if (!usuario) {
-      throw new Error('Não foi encontrado nenhum registro')
+      throw new Error('Não foi encontrado nenhum registro');
     }
 
     return usuario as TUsuario;

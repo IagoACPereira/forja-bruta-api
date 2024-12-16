@@ -1,6 +1,6 @@
-import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/conexaoDb";
-import { PermissaoModel } from "./Permissao.model";
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../config/conexaoDb';
+import { PermissaoModel } from './Permissao.model';
 
 export class UsuarioModel extends Model {
   id!: string;

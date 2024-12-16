@@ -1,7 +1,7 @@
-import { IFaixaService } from "../interfaces/Faixa.interface";
-import { DiscoModel } from "../models/Disco.model";
-import { FaixaModel } from "../models/Faixa.model";
-import { TFaixa } from "../types/Faixa.type";
+import { IFaixaService } from '../interfaces/Faixa.interface';
+import { DiscoModel } from '../models/Disco.model';
+import { FaixaModel } from '../models/Faixa.model';
+import { TFaixa } from '../types/Faixa.type';
 
 export class FaixaService implements IFaixaService {
   constructor(
@@ -11,8 +11,15 @@ export class FaixaService implements IFaixaService {
     public num_faixa: string | number,
     public letra: string,
     public id_disco: string | number,
-  ) {}
-  
+  ) {
+    this.id = id;
+    this.titulo = titulo;
+    this.duracao = duracao;
+    this.num_faixa = num_faixa;
+    this.letra = letra;
+    this.id_disco = id_disco;
+  }
+
   async adicionar(): Promise<TFaixa> {
     return await FaixaModel.create({
       duracao: this.duracao,
@@ -52,7 +59,7 @@ export class FaixaService implements IFaixaService {
     }) as TFaixa;
 
     if (!faixa) {
-      throw new Error('Não foi encontrado nehum registro')
+      throw new Error('Não foi encontrado nehum registro');
     }
 
     return faixa as TFaixa;
@@ -68,7 +75,7 @@ export class FaixaService implements IFaixaService {
     } as TFaixa, {
       where: {
         id: this.id,
-      }
+      },
     });
   }
 

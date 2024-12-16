@@ -1,17 +1,17 @@
-import { Router } from "express";
-import { TipoController } from "../controllers/Tipo.controller";
-import { TipoMiddlewares } from "../middlewares/Tipo.middleware";
+import { Router } from 'express';
+import { TipoController } from '../controllers/Tipo.controller';
+import { TipoMiddlewares } from '../middlewares/Tipo.middleware';
 
 const tipoController: TipoController = new TipoController();
 const tipoMiddlewares: TipoMiddlewares = new TipoMiddlewares();
 
 export default Router()
   .post(
-    '/', 
+    '/',
     tipoMiddlewares.sanitizaBody,
-    tipoMiddlewares.validaBody, 
+    tipoMiddlewares.validaBody,
     tipoMiddlewares.verificaDuplicidade,
-    (req, res) => tipoController.adicionar(req, res)
+    (req, res) => tipoController.adicionar(req, res),
   )
   .get('/', (req, res) => tipoController.exibirTodos(req, res))
   .get('/:id', (req, res) => tipoController.exibirUm(req, res))

@@ -1,23 +1,23 @@
-import { Request, Response } from "express";
-import { 
-  TResponseDelete, 
-  TResponseErro, 
-  TResponseGet, 
-  TResponseGetId, 
-  TResponsePost, 
-  TResponsePut 
-} from "../types/Response.type";
-import { TRequestBody, TRequestParams } from "../types/Request.type";
-import { TArtista } from "../types/Artista.type";
-import { IArtistaController } from "../interfaces/Artista.interface";
-import { ArtistaService } from "../services/Artista.service";
+import { Request, Response } from 'express';
+import {
+  TResponseDelete,
+  TResponseErro,
+  TResponseGet,
+  TResponseGetId,
+  TResponsePost,
+  TResponsePut,
+} from '../types/Response.type';
+import { TRequestBody, TRequestParams } from '../types/Request.type';
+import { TArtista } from '../types/Artista.type';
+import { IArtistaController } from '../interfaces/Artista.interface';
+import { ArtistaService } from '../services/Artista.service';
 
 export class ArtistaController implements IArtistaController {
   async adicionar(
-    req: Request<{},{},TRequestBody.Artista>,
-    res: Response<TResponsePost.Artista | TResponseErro>
+    req: Request<'','',TRequestBody.Artista>,
+    res: Response<TResponsePost.Artista | TResponseErro>,
   ): Promise<void> {
-    const { 
+    const {
       nome,
       ativo,
       data_formacao,
@@ -43,7 +43,7 @@ export class ArtistaController implements IArtistaController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -51,7 +51,7 @@ export class ArtistaController implements IArtistaController {
 
   async exibirTodos(
     req: Request,
-    res: Response<TResponseGet.Artista | TResponseErro>
+    res: Response<TResponseGet.Artista | TResponseErro>,
   ): Promise<void> {
     try {
       const artistas = await new ArtistaService(
@@ -61,7 +61,7 @@ export class ArtistaController implements IArtistaController {
         false,
         '',
         '',
-        0
+        0,
       ).pegaTodos();
       res.status(200).json({
         artistas,
@@ -69,7 +69,7 @@ export class ArtistaController implements IArtistaController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -77,7 +77,7 @@ export class ArtistaController implements IArtistaController {
 
   async exibirUm(
     req: Request<TRequestParams.Artista>,
-    res: Response<TResponseGetId.Artista | TResponseErro>
+    res: Response<TResponseGetId.Artista | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -88,7 +88,7 @@ export class ArtistaController implements IArtistaController {
         ,false,
         '',
         '',
-        0      
+        0,
       ).pegaUmPorId();
       res.status(200).json({
         artista,
@@ -96,28 +96,28 @@ export class ArtistaController implements IArtistaController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
   }
 
   async atualizar(
-    req: Request<TRequestParams.Artista, {}, TRequestBody.Artista>,
-    res: Response<TResponsePut | TResponseErro>
+    req: Request<TRequestParams.Artista, '', TRequestBody.Artista>,
+    res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
-    const { 
+    const {
       ativo,
       data_formacao,
       descricao,
       id_regiao,
       nome,
       url_imagem,
-     } = req.body as TArtista;
+    } = req.body as TArtista;
     try {
       await new ArtistaService(
-        Number(id), 
+        Number(id),
         nome,
         data_formacao,
         ativo,
@@ -131,7 +131,7 @@ export class ArtistaController implements IArtistaController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }
@@ -139,7 +139,7 @@ export class ArtistaController implements IArtistaController {
 
   async deletar(
     req: Request<TRequestParams.Artista>,
-    res: Response<TResponseDelete | TResponseErro>
+    res: Response<TResponseDelete | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;
     try {
@@ -158,7 +158,7 @@ export class ArtistaController implements IArtistaController {
       });
     } catch (error) {
       res.status(400).json({
-        mensagem: `${error}`,
+        mensagem: `${ error }`,
         statusCode: 400,
       });
     }

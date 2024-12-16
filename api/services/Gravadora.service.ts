@@ -1,9 +1,8 @@
-import { knex } from "../config/conexaoDb";
-import { IGravadoraService } from "../interfaces/Gravadora.interface";
-import { DiscoModel } from "../models/Disco.model";
-import { GravadoraModel } from "../models/Gravadora.model";
-import { RegiaoModel } from "../models/Regiao.model";
-import { TGravadora } from "../types/Gravadora.type";
+import { IGravadoraService } from '../interfaces/Gravadora.interface';
+import { DiscoModel } from '../models/Disco.model';
+import { GravadoraModel } from '../models/Gravadora.model';
+import { RegiaoModel } from '../models/Regiao.model';
+import { TGravadora } from '../types/Gravadora.type';
 
 export class GravadoraService implements IGravadoraService {
   constructor(
@@ -11,14 +10,19 @@ export class GravadoraService implements IGravadoraService {
     public nome: string,
     public url_imagem: string,
     public id_regiao: number,
-  ) {}
+  ) {
+    this.id = id;
+    this.nome = nome;
+    this.url_imagem = url_imagem;
+    this.id_regiao = id_regiao;
+  }
 
   async adicionar(): Promise<TGravadora> {
     const novaGravadora = await GravadoraModel.create({
       nome: this.nome,
       url_imagem: this.url_imagem,
       id_regiao: this.id_regiao,
-    } as TGravadora)
+    } as TGravadora);
 
     return novaGravadora as TGravadora;
   }
@@ -52,13 +56,13 @@ export class GravadoraService implements IGravadoraService {
           model: DiscoModel,
           attributes: ['id', 'titulo', 'data_lancamento', 'url_imagem'],
           as: 'discos',
-        }
+        },
       ],
     });
 
-      if (!gravadora) {
-        throw new Error('Não foi encontrado nenhum registro');
-      }
+    if (!gravadora) {
+      throw new Error('Não foi encontrado nenhum registro');
+    }
 
     return gravadora as TGravadora;
   }

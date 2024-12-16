@@ -13,7 +13,8 @@ export class TipoMiddlewares {
     next: NextFunction
   ): Promise<void> {
     const schema = yup.object({
-      titulo: yup.string().required(),
+      titulo: yup.string()
+        .required('Campo "titulo" é string e obrigatório'),
     });
     try {
       await schema.validate(req.body, { abortEarly: false });

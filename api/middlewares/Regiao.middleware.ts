@@ -11,13 +11,13 @@ export class RegiaoMiddlewares {
   ): Promise<void> {
     const schema = yup.object({
       estado: yup.string()
-        .required('Campo Estado é string e obrigatório'),
+        .required('Campo "estado" é string e obrigatório'),
       uf: yup.string()
-        .required('Campo UF é string e obrigatório')
-        .min(2, 'Campo UF deve ter 2 caracteres')
-        .max(2, 'Campo UF deve ter 2 caracteres'),
+        .required('Campo "uf" é string e obrigatório')
+        .min(2, 'Campo "uf" deve ter 2 caracteres')
+        .max(2, 'Campo "uf" deve ter 2 caracteres'),
       id_pais: yup.number()
-        .required('Campo id_pais é numérico e obrigatório'),
+        .required('Campo "id_pais" é numérico e obrigatório'),
     });
     try {
       await schema.validate(req.body, { abortEarly: false });

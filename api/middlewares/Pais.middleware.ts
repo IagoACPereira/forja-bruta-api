@@ -6,7 +6,7 @@ export class PaisMiddlewares {
   async validaBody(req: Request, res: Response<TResponseErroValidacao>, next: NextFunction): Promise<void> {
     const schema = yup.object({
       nome: yup.string()
-        .required('Campo Nome é string e obrigatório')
+        .required('Campo "nome" é string e obrigatório')
     })
     try {
       await schema.validate(req.body, { abortEarly: false });

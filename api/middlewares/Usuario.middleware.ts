@@ -16,11 +16,17 @@ export class UsuarioMiddlewares {
     next: NextFunction
   ): Promise<void> {
     const schema = yup.object({
-      nome: yup.string().required(),
-      email: yup.string().required().email(),
-      senha: yup.string().required(),
-      telefone: yup.string().required(),
-      id_permissao: yup.number().required(),
+      nome: yup.string()
+        .required('Campo "nome" é string e obrigatório'),
+      email: yup.string()
+        .required('Campo "email" é string e obrigatório')
+        .email('Campo "email" deve ser um email válido'),
+      senha: yup.string()
+        .required('Campo "senha" é string e obrigatório'),
+      telefone: yup.string()
+        .required('Campo "telefone" é string e obrigatório'),
+      id_permissao: yup.number()
+        .required('Campo "id_permissao" é string e obrigatório'),
     });
     try {
       await schema.validate(req.body, { abortEarly: false });

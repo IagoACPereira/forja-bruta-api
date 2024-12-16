@@ -10,6 +10,7 @@ export default Router()
     '/',
     permissaoMiddlewares.sanitizaBody, 
     permissaoMiddlewares.validaBody, 
+    permissaoMiddlewares.verificaDuplicidade,
     (req, res) => permissaoController.adicionar(req, res)
   )
   .get('/', (req, res) => permissaoController.exibirTodos(req, res))

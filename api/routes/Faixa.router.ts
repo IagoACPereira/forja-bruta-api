@@ -10,6 +10,7 @@ export default Router()
     '/', 
     faixaMiddlewares.sanitizaBody,
     faixaMiddlewares.validaBody, 
+    faixaMiddlewares.verificaDuplicidade,
     (req, res) => faixaController.adicionar(req, res))
   .get('/', (req, res) => faixaController.exibirTodos(req, res))
   .get('/:id', (req, res) => faixaController.exibirUm(req, res))

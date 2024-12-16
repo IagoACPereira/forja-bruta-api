@@ -10,6 +10,7 @@ export default Router()
     '/',
     gravadoraMiddlewares.sanitizaBody, 
     gravadoraMiddlewares.validaBody, 
+    gravadoraMiddlewares.verificaDuplicidade,
     (req, res) => gravadoraController.adicionar(req, res)
   )
   .get('/', (req, res) => gravadoraController.exibirTodos(req, res))

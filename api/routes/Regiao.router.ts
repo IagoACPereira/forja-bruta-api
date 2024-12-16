@@ -10,6 +10,7 @@ export default Router()
     '/',
     regiaoMiddlewares.sanitizaBody, 
     regiaoMiddlewares.validaBody, 
+    regiaoMiddlewares.verificaDuplicidade,
     (req, res) => regiaoController.adicionar(req, res)
   )
   .get('/', (req, res) => regiaoController.exibirTodos(req, res))

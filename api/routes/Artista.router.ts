@@ -10,6 +10,7 @@ export default Router()
     '/', 
     artistaMiddleware.sanitizaBody, 
     artistaMiddleware.validaBody,
+    artistaMiddleware.verificaDuplicidade,
     (req, res) => artistaController.adicionar(req, res))
   .get('/', (req, res) => artistaController.exibirTodos(req, res))
   .get('/:id', (req, res) => artistaController.exibirUm(req, res))

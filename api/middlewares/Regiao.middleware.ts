@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import * as yup from 'yup';
 import { TResponseDefault, TResponseErroValidacao } from '../types/Response.type';
 import { TRegiao } from '../types/Regiao.type';
+import { RegiaoModel } from '../models/Regiao.model';
 
 export class RegiaoMiddlewares {
   async validaBody(
@@ -55,6 +56,35 @@ export class RegiaoMiddlewares {
       res.status(400).json({
         mensagem: 'Não foi possível sanitizar os dados do body',
         erro: erro.message,
+        statusCode: 400,
+      })
+    }
+  }
+
+  async verificaDuplicidade(req: Request, res: Response<TResponseDefault>, next: NextFunction): Promise<void> {
+    const {
+      estado,
+      uf,
+      id_pais,
+    } = req.body as TRegiao;
+    try {
+      const regiao = await RegiaoModel.findOne({
+        where: {
+          estado,
+          uf,
+          id_pais,
+        }
+      });
+
+      if (regiao) {
+        throw new Error('Já possui registro com os mesmos dados')
+      }
+
+      next();
+    } catch (error) {
+      const erro = error as Error;
+      res.status(400).json({
+        mensagem: erro.message,
         statusCode: 400,
       })
     }

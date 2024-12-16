@@ -10,6 +10,7 @@ export default Router()
     '/',
     paisMiddlewares.sanitizaBody,
     paisMiddlewares.validaBody,
+    paisMiddlewares.verificaDuplicidade,
     (req, res) => paisController.adicionar(req, res)
   )
   .get('/', (req, res) => paisController.exibirTodos(req, res))

@@ -9,7 +9,8 @@ export default Router()
   .post(
     '/', 
     discoMiddleware.sanitizaBody,
-    discoMiddleware.validaBody, 
+    discoMiddleware.validaBody,
+    discoMiddleware.verificaDuplicidade, 
     (req, res) => discoController.adicionar(req, res))
   .get('/', (req, res) => discoController.exibirTodos(req, res))
   .get('/:id', (req, res) => discoController.exibirUm(req, res))

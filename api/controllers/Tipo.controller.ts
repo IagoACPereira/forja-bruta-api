@@ -14,7 +14,7 @@ import { TipoService } from '../services/Tipo.service';
 
 export class TipoController implements ITipoController {
   async adicionar(
-    req: Request<'','',TRequestBody.Tipo>,
+    req: Request<{},{},TRequestBody.Tipo>,
     res: Response<TResponsePost.Tipo | TResponseErro>,
   ): Promise<void> {
     const {
@@ -83,7 +83,7 @@ export class TipoController implements ITipoController {
   }
 
   async atualizar(
-    req: Request<TRequestParams.Tipo, '', TRequestBody.Tipo>,
+    req: Request<TRequestParams.Tipo, {}, TRequestBody.Tipo>,
     res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;

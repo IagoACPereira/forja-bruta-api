@@ -14,7 +14,7 @@ import { PermissaoService } from '../services/Permissao.service';
 
 export class PermissaoController implements IPermissaoController {
   async adicionar(
-    req: Request<'','',TRequestBody.Permissao>,
+    req: Request<{},{},TRequestBody.Permissao>,
     res: Response<TResponsePost.Permissao | TResponseErro>,
   ): Promise<void> {
     const {
@@ -87,7 +87,7 @@ export class PermissaoController implements IPermissaoController {
   }
 
   async atualizar(
-    req: Request<TRequestParams.Permissao, '', TRequestBody.Permissao>,
+    req: Request<TRequestParams.Permissao, {}, TRequestBody.Permissao>,
     res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;

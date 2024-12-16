@@ -28,7 +28,7 @@ export interface IArtistaService {
 
 export interface IArtistaController {
   adicionar(
-    req: Request<'','',TRequestBody.Artista>,
+    req: Request<{}, {}, TRequestBody.Artista>,
     res: Response<TResponsePost.Artista | TResponseErro>
   ): Promise<void>;
   exibirTodos(
@@ -40,7 +40,7 @@ export interface IArtistaController {
     res: Response<TResponseGetId.Artista | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Artista, '', TRequestBody.Artista>,
+    req: Request<TRequestParams.Artista, {}, TRequestBody.Artista>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(

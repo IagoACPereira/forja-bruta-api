@@ -17,7 +17,7 @@ import { RegiaoService } from '../services/Regiao.service';
 
 export class RegiaoController implements IRegiaoController {
   async adicionar(
-    req: Request<'','',TRequestBody.Regiao>,
+    req: Request<{},{},TRequestBody.Regiao>,
     res: Response<TResponsePost.Regiao | TResponseErro>,
   ): Promise<void> {
     const {
@@ -95,7 +95,7 @@ export class RegiaoController implements IRegiaoController {
   }
 
   async atualizar(
-    req: Request<TRequestParams.Regiao, '', TRequestBody.Regiao>,
+    req: Request<TRequestParams.Regiao, {}, TRequestBody.Regiao>,
     res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const {

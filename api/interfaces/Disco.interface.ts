@@ -28,7 +28,7 @@ export interface IDiscoService {
 
 export interface IDiscoController {
   adicionar(
-    req: Request<'','',TRequestBody.Disco>,
+    req: Request<{},{},TRequestBody.Disco>,
     res: Response<TResponsePost.Disco | TResponseErro>
   ): Promise<void>;
   exibirTodos(
@@ -40,7 +40,7 @@ export interface IDiscoController {
     res: Response<TResponseGetId.Disco | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Disco, '', TRequestBody.Disco>,
+    req: Request<TRequestParams.Disco, {}, TRequestBody.Disco>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(

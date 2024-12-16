@@ -14,7 +14,7 @@ import { ArtistaService } from '../services/Artista.service';
 
 export class ArtistaController implements IArtistaController {
   async adicionar(
-    req: Request<'','',TRequestBody.Artista>,
+    req: Request<{}, {}, TRequestBody.Artista>,
     res: Response<TResponsePost.Artista | TResponseErro>,
   ): Promise<void> {
     const {
@@ -103,7 +103,7 @@ export class ArtistaController implements IArtistaController {
   }
 
   async atualizar(
-    req: Request<TRequestParams.Artista, '', TRequestBody.Artista>,
+    req: Request<TRequestParams.Artista, {}, TRequestBody.Artista>,
     res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;

@@ -14,7 +14,7 @@ import { GeneroService } from '../services/Genero.service';
 
 export class GeneroController implements IGeneroController {
   async adicionar(
-    req: Request<'', '', TRequestBody.Genero>,
+    req: Request<{}, {}, TRequestBody.Genero>,
     res: Response<TResponsePost.Genero | TResponseErro>,
   ): Promise<void> {
     const {
@@ -83,7 +83,7 @@ export class GeneroController implements IGeneroController {
   }
 
   async atualizar(
-    req: Request<TRequestParams.Genero, '', TRequestBody.Genero>,
+    req: Request<TRequestParams.Genero, {}, TRequestBody.Genero>,
     res: Response<TResponsePut>,
   ): Promise<void> {
     const { id } = req.params;

@@ -23,7 +23,7 @@ export interface IGeneroService {
 
 export interface IGeneroController {
   adicionar(
-    req: Request<'','',TRequestBody.Genero>,
+    req: Request<{},{},TRequestBody.Genero>,
     res: Response<TResponsePost.Genero | TResponseErro>
   ): Promise<void>;
   exibirTodos(
@@ -35,7 +35,7 @@ export interface IGeneroController {
     res: Response<TResponseGetId.Genero | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Genero, '', TRequestBody.Genero>,
+    req: Request<TRequestParams.Genero, {}, TRequestBody.Genero>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(

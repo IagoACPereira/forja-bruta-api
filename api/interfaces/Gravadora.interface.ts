@@ -25,7 +25,7 @@ export interface IGravadoraService {
 
 export interface IGravadoraController {
   adicionar(
-    req: Request<'', '', TRequestBody.Gravadora>,
+    req: Request<{}, {}, TRequestBody.Gravadora>,
     res: Response<TResponsePost.Gravadora | TResponseErro>
   ): Promise<void>;
   exibirTodos(
@@ -37,7 +37,7 @@ export interface IGravadoraController {
     res: Response<TResponseGetId.Gravadora | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Gravadora, '', TRequestBody.Gravadora>,
+    req: Request<TRequestParams.Gravadora, {}, TRequestBody.Gravadora>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(

@@ -27,7 +27,7 @@ export interface IUsuarioService {
 
 export interface IUsuarioController {
   adicionar(
-    req: Request<'','',TRequestBody.Usuario>,
+    req: Request<{},{},TRequestBody.Usuario>,
     res: Response<TResponsePost.Usuario | TResponseErro>
   ): Promise<void>;
   exibirTodos(
@@ -39,7 +39,7 @@ export interface IUsuarioController {
     res: Response<TResponseGetId.Usuario | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Usuario, '', TRequestBody.Usuario>,
+    req: Request<TRequestParams.Usuario, {}, TRequestBody.Usuario>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(

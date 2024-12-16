@@ -23,7 +23,7 @@ export interface IPaisService {
 
 export interface IPaisController {
   adicionar(
-    req: Request<'', '', TRequestBody.Pais>,
+    req: Request<{}, {}, TRequestBody.Pais>,
     res: Response<TResponsePost.Pais | TResponseErro>
   ): Promise<void>;
   exibirTodos(
@@ -35,7 +35,7 @@ export interface IPaisController {
     res: Response<TResponseGetId.Pais | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Pais, '', TRequestBody.Pais>,
+    req: Request<TRequestParams.Pais, {}, TRequestBody.Pais>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(

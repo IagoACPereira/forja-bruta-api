@@ -14,7 +14,7 @@ import { UsuarioService } from '../services/Usuario.service';
 
 export class UsuarioController implements IUsuarioController {
   async adicionar(
-    req: Request<'','',TRequestBody.Usuario>,
+    req: Request<{},{},TRequestBody.Usuario>,
     res: Response<TResponsePost.Usuario | TResponseErro>,
   ): Promise<void> {
     const {
@@ -99,7 +99,7 @@ export class UsuarioController implements IUsuarioController {
   }
 
   async atualizar(
-    req: Request<TRequestParams.Usuario, '', TRequestBody.Usuario>,
+    req: Request<TRequestParams.Usuario, {}, TRequestBody.Usuario>,
     res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;

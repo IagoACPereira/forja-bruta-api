@@ -25,7 +25,7 @@ export interface IRegiaoService {
 
 export interface IRegiaoController {
   adicionar(
-    req: Request<'','',TRequestBody.Regiao>,
+    req: Request<{},{},TRequestBody.Regiao>,
     res: Response<TResponsePost.Regiao | TResponseErro>
   ): Promise<void>;
   exibirTodos(
@@ -37,7 +37,7 @@ export interface IRegiaoController {
     res: Response<TResponseGetId.Regiao | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Regiao, '', TRequestBody.Regiao>,
+    req: Request<TRequestParams.Regiao, {}, TRequestBody.Regiao>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(

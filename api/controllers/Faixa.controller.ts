@@ -14,7 +14,7 @@ import { FaixaService } from '../services/Faixa.service';
 
 export class FaixaController implements IFaixaController {
   async adicionar(
-    req: Request<'','',TRequestBody.Faixa>,
+    req: Request<{},{},TRequestBody.Faixa>,
     res: Response<TResponsePost.Faixa | TResponseErro>,
   ): Promise<void> {
     const {
@@ -98,7 +98,7 @@ export class FaixaController implements IFaixaController {
   }
 
   async atualizar(
-    req: Request<TRequestParams.Faixa, '', TRequestBody.Faixa>,
+    req: Request<TRequestParams.Faixa, {}, TRequestBody.Faixa>,
     res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;

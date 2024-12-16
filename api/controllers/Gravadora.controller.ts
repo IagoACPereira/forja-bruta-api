@@ -14,7 +14,7 @@ import { GravadoraService } from '../services/Gravadora.service';
 
 export class GravadoraController implements IGravadoraController {
   async adicionar(
-    req: Request<'','',TRequestBody.Gravadora>,
+    req: Request<{},{},TRequestBody.Gravadora>,
     res: Response<TResponsePost.Gravadora | TResponseErro>,
   ): Promise<void> {
     const {
@@ -91,7 +91,7 @@ export class GravadoraController implements IGravadoraController {
   }
 
   async atualizar(
-    req: Request<TRequestParams.Gravadora, '', TRequestBody.Gravadora>,
+    req: Request<TRequestParams.Gravadora, {}, TRequestBody.Gravadora>,
     res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;

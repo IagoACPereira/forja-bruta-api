@@ -23,7 +23,7 @@ export interface ITipoService {
 
 export interface ITipoController {
   adicionar(
-    req: Request<'','',TRequestBody.Tipo>,
+    req: Request<{},{},TRequestBody.Tipo>,
     res: Response<TResponsePost.Tipo | TResponseErro>
   ): Promise<void>;
   exibirTodos(
@@ -35,7 +35,7 @@ export interface ITipoController {
     res: Response<TResponseGetId.Tipo | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Tipo, '', TRequestBody.Tipo>,
+    req: Request<TRequestParams.Tipo, {}, TRequestBody.Tipo>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(

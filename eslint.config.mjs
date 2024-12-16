@@ -18,6 +18,7 @@ export default [
   {
     rules: {
       '@typescript-eslint/no-namespace': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
       "indent": [2, 2],
       "quotes": ["error", "single"],
       "semi": ["error", "always"],

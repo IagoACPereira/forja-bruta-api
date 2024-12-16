@@ -27,7 +27,7 @@ export interface IFaixaService {
 
 export interface IFaixaController {
   adicionar(
-    req: Request<'','',TRequestBody.Faixa>,
+    req: Request<{},{},TRequestBody.Faixa>,
     res: Response<TResponsePost.Faixa | TResponseErro>
   ): Promise<void>;
   exibirTodos(
@@ -39,7 +39,7 @@ export interface IFaixaController {
     res: Response<TResponseGetId.Faixa | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Faixa, '', TRequestBody.Faixa>,
+    req: Request<TRequestParams.Faixa, {}, TRequestBody.Faixa>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(

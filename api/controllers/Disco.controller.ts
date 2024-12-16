@@ -15,7 +15,7 @@ import { DiscoService } from '../services/Disco.service';
 
 export class DiscoController implements IDiscoController {
   async adicionar(
-    req: Request<'','',TRequestBody.Disco>,
+    req: Request<{},{},TRequestBody.Disco>,
     res: Response<TResponsePost.Disco | TResponseErro>,
   ): Promise<void> {
     const {
@@ -108,7 +108,7 @@ export class DiscoController implements IDiscoController {
   }
 
   async atualizar(
-    req: Request<TRequestParams.Disco, '', TRequestBody.Disco>,
+    req: Request<TRequestParams.Disco, {}, TRequestBody.Disco>,
     res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;

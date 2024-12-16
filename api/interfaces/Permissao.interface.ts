@@ -24,7 +24,7 @@ export interface IPermissaoService {
 
 export interface IPermissaoController {
   adicionar(
-    req: Request<'','',TRequestBody.Permissao>,
+    req: Request<{},{},TRequestBody.Permissao>,
     res: Response<TResponsePost.Permissao | TResponseErro>
   ): Promise<void>;
   exibirTodos(
@@ -36,7 +36,7 @@ export interface IPermissaoController {
     res: Response<TResponseGetId.Permissao | TResponseErro>
   ): Promise<void>;
   atualizar(
-    req: Request<TRequestParams.Permissao, '', TRequestBody.Permissao>,
+    req: Request<TRequestParams.Permissao, {}, TRequestBody.Permissao>,
     res: Response<TResponsePut | TResponseErro>
   ): Promise<void>;
   deletar(

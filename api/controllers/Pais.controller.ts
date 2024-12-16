@@ -13,7 +13,7 @@ import { PaisService } from '../services/Pais.service';
 
 export class PaisController implements IPaisController {
   async adicionar(
-    req: Request<'','',TRequestBody.Pais>,
+    req: Request<{},{},TRequestBody.Pais>,
     res: Response<TResponsePost.Pais | TResponseErro>,
   ): Promise<void> {
     const { nome } = req.body;
@@ -80,7 +80,7 @@ export class PaisController implements IPaisController {
   }
 
   async atualizar(
-    req: Request<TRequestParams.Pais, '', TRequestBody.Pais>,
+    req: Request<TRequestParams.Pais, {}, TRequestBody.Pais>,
     res: Response<TResponsePut | TResponseErro>,
   ): Promise<void> {
     const { id } = req.params;

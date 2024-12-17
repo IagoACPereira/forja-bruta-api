@@ -16,4 +16,8 @@ export default Router()
   .get('/', (req, res) => gravadoraController.exibirTodos(req, res))
   .get('/:id', (req, res) => gravadoraController.exibirUm(req, res))
   .put('/:id', (req, res) => gravadoraController.atualizar(req, res))
-  .delete('/:id', (req, res) => gravadoraController.deletar(req, res));
+  .delete(
+    '/:id',
+    gravadoraMiddlewares.verificaRelacoesPreDelete,
+    (req, res) => gravadoraController.deletar(req, res),
+  );

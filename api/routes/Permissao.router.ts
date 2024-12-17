@@ -16,4 +16,8 @@ export default Router()
   .get('/', (req, res) => permissaoController.exibirTodos(req, res))
   .get('/:id', (req, res) => permissaoController.exibirUm(req, res))
   .put('/:id', (req, res) => permissaoController.atualizar(req, res))
-  .delete('/:id', (req, res) => permissaoController.deletar(req, res));
+  .delete(
+    '/:id',
+    permissaoMiddlewares.verificaRelacoesPreDelete,
+    (req, res) => permissaoController.deletar(req, res),
+  );

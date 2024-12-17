@@ -16,4 +16,8 @@ export default Router()
   .get('/', (req, res) => generoController.exibirTodos(req, res))
   .get('/:id', (req, res) => generoController.exibirUm(req, res))
   .put('/:id', (req, res) => generoController.atualizar(req, res))
-  .delete('/:id', (req, res) => generoController.deletar(req, res));
+  .delete(
+    '/:id',
+    generoMiddlewares.verificaRelacoesPreDelete,
+    (req, res) => generoController.deletar(req, res),
+  );

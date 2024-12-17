@@ -15,4 +15,8 @@ export default Router()
   .get('/', (req, res) => discoController.exibirTodos(req, res))
   .get('/:id', (req, res) => discoController.exibirUm(req, res))
   .put('/:id', (req, res) => discoController.atualizar(req, res))
-  .delete('/:id', (req, res) => discoController.deletar(req, res));
+  .delete(
+    '/:id',
+    discoMiddleware.verificaRelacoesPreDelete,
+    (req, res) => discoController.deletar(req, res),
+  );

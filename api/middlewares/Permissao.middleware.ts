@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import { TResponseDefault, TResponseErroValidacao } from '../types/Response.type';
 import { TPermissao } from '../types/Permissao.type';
 import { PermissaoModel } from '../models/Permissao.model';
+import { TRequestParams } from '../types/Request.type';
+import { UsuarioModel } from '../models/Usuario.model';
 
 export class PermissaoMiddlewares {
   async validaBody(
@@ -77,6 +79,39 @@ export class PermissaoMiddlewares {
 
       if (permissao) {
         throw new Error('Já possui registro com os mesmos dados');
+      }
+
+      next();
+    } catch (error) {
+      const erro = error as Error;
+      res.status(400).json({
+        mensagem: erro.message,
+        statusCode: 400,
+      });
+    }
+  }
+
+  async verificaRelacoesPreDelete(
+    req: Request<TRequestParams.Permissao>,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const {
+        id,
+      } = req.params;
+
+      const usuario = await UsuarioModel.findOne({
+        where: {
+          id_pais: id,
+        },
+      });
+
+      if (usuario) {
+        throw new Error(
+          'Não é possivel deletar esse registro pois está sendo utilizado como FK na tabela '
+          + '"usuario"',
+        );
       }
 
       next();

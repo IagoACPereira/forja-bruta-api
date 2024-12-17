@@ -16,4 +16,8 @@ export default Router()
   .get('/', (req, res) => regiaoController.exibirTodos(req, res))
   .get('/:id', (req, res) => regiaoController.exibirUm(req, res))
   .put('/:id', (req, res) => regiaoController.atualizar(req, res))
-  .delete('/:id', (req, res) => regiaoController.deletar(req, res));
+  .delete(
+    '/:id',
+    regiaoMiddlewares.verificaRelacoesPreDelete,
+    (req, res) => regiaoController.deletar(req, res),
+  );

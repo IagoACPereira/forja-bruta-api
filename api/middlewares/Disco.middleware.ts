@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import { TResponseDefault, TResponseErroValidacao } from '../types/Response.type';
 import { TDisco } from '../types/Disco.type';
 import { DiscoModel } from '../models/Disco.model';
+import { TRequestParams } from '../types/Request.type';
+import { FaixaModel } from '../models/Faixa.model';
 
 export class DiscoMiddlewares {
   async validaBody(
@@ -98,6 +100,39 @@ export class DiscoMiddlewares {
 
       if (disco) {
         throw new Error('Já possui registro com os mesmos dados');
+      }
+
+      next();
+    } catch (error) {
+      const erro = error as Error;
+      res.status(400).json({
+        mensagem: erro.message,
+        statusCode: 400,
+      });
+    }
+  }
+
+  async verificaRelacoesPreDelete(
+    req: Request<TRequestParams.Disco>,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const {
+        id,
+      } = req.params;
+
+      const faixa = await FaixaModel.findOne({
+        where: {
+          id_pais: id,
+        },
+      });
+
+      if (faixa) {
+        throw new Error(
+          'Não é possivel deletar esse registro pois está sendo utilizado como FK na tabela '
+          + '"faixa"',
+        );
       }
 
       next();

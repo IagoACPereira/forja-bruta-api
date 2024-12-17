@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import { TResponseDefault, TResponseErroValidacao } from '../types/Response.type';
 import { TGenero } from '../types/Genero.type';
 import { GeneroModel } from '../models/Genero.model';
+import { TRequestParams } from '../types/Request.type';
+import { DiscoModel } from '../models/Disco.model';
 
 export class GeneroMiddlewares {
   async validaBody(
@@ -73,6 +75,39 @@ export class GeneroMiddlewares {
 
       if (genero) {
         throw new Error('Já possui registro com os mesmos dados');
+      }
+
+      next();
+    } catch (error) {
+      const erro = error as Error;
+      res.status(400).json({
+        mensagem: erro.message,
+        statusCode: 400,
+      });
+    }
+  }
+
+  async verificaRelacoesPreDelete(
+    req: Request<TRequestParams.Genero>,
+    res: Response<TResponseDefault>,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const {
+        id,
+      } = req.params;
+
+      const disco = await DiscoModel.findOne({
+        where: {
+          id_pais: id,
+        },
+      });
+
+      if (disco) {
+        throw new Error(
+          'Não é possivel deletar esse registro pois está sendo utilizado como FK na tabela '
+            + '"disco"',
+        );
       }
 
       next();

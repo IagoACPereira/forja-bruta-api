@@ -15,4 +15,8 @@ export default Router()
   .get('/', (req, res) => artistaController.exibirTodos(req, res))
   .get('/:id', (req, res) => artistaController.exibirUm(req, res))
   .put('/:id', (req, res) => artistaController.atualizar(req, res))
-  .delete('/:id', (req, res) => artistaController.deletar(req, res));
+  .delete(
+    '/:id',
+    artistaMiddleware.verificaRelacoesPreDelete,
+    (req, res) => artistaController.deletar(req, res),
+  );

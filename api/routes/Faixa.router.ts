@@ -15,4 +15,5 @@ export default Router()
   .get('/', (req, res) => faixaController.exibirTodos(req, res))
   .get('/:id', (req, res) => faixaController.exibirUm(req, res))
   .put('/:id', (req, res) => faixaController.atualizar(req, res))
-  .delete('/:id', (req, res) => faixaController.deletar(req, res));
+  .delete(
+    '/:id', (req, res) => faixaController.deletar(req, res));
